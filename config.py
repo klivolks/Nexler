@@ -17,7 +17,7 @@ class Config(object):
     HOST = os.getenv('HOST')
     PORT = os.getenv('PORT')
     FLASK_ENV = os.getenv('FLASK_ENV')
-    CORS_HEADERS = 'Content-Type'
+    CORS_HEADERS = 'content-disposition'
 
 
 class DefaultConfig(Config):

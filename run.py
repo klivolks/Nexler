@@ -3,8 +3,11 @@ import logging.config
 from flask import Flask
 from flask_restful import Api
 from flask_cors import CORS
-from app.routes import initialize_routes
 from dotenv import load_dotenv
+from werkzeug.exceptions import HTTPException
+
+from app.routes import initialize_routes
+from app.utils import response_util
 
 load_dotenv()
 
@@ -33,6 +36,12 @@ def create_app():
         CORS(app)
 
     initialize_routes(api)
+
+    @app.errorhandler(HTTPException)
+    def handle_exception(e):
+        """Handle HTTP exceptions globally with a custom response."""
+        return response_util.error(e.description, e.code)
+
     return app
 
 

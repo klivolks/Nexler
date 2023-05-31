@@ -4,7 +4,8 @@ from app.logic.HelloWorld import HelloWorldLogic
 
 
 class HelloWorld(Resource):
-    def get(self):
+    @staticmethod
+    def get():
         try:
             logic = HelloWorldLogic()
             services = logic.get_all_services()

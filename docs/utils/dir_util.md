@@ -1,6 +1,6 @@
-# `doc_util.py` User Documentation
+# `dir_util.py` User Documentation
 
-The `doc_util.py` module provides a set of utility functions for directory and file manipulation. This makes it easy for your application to perform common operations such as creating and deleting directories, copying and moving directories, and listing files.
+The `dir_util.py` module provides a set of utility functions for directory and file manipulation. This makes it easy for your application to perform common operations such as creating and deleting directories, copying and moving directories, and listing files.
 
 ## Functions
 
@@ -33,7 +33,7 @@ To use these utility functions, import the required functions from the `app.util
 For example:
 
 ```python
-from app.utils.doc_util import create_directory, list_files
+from app.utils.dir_util import create_directory, list_files
 
 def setup_project():
     create_directory("new_project")

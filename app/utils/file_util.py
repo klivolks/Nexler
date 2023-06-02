@@ -3,7 +3,7 @@ from PIL import Image
 from moviepy.video.io.VideoFileClip import VideoFileClip
 from moviepy.video.fx import resize
 
-from app import ALLOWED_EXTENSIONS
+from app.config import ALLOWED_EXTENSIONS
 
 
 def allowed_file(filename):

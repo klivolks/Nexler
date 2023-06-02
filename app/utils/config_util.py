@@ -3,11 +3,11 @@ import json
 
 
 class Config:
-    def __init__(self, config_file_path):
+    def __init__(self, config_file_path=None):
         self.config = {}
 
         # Load configuration from file
-        if os.path.isfile(config_file_path):
+        if config_file_path and os.path.isfile(config_file_path):
             with open(config_file_path, 'r') as f:
                 self.config.update(json.load(f))
 

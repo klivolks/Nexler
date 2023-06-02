@@ -16,6 +16,7 @@ class Config(object):
     MONGO_URL = os.getenv('MONGO_URL')
     HOST = os.getenv('HOST')
     PORT = os.getenv('PORT')
+    API_VERIFICATION = os.getenv('API_VERIFICATION')
     FLASK_ENV = os.getenv('FLASK_ENV')
     CORS_HEADERS = 'content-disposition'
 

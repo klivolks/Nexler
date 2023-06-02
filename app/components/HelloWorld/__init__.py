@@ -1,6 +1,6 @@
 from flask_restful import Resource
-from app.utils import response_util, dt_util
-from app.logic.HelloWorld import HelloWorldLogic
+from app.utils import response_util
+from app.logic import HelloWorldLogic
 
 
 class HelloWorld(Resource):

@@ -6,7 +6,8 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 
 from app.routes import initialize_routes
-from app.utils import error_util
+from app.utils import error_util, config_util
+from app.services import ApiService
 
 load_dotenv()
 
@@ -42,6 +43,15 @@ def create_app():
 
 
 app = create_app()
+
+
+@app.before_request
+def before_request():
+    api_service = ApiService()
+    if config_util.Config().get('API_VERIFICATION') == 'off' or api_service.verified:
+        pass  # Do nothing
+    else:
+        return error_util.handle_forbidden("Please check your api key or referer")
 
 
 def run():

@@ -8,9 +8,9 @@ class TestResponseUtil(unittest.TestCase):
         except TypeError:
             self.fail("check_data() raised TypeError unexpectedly!")
 
-    def test_check_data_with_non_dict(self):
+    def test_check_data_with_non_dict_or_list(self):
         with self.assertRaises(TypeError):
-            response_util.check_data(["not", "a", "dict"])
+            response_util.check_data("not a dict or list")
 
     def test_success(self):
         data = {"key": "value"}

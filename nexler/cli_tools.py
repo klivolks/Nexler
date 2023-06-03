@@ -1,30 +1,40 @@
 import argparse
-from nexler import component, logic
+from nexler import component, logic, upgrade  # import the upgrade module
 from nexler import __version__ as nexler_version
+
 
 def main():
     parser = argparse.ArgumentParser(prog='nexler', description='Nexler framework')
     parser.add_argument('--version', action='version', version=f'%(prog)s {nexler_version}')
-    parser.add_argument('command', help='Command to run', choices=['create'])
-    parser.add_argument('module', help='Name of the module (component/logic)', choices=['component', 'logic'])
-    parser.add_argument('moduleName', help='Module Class Name or Component Class Name')
-    parser.add_argument('--url', default=None, help='URL for the component')
-    parser.add_argument('--variables', nargs='*', default=[], help='Variables for the module')
-    parser.add_argument('--component', default=None, help='Component Class Name (for logic module only)')
+    subparsers = parser.add_subparsers(dest='command', help='Sub-commands')
+
+    # create sub-command
+    create_parser = subparsers.add_parser('create', help='Create a new component or logic module')
+    create_parser.add_argument('module', help='Name of the module (component/logic)', choices=['component', 'logic'])
+    create_parser.add_argument('moduleName', help='Module Class Name or Component Class Name')
+    create_parser.add_argument('--url', default=None, help='URL for the component')
+    create_parser.add_argument('--variables', nargs='*', default=[], help='Variables for the module')
+    create_parser.add_argument('--component', default=None, help='Component Class Name (for logic module only)')
+
+    # upgrade sub-command
+    upgrade_parser = subparsers.add_parser('upgrade', help='Upgrade Nexler to the latest version')
 
     args = parser.parse_args()
 
     if args.command == 'create':
         if args.module == 'component':
             if not args.url:
-                parser.error("The --url argument is required for creating a component.")
+                create_parser.error("The --url argument is required for creating a component.")
             component.create_component(args)
         elif args.module == 'logic':
             if not args.component:
-                parser.error("The --component argument is required for creating logic.")
+                create_parser.error("The --component argument is required for creating logic.")
             logic.create_logic(args)
         else:
-            parser.error(f"The module '{args.module}' is not recognized. Use 'component' or 'logic'.")
+            create_parser.error(f"The module '{args.module}' is not recognized. Use 'component' or 'logic'.")
+    elif args.command == 'upgrade':
+        upgrade.upgrade()  # call the upgrade function from the upgrade module
+
 
 if __name__ == "__main__":
     main()

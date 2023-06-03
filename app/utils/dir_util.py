@@ -100,6 +100,10 @@ def get_current_directory():
     return {"current_directory": os.getcwd()}
 
 
+def app_path():
+    return app_directory
+
+
 def search_file(path: str, filename: str):
     absolute_path = safe_join(app_directory, path)
     for root, dirs, files in os.walk(absolute_path):
@@ -130,6 +134,11 @@ def list_files_by_type(path: str, file_type: str) -> list[Any] | list[bytes]:
     elif file_type == 'docs':
         doc_ext = ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.csv']
         return [f for f in os.listdir(absolute_path)
+                if os.path.isfile(os.path.join(absolute_path, f))
+                and os.path.splitext(f)[1].lower() in doc_ext]
+    elif file_type == 'json':
+        doc_ext = ['.json']
+        return [os.path.splitext(f)[0] for f in os.listdir(absolute_path)
                 if os.path.isfile(os.path.join(absolute_path, f))
                 and os.path.splitext(f)[1].lower() in doc_ext]
     else:

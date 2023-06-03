@@ -1,5 +1,5 @@
 import argparse
-from nexler import component, logic, upgrade  # import the upgrade module
+from nexler import component, logic, upgrade, migrate  # import the upgrade module
 from nexler import __version__ as nexler_version
 
 
@@ -20,6 +20,9 @@ def main():
     # upgrade sub-command
     upgrade_parser = subparsers.add_parser('upgrade', help='Upgrade Nexler to the latest version')
 
+    # migrate sub-command
+    migrate_parser = subparsers.add_parser('migrate', help='Run migration for the Nexler framework')
+
     args = parser.parse_args()
 
     if args.command == 'create':
@@ -35,6 +38,8 @@ def main():
             create_parser.error(f"The module '{args.module}' is not recognized. Use 'component' or 'logic'.")
     elif args.command == 'upgrade':
         upgrade.upgrade()  # call the upgrade function from the upgrade module
+    elif args.command == 'migrate':
+        migrate.migrate()  # call the migrate function from the migrate module
 
 
 if __name__ == "__main__":

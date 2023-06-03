@@ -1,11 +1,15 @@
 # Nexler by klivolks
 
+---
+
 <p align="left">
   <a href="https://www.python.org/"><img alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"/></a>
 </p>
 
 ![Python](https://img.shields.io/badge/python-v3.7+-blue.svg)
 ![Docker](https://img.shields.io/badge/docker%20build-automated-066da5.svg)
+
+---
 
 Nexler is a framework for simplifying the development of RESTful APIs. It helps in the creation of components, logic modules, routes, models, and utilities to be used in Python-based web applications.
 
@@ -15,9 +19,10 @@ Nexler is a framework for simplifying the development of RESTful APIs. It helps 
 2. [Installation](#installation)
 3. [Structure](#structure)
 4. [Usage](#usage)
-5. [Documentation](#documentation)
-6. [Contributing](#contributing)
-7. [License](#license)
+5. [Upgrade](#upgrade)
+6. [Documentation](#documentation)
+7. [Contributing](#contributing)
+8. [License](#license)
 
 ## Features
 
@@ -86,11 +91,21 @@ nexler create logic MyLogic MyComponent
 
 This will create a new logic named 'MyLogic' for the component named 'MyComponent'.
 
+
+
+## Upgrade
+
+You can upgrade to the latest version of Nexler by running the following command:
+
+```shell
+nexler upgrade
+```
+
+This will fetch the latest version of Nexler from the repository, compare it with your current version, and if an update is available, it will replace the necessary files and directories, followed by a `pip install .` to ensure all dependencies are up-to-date.
+
 ## Documentation
 
-Further documentation can be found in the `docs/` folder of the repository
-
-. It provides detailed information about the usage and extension of the Nexler framework.
+Further documentation can be found in the `docs/` folder of the repository. It provides detailed information about the usage and extension of the Nexler framework.
 
 ## Contributing
 

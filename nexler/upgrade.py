@@ -4,7 +4,7 @@ import urllib.request
 import zipfile
 import nexler  # import nexler to check its version
 from git import Repo
-
+import traceback
 
 def upgrade():
     try:
@@ -35,14 +35,28 @@ def upgrade():
                 zip_ref.extractall("./")
 
             # Update the necessary files and folders
-            folders_files_to_update = ["run.py", "setup.py", "nexler", "app/services", 
-                                       "app/utils", "app/config", "docs", "tests/app/utils", 
+            folders_files_to_update = ["run.py", "setup.py", "nexler", "app/services",
+                                       "app/utils", "app/config", "docs", "tests/app/utils",
                                        "tests/app/services", "README.md", "requirements.txt"]
 
             for item in folders_files_to_update:
+                # If it is a file or directory and exists in the current location, remove it
                 if os.path.exists(item):
-                    shutil.rmtree(item)
-                shutil.move(f"Nexler-main/{item}", "./")
+                    if os.path.isfile(item):
+                        os.remove(item)
+                    elif os.path.isdir(item):
+                        shutil.rmtree(item)
+
+                # If it exists in the downloaded package, move it to the correct location
+                if os.path.exists(f"Nexler-main/{item}"):
+                    dir_part = os.path.dirname(item)
+                    if dir_part:  # ensure the path contains a directory part
+                        os.makedirs(dir_part, exist_ok=True)  # create directories if they don't exist
+
+                    shutil.move(f"Nexler-main/{item}", f"./{item}")  # move item to the correct directory
+
+                else:
+                    print(f"{item} does not exist in the downloaded package.")
 
             # Remove the downloaded zip file and the extracted folder
             os.remove("Nexler-main.zip")
@@ -56,3 +70,10 @@ def upgrade():
 
     except Exception as e:
         print(f"An error occurred while upgrading Nexler: {e}")
+        # Print detailed error traceback
+        traceback.print_exc()
+        # Clean up if anything went wrong
+        if os.path.exists("Nexler-main.zip"):
+            os.remove("Nexler-main.zip")
+        if os.path.exists("Nexler-main"):
+            shutil.rmtree("Nexler-main")

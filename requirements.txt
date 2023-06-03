@@ -12,3 +12,4 @@ daba~=0.0.6
 nexler~=1.0.0
 setuptools~=65.5.1
 GitPython~=3.1.31
+PyJWT~=2.7.0

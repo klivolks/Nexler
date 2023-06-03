@@ -15,6 +15,7 @@ def main():
     create_parser.add_argument('--url', default=None, help='URL for the component')
     create_parser.add_argument('--variables', nargs='*', default=[], help='Variables for the module')
     create_parser.add_argument('--component', default=None, help='Component Class Name (for logic module only)')
+    create_parser.add_argument('--protected', action='store_true', help='Create a protected component')
 
     # upgrade sub-command
     upgrade_parser = subparsers.add_parser('upgrade', help='Upgrade Nexler to the latest version')

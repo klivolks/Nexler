@@ -19,10 +19,11 @@ Nexler is a framework for simplifying the development of RESTful APIs. It helps 
 2. [Installation](#installation)
 3. [Structure](#structure)
 4. [Usage](#usage)
-5. [Upgrade](#upgrade)
-6. [Documentation](#documentation)
-7. [Contributing](#contributing)
-8. [License](#license)
+5. [Optional Commands](#optional-commands)
+6. [Upgrade](#upgrade)
+7. [Documentation](#documentation)
+8. [Contributing](#contributing)
+9. [License](#license)
 
 ## Features
 
@@ -79,7 +80,7 @@ Use the `create` command followed by `component`, the name of the module, and th
 nexler create component MyComponent --url "/mycomponent" --variables=id,name
 ```
 
-This will create a new component named 'MyComponent' and map it to the '/mycomponent' URL. The component will have `id` and `name` as parameters for its methods.
+This will create a new component named 'MyComponent' and map it to the '/mycomponent' URL. The `--variables` argument is optional and if provided, the component will have `id` and `name` as parameters for its methods.
 
 ### Creating logic
 
@@ -89,9 +90,21 @@ Use the `create` command followed by `logic`, the name of the module, and the na
 nexler create logic MyLogic MyComponent
 ```
 
-This will create a new logic named 'MyLogic' for the component named 'MyComponent'.
+This will create a
 
+ new logic named 'MyLogic' for the component named 'MyComponent'.
 
+## Optional Commands
+
+### Creating a protected component
+
+If you want to create a protected component that requires user authentication, use the `--protected` command.
+
+```shell
+nexler create component MyProtectedComponent --url "/myprotectedcomponent" --variables=id,name --protected
+```
+
+This will create a new protected component named 'MyProtectedComponent' and map it to the '/myprotectedcomponent' URL. The `--variables` argument is optional and if provided, the component will have `id` and `name` as parameters for its methods. Every HTTP method will be decorated with the `@protected` decorator, which requires user authentication.
 
 ## Upgrade
 

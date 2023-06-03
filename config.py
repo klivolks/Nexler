@@ -19,6 +19,7 @@ class Config(object):
     API_VERIFICATION = os.getenv('API_VERIFICATION')
     FLASK_ENV = os.getenv('FLASK_ENV')
     CORS_HEADERS = 'content-disposition'
+    JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
 
 
 class DefaultConfig(Config):

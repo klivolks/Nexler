@@ -1,13 +1,13 @@
 import os
 import logging.config
-from flask import Flask
+from flask import Flask, g
 from flask_restful import Api
 from flask_cors import CORS
 from dotenv import load_dotenv
 
 from app.routes import initialize_routes
 from app.utils import error_util, config_util
-from app.services import ApiService
+from app.services import ApiService, UserService
 
 load_dotenv()
 
@@ -48,10 +48,12 @@ app = create_app()
 @app.before_request
 def before_request():
     api_service = ApiService()
+    user_service = UserService()
     if config_util.Config().get('API_VERIFICATION') == 'off' or api_service.verified:
-        pass  # Do nothing
+        g.user_id = user_service.userId
     else:
         return error_util.handle_forbidden("Please check your api key or referer")
+
 
 
 def run():

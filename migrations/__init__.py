@@ -13,6 +13,6 @@ class Migrate:
             file_path = current_path + '/migrations/' + str(table) + '.json'
             doc = str_util.parse(file_util.read_file(file_path), 'json')
             response = col.putMany(doc)
-            print(f'Data migrated to {table} with {response.insertedIds}')
+            print(f'Data migrated to {table} with {response.inserted_ids}')
         print('Migration successful...')
 

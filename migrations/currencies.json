@@ -1,0 +1,1360 @@
+[
+  {
+    "Name": "Afghanistan",
+    "Currency": "AFN",
+    "Symbol": "؋",
+    "CurrencyUnit": "Afghani",
+    "FractionUnit": "Pul"
+  },
+  {
+    "Name": "Albania",
+    "Currency": "ALL",
+    "Symbol": "L",
+    "CurrencyUnit": "Lek",
+    "FractionUnit": "Qindarka"
+  },
+  {
+    "Name": "Algeria",
+    "Currency": "DZD",
+    "Symbol": "د.ج",
+    "CurrencyUnit": "Dinar",
+    "FractionUnit": "Centime"
+  },
+  {
+    "Name": "Andorra",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Angola",
+    "Currency": "AOA",
+    "Symbol": "Kz",
+    "CurrencyUnit": "Kwanza",
+    "FractionUnit": "Cêntimo"
+  },
+  {
+    "Name": "Antigua and Barbuda",
+    "Currency": "XCD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Argentina",
+    "Currency": "ARS",
+    "Symbol": "$",
+    "CurrencyUnit": "Peso",
+    "FractionUnit": "Centavo"
+  },
+  {
+    "Name": "Armenia",
+    "Currency": "AMD",
+    "Symbol": "֏",
+    "CurrencyUnit": "Dram",
+    "FractionUnit": "Luma"
+  },
+  {
+    "Name": "Australia",
+    "Currency": "AUD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Austria",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Azerbaijan",
+    "Currency": "AZN",
+    "Symbol": "₼",
+    "CurrencyUnit": "Manat",
+    "FractionUnit": "Qəpik"
+  },
+  {
+    "Name": "Bahamas",
+    "Currency": "BSD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Bahrain",
+    "Currency": "BHD",
+    "Symbol": ".د.ب",
+    "CurrencyUnit": "Dinar",
+    "FractionUnit": "Fils"
+  },
+  {
+    "Name": "Bangladesh",
+    "Currency": "BDT",
+    "Symbol": "৳",
+    "CurrencyUnit": "Taka",
+    "FractionUnit": "Poisha"
+  },
+  {
+    "Name": "Barbados",
+    "Currency": "BBD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Belarus",
+    "Currency": "BYN",
+    "Symbol": "Br",
+    "CurrencyUnit": "Ruble",
+    "FractionUnit": "Kapeyka"
+  },
+{
+    "Name": "Belgium",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Belize",
+    "Currency": "BZD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Benin",
+    "Currency": "XOF",
+    "Symbol": "Fr",
+    "CurrencyUnit": "Franc",
+    "FractionUnit": "Centime"
+  },
+  {
+    "Name": "Bhutan",
+    "Currency": "BTN",
+    "Symbol": "Nu.",
+    "CurrencyUnit": "Ngultrum",
+    "FractionUnit": "Chetrum"
+  },
+  {
+    "Name": "Bolivia",
+    "Currency": "BOB",
+    "Symbol": "Bs.",
+    "CurrencyUnit": "Boliviano",
+    "FractionUnit": "Centavo"
+  },
+  {
+    "Name": "Bosnia and Herzegovina",
+    "Currency": "BAM",
+    "Symbol": "KM or КМ[I]",
+    "CurrencyUnit": "Convertible mark",
+    "FractionUnit": "Fening"
+  },
+  {
+    "Name": "Botswana",
+    "Currency": "BWP",
+    "Symbol": "P",
+    "CurrencyUnit": "Pula",
+    "FractionUnit": "Thebe"
+  },
+  {
+    "Name": "Brazil",
+    "Currency": "BRL",
+    "Symbol": "R$",
+    "CurrencyUnit": "Real",
+    "FractionUnit": "Centavo"
+  },
+  {
+    "Name": "Brunei",
+    "Currency": "BND",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Bulgaria",
+    "Currency": "BGN",
+    "Symbol": "лв.",
+    "CurrencyUnit": "Lev",
+    "FractionUnit": "Stotinka"
+  },
+  {
+    "Name": "Burkina Faso",
+    "Currency": "XOF",
+    "Symbol": "Fr",
+    "CurrencyUnit": "Franc",
+    "FractionUnit": "Centime"
+  },
+  {
+    "Name": "Burundi",
+    "Currency": "BIF",
+    "Symbol": "Fr",
+    "CurrencyUnit": "Franc",
+    "FractionUnit": "Centime"
+  },
+  {
+    "Name": "Côte d'Ivoire",
+    "Currency": "XOF",
+    "Symbol": "Fr",
+    "CurrencyUnit": "Franc",
+    "FractionUnit": "Centime"
+  },
+  {
+    "Name": "Cabo Verde",
+    "Currency": "CVE",
+    "Symbol": "$",
+    "CurrencyUnit": "Escudo",
+    "FractionUnit": "Centavo"
+  },
+  {
+    "Name": "Cambodia",
+    "Currency": "KHR",
+    "Symbol": "៛",
+    "CurrencyUnit": "Riel",
+    "FractionUnit": "Sen"
+  },
+  {
+    "Name": "Cameroon",
+    "Currency": "XAF",
+    "Symbol": "Fr",
+    "CurrencyUnit": "Franc",
+    "FractionUnit": "Centime"
+  },
+{
+    "Name": "Canada",
+    "Currency": "CAD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Central African Republic",
+    "Currency": "XAF",
+    "Symbol": "Fr",
+    "CurrencyUnit": "Franc",
+    "FractionUnit": "Centime"
+  },
+  {
+    "Name": "Chad",
+    "Currency": "XAF",
+    "Symbol": "Fr",
+    "CurrencyUnit": "Franc",
+    "FractionUnit": "Centime"
+  },
+  {
+    "Name": "Chile",
+    "Currency": "CLP",
+    "Symbol": "$",
+    "CurrencyUnit": "Peso",
+    "FractionUnit": "Centavo"
+  },
+  {
+    "Name": "China",
+    "Currency": "CNY",
+    "Symbol": "¥ or 元",
+    "CurrencyUnit": "Yuan",
+    "FractionUnit": "Fen"
+  },
+  {
+    "Name": "Colombia",
+    "Currency": "COP",
+    "Symbol": "$",
+    "CurrencyUnit": "Peso",
+    "FractionUnit": "Centavo"
+  },
+  {
+    "Name": "Comoros",
+    "Currency": "KMF",
+    "Symbol": "Fr",
+    "CurrencyUnit": "Franc",
+    "FractionUnit": "Centime"
+  },
+  {
+    "Name": "Congo (Congo-Brazzaville)",
+    "Currency": "XAF",
+    "Symbol": "Fr",
+    "CurrencyUnit": "Franc",
+    "FractionUnit": "Centime"
+  },
+  {
+    "Name": "Costa Rica",
+    "Currency": "CRC",
+    "Symbol": "₡",
+    "CurrencyUnit": "Colon",
+    "FractionUnit": "Céntimo"
+  },
+  {
+    "Name": "Croatia",
+    "Currency": "HRK",
+    "Symbol": "kn",
+    "CurrencyUnit": "Kuna",
+    "FractionUnit": "Lipa"
+  },
+  {
+    "Name": "Cuba",
+    "Currency": "CUP",
+    "Symbol": "$",
+    "CurrencyUnit": "Peso",
+    "FractionUnit": "Centavo"
+  },
+  {
+    "Name": "Cyprus",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Czechia (Czech Republic)",
+    "Currency": "CZK",
+    "Symbol": "Kč",
+    "CurrencyUnit": "Koruna",
+    "FractionUnit": "Haléř"
+  },
+  {
+    "Name": "Democratic Republic of the Congo",
+    "Currency": "CDF",
+    "Symbol": "Fr",
+    "CurrencyUnit": "Franc",
+    "FractionUnit": "Centime"
+  },
+  {
+    "Name": "Denmark",
+    "Currency": "DKK",
+    "Symbol": "kr",
+    "CurrencyUnit": "Krone",
+    "FractionUnit": "Øre"
+  },
+  {
+    "Name": "Djibouti",
+    "Currency": "DJF",
+    "Symbol": "Fr",
+    "CurrencyUnit": "Franc",
+    "FractionUnit": "Centime"
+  },
+  {
+    "Name": "Dominica",
+    "Currency": "XCD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Dominican Republic",
+    "Currency": "DOP",
+    "Symbol": "$",
+    "CurrencyUnit": "Peso",
+    "FractionUnit": "Centavo"
+  },
+{
+    "Name": "Ecuador",
+    "Currency": "USD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Egypt",
+    "Currency": "EGP",
+    "Symbol": "£ or ج.م",
+    "CurrencyUnit": "Pound",
+    "FractionUnit": "Piastre"
+  },
+  {
+    "Name": "El Salvador",
+    "Currency": "USD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Equatorial Guinea",
+    "Currency": "XAF",
+    "Symbol": "Fr",
+    "CurrencyUnit": "Franc",
+    "FractionUnit": "Centime"
+  },
+  {
+    "Name": "Eritrea",
+    "Currency": "ERN",
+    "Symbol": "Nfk",
+    "CurrencyUnit": "Nakfa",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Estonia",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Eswatini (fmr. \"Swaziland\")",
+    "Currency": "SZL",
+    "Symbol": "L",
+    "CurrencyUnit": "Lilangeni",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Ethiopia",
+    "Currency": "ETB",
+    "Symbol": "Br",
+    "CurrencyUnit": "Birr",
+    "FractionUnit": "Santim"
+  },
+  {
+    "Name": "Fiji",
+    "Currency": "FJD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Finland",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "France",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Gabon",
+    "Currency": "XAF",
+    "Symbol": "Fr",
+    "CurrencyUnit": "Franc",
+    "FractionUnit": "Centime"
+  },
+  {
+    "Name": "Gambia",
+    "Currency": "GMD",
+    "Symbol": "D",
+    "CurrencyUnit": "Dalasi",
+    "FractionUnit": "Butut"
+  },
+  {
+    "Name": "Georgia",
+    "Currency": "GEL",
+    "Symbol": "₾",
+    "CurrencyUnit": "Lari",
+    "FractionUnit": "Tetri"
+  },
+  {
+    "Name": "Germany",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Ghana",
+    "Currency": "GHS",
+    "Symbol": "₵",
+    "CurrencyUnit": "Cedi",
+    "FractionUnit": "Pesewa"
+  },
+  {
+    "Name": "Greece",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Grenada",
+    "Currency": "XCD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Guatemala",
+    "Currency": "GTQ",
+    "Symbol": "Q",
+    "CurrencyUnit": "Quetzal",
+    "FractionUnit": "Centavo"
+  },
+  {
+    "Name": "Guinea",
+    "Currency": "GNF",
+    "Symbol": "Fr",
+    "CurrencyUnit": "Franc",
+    "FractionUnit": "Centime"
+  },
+{
+    "Name": "Guinea-Bissau",
+    "Currency": "XOF",
+    "Symbol": "Fr",
+    "CurrencyUnit": "Franc",
+    "FractionUnit": "Centime"
+  },
+  {
+    "Name": "Guyana",
+    "Currency": "GYD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Haiti",
+    "Currency": "HTG",
+    "Symbol": "G",
+    "CurrencyUnit": "Gourde",
+    "FractionUnit": "Centime"
+  },
+  {
+    "Name": "Holy See",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Honduras",
+    "Currency": "HNL",
+    "Symbol": "L",
+    "CurrencyUnit": "Lempira",
+    "FractionUnit": "Centavo"
+  },
+  {
+    "Name": "Hungary",
+    "Currency": "HUF",
+    "Symbol": "Ft",
+    "CurrencyUnit": "Forint",
+    "FractionUnit": "Fillér"
+  },
+  {
+    "Name": "Iceland",
+    "Currency": "ISK",
+    "Symbol": "kr",
+    "CurrencyUnit": "Krona",
+    "FractionUnit": "Eyrir"
+  },
+  {
+    "Name": "India",
+    "Currency": "INR",
+    "Symbol": "₹",
+    "CurrencyUnit": "Rupee",
+    "FractionUnit": "Paise"
+  },
+  {
+    "Name": "Indonesia",
+    "Currency": "IDR",
+    "Symbol": "Rp",
+    "CurrencyUnit": "Rupiah",
+    "FractionUnit": "Sen"
+  },
+  {
+    "Name": "Iran",
+    "Currency": "IRR",
+    "Symbol": "﷼",
+    "CurrencyUnit": "Rial",
+    "FractionUnit": "Dinar"
+  },
+  {
+    "Name": "Iraq",
+    "Currency": "IQD",
+    "Symbol": "ع.د",
+    "CurrencyUnit": "Dinar",
+    "FractionUnit": "Fils"
+  },
+  {
+    "Name": "Ireland",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Israel",
+    "Currency": "ILS",
+    "Symbol": "₪",
+    "CurrencyUnit": "Shekel",
+    "FractionUnit": "Agora"
+  },
+  {
+    "Name": "Italy",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Jamaica",
+    "Currency": "JMD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Japan",
+    "Currency": "JPY",
+    "Symbol": "¥ or 円",
+    "CurrencyUnit": "Yen",
+    "FractionUnit": "Sen"
+  },
+  {
+    "Name": "Jordan",
+    "Currency": "JOD",
+    "Symbol": "د.ا",
+    "CurrencyUnit": "Dinar",
+    "FractionUnit": "Piastre"
+  },
+  {
+    "Name": "Kazakhstan",
+    "Currency": "KZT",
+    "Symbol": "₸",
+    "CurrencyUnit": "Tenge",
+    "FractionUnit": "Tıyn"
+  },
+  {
+    "Name": "Kenya",
+    "Currency": "KES",
+    "Symbol": "Sh",
+    "CurrencyUnit": "Shilling",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Kiribati",
+    "Currency": "KID",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Kuwait",
+    "Currency": "KWD",
+    "Symbol": "د.ك",
+    "CurrencyUnit": "Dinar",
+    "FractionUnit": "Fils"
+  },
+  {
+    "Name": "Kyrgyzstan",
+    "Currency": "KGS",
+    "Symbol": "с",
+    "CurrencyUnit": "Som",
+    "FractionUnit": "Tyiyn"
+  },
+  {
+    "Name": "Laos",
+    "Currency": "LAK",
+    "Symbol": "₭",
+    "CurrencyUnit": "Kip",
+    "FractionUnit": "Att"
+  },
+  {
+    "Name": "Latvia",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Lebanon",
+    "Currency": "LBP",
+    "Symbol": "ل.ل",
+    "CurrencyUnit": "Pound",
+    "FractionUnit": "Piastre"
+  },
+{
+    "Name": "Lesotho",
+    "Currency": "LSL",
+    "Symbol": "L",
+    "CurrencyUnit": "Loti",
+    "FractionUnit": "Sente"
+  },
+  {
+    "Name": "Liberia",
+    "Currency": "LRD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Libya",
+    "Currency": "LYD",
+    "Symbol": "ل.د",
+    "CurrencyUnit": "Dinar",
+    "FractionUnit": "Dirham"
+  },
+  {
+    "Name": "Liechtenstein",
+    "Currency": "CHF",
+    "Symbol": "Fr.",
+    "CurrencyUnit": "Franc",
+    "FractionUnit": "Rappen"
+  },
+  {
+    "Name": "Lithuania",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Luxembourg",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Madagascar",
+    "Currency": "MGA",
+    "Symbol": "Ar",
+    "CurrencyUnit": "Ariary",
+    "FractionUnit": "Iraimbilanja"
+  },
+  {
+    "Name": "Malawi",
+    "Currency": "MWK",
+    "Symbol": "MK",
+    "CurrencyUnit": "Kwacha",
+    "FractionUnit": "Tambala"
+  },
+  {
+    "Name": "Malaysia",
+    "Currency": "MYR",
+    "Symbol": "RM",
+    "CurrencyUnit": "Ringgit",
+    "FractionUnit": "Sen"
+  },
+  {
+    "Name": "Maldives",
+    "Currency": "MVR",
+    "Symbol": ".ރ",
+    "CurrencyUnit": "Rufiyaa",
+    "FractionUnit": "Laari"
+  },
+  {
+    "Name": "Mali",
+    "Currency": "XOF",
+    "Symbol": "Fr",
+    "CurrencyUnit": "Franc",
+    "FractionUnit": "Centime"
+  },
+  {
+    "Name": "Malta",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Marshall Islands",
+    "Currency": "USD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Mauritania",
+    "Currency": "MRU",
+    "Symbol": "UM",
+    "CurrencyUnit": "Ouguiya",
+    "FractionUnit": "Khoums"
+  },
+  {
+    "Name": "Mauritius",
+    "Currency": "MUR",
+    "Symbol": "₨",
+    "CurrencyUnit": "Rupee",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Mexico",
+    "Currency": "MXN",
+    "Symbol": "$",
+    "CurrencyUnit": "Peso",
+    "FractionUnit": "Centavo"
+  },
+  {
+    "Name": "Micronesia",
+    "Currency": "USD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Moldova",
+    "Currency": "MDL",
+    "Symbol": "L",
+    "CurrencyUnit": "Leu",
+    "FractionUnit": "Ban"
+  },
+  {
+    "Name": "Monaco",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Mongolia",
+    "Currency": "MNT",
+    "Symbol": "₮",
+    "CurrencyUnit": "Tögrög",
+    "FractionUnit": "Möngö"
+  },
+  {
+    "Name": "Montenegro",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Morocco",
+    "Currency": "MAD",
+    "Symbol": "د.م.",
+    "CurrencyUnit": "Dirham",
+    "FractionUnit": "Centime"
+  },
+  {
+    "Name": "Mozambique",
+    "Currency": "MZN",
+    "Symbol": "MT",
+    "CurrencyUnit": "Metical",
+    "FractionUnit": "Centavo"
+  },
+  {
+    "Name": "Namibia",
+    "Currency": "NAD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Nauru",
+    "Currency": "AUD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+{
+    "Name": "Nepal",
+    "Currency": "NPR",
+    "Symbol": "रू",
+    "CurrencyUnit": "Rupee",
+    "FractionUnit": "Paisa"
+  },
+  {
+    "Name": "Netherlands",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "New Zealand",
+    "Currency": "NZD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Nicaragua",
+    "Currency": "NIO",
+    "Symbol": "C$",
+    "CurrencyUnit": "Cordoba",
+    "FractionUnit": "Centavo"
+  },
+  {
+    "Name": "Niger",
+    "Currency": "XOF",
+    "Symbol": "Fr",
+    "CurrencyUnit": "Franc",
+    "FractionUnit": "Centime"
+  },
+  {
+    "Name": "Nigeria",
+    "Currency": "NGN",
+    "Symbol": "₦",
+    "CurrencyUnit": "Naira",
+    "FractionUnit": "Kobo"
+  },
+  {
+    "Name": "North Korea",
+    "Currency": "KPW",
+    "Symbol": "₩",
+    "CurrencyUnit": "Won",
+    "FractionUnit": "Chon"
+  },
+  {
+    "Name": "North Macedonia",
+    "Currency": "MKD",
+    "Symbol": "ден",
+    "CurrencyUnit": "Denar",
+    "FractionUnit": "Deni"
+  },
+  {
+    "Name": "Norway",
+    "Currency": "NOK",
+    "Symbol": "kr",
+    "CurrencyUnit": "Krone",
+    "FractionUnit": "Øre"
+  },
+  {
+    "Name": "Oman",
+    "Currency": "OMR",
+    "Symbol": "ر.ع.",
+    "CurrencyUnit": "Rial",
+    "FractionUnit": "Baisa"
+  },
+  {
+    "Name": "Pakistan",
+    "Currency": "PKR",
+    "Symbol": "₨",
+    "CurrencyUnit": "Rupee",
+    "FractionUnit": "Paisa"
+  },
+  {
+    "Name": "Palau",
+    "Currency": "USD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Palestine State",
+    "Currency": "ILS",
+    "Symbol": "₪",
+    "CurrencyUnit": "Shekel",
+    "FractionUnit": "Agora"
+  },
+  {
+    "Name": "Panama",
+    "Currency": "PAB",
+    "Symbol": "B/.",
+    "CurrencyUnit": "Balboa",
+    "FractionUnit": "Centésimo"
+  },
+  {
+    "Name": "Papua New Guinea",
+    "Currency": "PGK",
+    "Symbol": "K",
+    "CurrencyUnit": "Kina",
+    "FractionUnit": "Toea"
+  },
+  {
+    "Name": "Paraguay",
+    "Currency": "PYG",
+    "Symbol": "₲",
+    "CurrencyUnit": "Guarani",
+    "FractionUnit": "Céntimo"
+  },
+  {
+    "Name": "Peru",
+    "Currency": "PEN",
+    "Symbol": "S/.",
+    "CurrencyUnit": "Sol",
+    "FractionUnit": "Céntimo"
+  },
+  {
+    "Name": "Philippines",
+    "Currency": "PHP",
+    "Symbol": "₱",
+    "CurrencyUnit": "Peso",
+    "FractionUnit": "Centavo"
+  },
+  {
+    "Name": "Poland",
+    "Currency": "PLN",
+    "Symbol": "zł",
+    "CurrencyUnit": "Złoty",
+    "FractionUnit": "Grosz"
+  },
+  {
+    "Name": "Portugal",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Qatar",
+    "Currency": "QAR",
+    "Symbol": "ر.ق",
+    "CurrencyUnit": "Riyal",
+    "FractionUnit": "Dirham"
+  },
+  {
+    "Name": "Romania",
+    "Currency": "RON",
+    "Symbol": "lei",
+    "CurrencyUnit": "Leu",
+    "FractionUnit": "Ban"
+  },
+  {
+    "Name": "Russia",
+    "Currency": "RUB",
+    "Symbol": "₽",
+    "CurrencyUnit": "Ruble",
+    "FractionUnit": "Kopek"
+  },
+  {
+    "Name": "Rwanda",
+    "Currency": "RWF",
+    "Symbol": "Fr",
+    "CurrencyUnit": "Franc",
+    "FractionUnit": "Centime"
+  },
+  {
+    "Name": "Saint Kitts and Nevis",
+    "Currency": "XCD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Saint Lucia",
+    "Currency": "XCD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Saint Vincent and the Grenadines",
+    "Currency": "XCD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Samoa",
+    "Currency": "WST",
+    "Symbol": "T",
+    "CurrencyUnit": "Tala",
+    "FractionUnit": "Sene"
+  },
+  {
+    "Name": "San Marino",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Sao Tome and Principe",
+    "Currency": "STN",
+    "Symbol": "Db",
+    "CurrencyUnit": "Dobra",
+    "FractionUnit": "Centimo"
+  },
+  {
+    "Name": "Saudi Arabia",
+    "Currency": "SAR",
+    "Symbol": "ر.س",
+    "CurrencyUnit": "Riyal",
+    "FractionUnit": "Halala"
+  },
+  {
+    "Name": "Senegal",
+    "Currency": "XOF",
+    "Symbol": "Fr",
+    "CurrencyUnit": "Franc",
+    "FractionUnit": "Centime"
+  },
+  {
+    "Name": "Serbia",
+    "Currency": "RSD",
+    "Symbol": "дин. or din.",
+    "CurrencyUnit": "Dinar",
+    "FractionUnit": "Para"
+  },
+  {
+    "Name": "Seychelles",
+    "Currency": "SCR",
+    "Symbol": "₨",
+    "CurrencyUnit": "Rupee",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Sierra Leone",
+    "Currency": "SLL",
+    "Symbol": "Le",
+    "CurrencyUnit": "Leone",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Singapore",
+    "Currency": "SGD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Slovakia",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Slovenia",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Solomon Islands",
+    "Currency": "SBD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Somalia",
+    "Currency": "SOS",
+    "Symbol": "Sh",
+    "CurrencyUnit": "Shilling",
+    "FractionUnit": "Senti"
+  },
+  {
+    "Name": "South Africa",
+    "Currency": "ZAR",
+    "Symbol": "R",
+    "CurrencyUnit": "Rand",
+    "FractionUnit": "Cent"
+  },
+{
+    "Name": "South Korea",
+    "Currency": "KRW",
+    "Symbol": "₩",
+    "CurrencyUnit": "Won",
+    "FractionUnit": "Jeon"
+  },
+  {
+    "Name": "South Sudan",
+    "Currency": "SSP",
+    "Symbol": "£",
+    "CurrencyUnit": "Pound",
+    "FractionUnit": "Piaster"
+  },
+  {
+    "Name": "Spain",
+    "Currency": "EUR",
+    "Symbol": "€",
+    "CurrencyUnit": "Euro",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Sri Lanka",
+    "Currency": "LKR",
+    "Symbol": "Rs, රු  or  ரூ",
+    "CurrencyUnit": "Rupee",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Sudan",
+    "Currency": "SDG",
+    "Symbol": "ج.س.",
+    "CurrencyUnit": "Pound",
+    "FractionUnit": "Piaster"
+  },
+  {
+    "Name": "Suriname",
+    "Currency": "SRD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Sweden",
+    "Currency": "SEK",
+    "Symbol": "kr",
+    "CurrencyUnit": "Krona",
+    "FractionUnit": "Öre"
+  },
+  {
+    "Name": "Switzerland",
+    "Currency": "CHF",
+    "Symbol": "Fr.",
+    "CurrencyUnit": "Franc",
+    "FractionUnit": "Rappen"
+  },
+  {
+    "Name": "Syria",
+    "Currency": "SYP",
+    "Symbol": "£ or ل.س",
+    "CurrencyUnit": "Pound",
+    "FractionUnit": "Piaster"
+  },
+  {
+    "Name": "Tajikistan",
+    "Currency": "TJS",
+    "Symbol": "ЅМ",
+    "CurrencyUnit": "Somoni",
+    "FractionUnit": "Diram"
+  },
+  {
+    "Name": "Tanzania",
+    "Currency": "TZS",
+    "Symbol": "Sh",
+    "CurrencyUnit": "Shilling",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Thailand",
+    "Currency": "THB",
+    "Symbol": "฿",
+    "CurrencyUnit": "Baht",
+    "FractionUnit": "Satang"
+  },
+  {
+    "Name": "Timor-Leste",
+    "Currency": "USD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Togo",
+    "Currency": "XOF",
+    "Symbol": "Fr",
+    "CurrencyUnit": "Franc",
+    "FractionUnit": "Centime"
+  },
+  {
+    "Name": "Tonga",
+    "Currency": "TOP",
+    "Symbol": "T$",
+    "CurrencyUnit": "Paʻanga",
+    "FractionUnit": "Seniti"
+  },
+  {
+    "Name": "Trinidad and Tobago",
+    "Currency": "TTD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Tunisia",
+    "Currency": "TND",
+    "Symbol": "د.ت",
+    "CurrencyUnit": "Dinar",
+    "FractionUnit": "Millime"
+  },
+  {
+    "Name": "Turkey",
+    "Currency": "TRY",
+    "Symbol": "₺",
+    "CurrencyUnit": "Lira",
+    "FractionUnit": "Kuruş"
+  },
+  {
+    "Name": "Turkmenistan",
+    "Currency": "TMT",
+    "Symbol": "m",
+    "CurrencyUnit": "Manat",
+    "FractionUnit": "Tennesi"
+  },
+  {
+    "Name": "Tuvalu",
+    "Currency": "TVD[G]",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Uganda",
+    "Currency": "UGX",
+    "Symbol": "Sh",
+    "CurrencyUnit": "Shilling",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Ukraine",
+    "Currency": "UAH",
+    "Symbol": "₴",
+    "CurrencyUnit": "Hryvnia",
+    "FractionUnit": "Kopiyka"
+  },
+  {
+    "Name": "United Arab Emirates",
+    "Currency": "AED",
+    "Symbol": "د.إ",
+    "CurrencyUnit": "Dirham",
+    "FractionUnit": "Fils"
+  },
+  {
+    "Name": "United Kingdom",
+    "Currency": "GBP",
+    "Symbol": "£",
+    "CurrencyUnit": "Pound Sterling",
+    "FractionUnit": "Penny"
+  },
+  {
+    "Name": "United States of America",
+    "Currency": "USD",
+    "Symbol": "$",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  },
+  {
+    "Name": "Uruguay",
+    "Currency": "UYU",
+    "Symbol": "$",
+    "CurrencyUnit": "Peso",
+    "FractionUnit": "Centésimo"
+  },
+  {
+    "Name": "Uzbekistan",
+    "Currency": "UZS",
+    "Symbol": "so'm or сўм",
+    "CurrencyUnit": "Som",
+    "FractionUnit": "Tiyin"
+  },
+  {
+    "Name": "Vanuatu",
+    "Currency": "VUV",
+    "Symbol": "Vt",
+    "CurrencyUnit": "Vatu",
+    "FractionUnit": null
+  },
+  {
+    "Name": "Venezuela",
+    "Currency": "VES",
+    "Symbol": "Bs.S. or Bs.",
+    "CurrencyUnit": "Bolívar Soberano",
+    "FractionUnit": "Céntimo"
+  },
+  {
+    "Name": "Vietnam",
+    "Currency": "VND",
+    "Symbol": "₫",
+    "CurrencyUnit": "Đồng",
+    "FractionUnit": "Hào"
+  },
+  {
+    "Name": "Yemen",
+    "Currency": "YER",
+    "Symbol": "ر.ي",
+    "CurrencyUnit": "Rial",
+    "FractionUnit": "Fils"
+  },
+  {
+    "Name": "Zambia",
+    "Currency": "ZMW",
+    "Symbol": "ZK",
+    "CurrencyUnit": "Kwacha",
+    "FractionUnit": "Ngwee"
+  },
+  {
+    "Name": "Zimbabwe",
+    "Currency": "ZWL",
+    "Symbol": "ZWL",
+    "CurrencyUnit": "Dollar",
+    "FractionUnit": "Cent"
+  }
+]

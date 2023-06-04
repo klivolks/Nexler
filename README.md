@@ -13,15 +13,7 @@
 
 Nexler is a lightweight yet powerful framework for simplifying the development of RESTful APIs in Python. With a strong focus on component generation and URL handling, Nexler provides a streamlined process for building and managing your API components. Its modular structure makes it easy to develop, maintain, and understand your codebase.
 
-Compared to existing frameworks like Flask, FastAPI, and Django, Nexler focuses on providing developers with more built-in tools for common tasks in API development. It has an integrated UserService for user authentication and a create command for automating the creation of components, logic modules, and routes.
-
-- Unlike Flask, Nexler's built-in tools eliminate the need for additional plugins for tasks like user authentication and module generation. This simplifies the development process and reduces potential compatibility issues between different plugins.
-
-- Compared to FastAPI, Nexler does not require Pydantic for data validation and serialization. Instead, it uses simple decorators and intuitive Python syntax, making it easier for beginners and more convenient for experienced developers.
-
-- While Django is a full-fledged framework designed for building complex web applications, Nexler is designed specifically for building APIs. This makes Nexler more lightweight and efficient for API development.
-
-Remember that Nexler, Flask, FastAPI, and Django all have their own strengths and are better suited for different types of projects. Choose the one that best fits your specific needs.
+Now featuring an in-built currency conversion tool that supports the currencies of 194 countries and updates daily, and password encryption based on Argon2 - one of the most secure encryption mechanisms available today. 
 
 ## Table of Contents
 
@@ -31,12 +23,14 @@ Remember that Nexler, Flask, FastAPI, and Django all have their own strengths an
 4. [Usage](#usage)
 5. [Difference from Other Frameworks](#difference-from-other-frameworks)
 6. [UserService](#userservice)
-7. [Database Migrations](#database-migrations)
-8. [Optional Commands](#optional-commands)
-9. [Upgrade](#upgrade)
-10. [Documentation](#documentation)
-11. [Contributing](#contributing)
-12. [License](#license)
+7. [CurrencyService](#currencyservice)
+8. [PasswordEncryption](#passwordencryption)
+9. [Database Migrations](#database-migrations)
+10. [Optional Commands](#optional-commands)
+11. [Upgrade](#upgrade)
+12. [Documentation](#documentation)
+13. [Contributing](#contributing)
+14. [License](#license)
 
 ## Features
 
@@ -45,6 +39,8 @@ Remember that Nexler, Flask, FastAPI, and Django all have their own strengths an
 - **Error Handling:** Nexler implements a standard approach for error handling in your API, improving code readability.
 - **Database Operations:** Nexler uses Daba for database operations. For more information on Daba, visit https://pypi.org/project/daba/
 - **UserService:** UserService simplifies user authentication and authorization, offering built-in methods to protect API routes.
+- **CurrencyService:** Provides an in-built currency conversion tool that supports the currencies of 194 countries and updates daily.
+- **PasswordEncryption:** Implements Argon2 encryption mechanism for secure password management.
 - **Database Migration:** Nexler provides an automatic migration command for JSON files inside the migrations folder.
 - **API Verification:** The ApiService can be enabled by setting API_VERIFICATION=on in the .env file. This verifies the APIs against predefined rules.
 
@@ -64,13 +60,11 @@ pip install .
 
 Nexler uses a clean and organized structure. The `app/` directory is the main source folder, it contains:
 
-- `components
-
-/`: Stores all the components.
+- `components/`: Stores all the components.
 - `logic/`: Houses the logic modules associated with components.
 - `routes/`: Contains route definitions for the application.
 - `models/`: Contains all the data models used in the application.
-- `services/`: Houses services like UserService.
+- `services/`: Houses services like UserService, CurrencyService etc.
 - `utils/`: Contains various utilities to keep the code DRY.
 - `docs/`: Contains documentation for Nexler and its usage.
 
@@ -78,7 +72,9 @@ Nexler uses a clean and organized structure. The `app/` directory is the main so
 
 ### Creating a Component
 
-You can create a new component using the `create` command. The command requires the component's name and its URL. You can also specify optional URL variables.
+You can create a new component using the `create` command. The command
+
+ requires the component's name and its URL. You can also specify optional URL variables.
 
 ```shell
 nexler create component MyComponent --url "/mycomponent" --variables=id,name
@@ -123,6 +119,14 @@ class Test(Resource):
       return "This route is protected!"
 ```
 
+## CurrencyService
+
+CurrencyService provides an in-built currency conversion tool that supports the currencies of 194 countries and updates daily. This service can be imported from `app.services.CurrencyService`.
+
+## PasswordEncryption
+
+Nexler implements Argon2, one of the most secure encryption mechanisms available today, for password management. This can be found in the `app.services.PasswordService`.
+
 ## Database Migrations
 
 To migrate all JSON files inside the migrations folder automatically, use the `nexler migrate` command. The name of each JSON file should correspond with the collection name, and the contents should follow the format `[{doc1},{doc2},...]`.
@@ -151,8 +155,6 @@ nexler create component MyProtectedComponent --url "/myprotectedcomponent" --pro
 
 ```shell
 nexler create component MyComponent --url "/myurlcomponent" --methods=get
-
-
 ```
 
 ## Upgrade
@@ -165,17 +167,21 @@ nexler upgrade
 
 ## Documentation
 
-More detailed documentation can be found in the `docs/` folder of the repository. It provides a comprehensive guide on using and extending the Nexler framework.
+
+
+Please refer to the documentation in the `docs/` directory for more detailed information on Nexler.
 
 ## Contributing
 
-We welcome contributions to Nexler. To contribute, please fork the repository and create a pull request with your changes.
+Nexler is an open-source project, and we welcome contributions of all kinds. Before contributing, please check the CONTRIBUTING.md document.
 
 ## License
 
-Nexler is open-source software, licensed under the [AGPL 3.0 license](LICENSE).
+This project is licensed under the terms of the MIT license. For more information, see the LICENSE file.
 
 ---
+
+This README is just an overview of what Nexler can do. Please refer to the official documentation for more details. Enjoy using Nexler!
 
 For more information about Nexler, feel free to contact klivolks or open an issue on GitHub.
 

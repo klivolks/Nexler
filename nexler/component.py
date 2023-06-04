@@ -60,8 +60,7 @@ def create_component(args):
             method_definitions = [method_templates[method] for method in methods if method in method_templates]
 
             # Class definition
-            class_definition = f"""
-from flask_restful import Resource
+            class_definition = f"""from flask_restful import Resource
 from app.utils import response_util
 {"from app.services.UserService import protected, user" if args.protected else ""}
 

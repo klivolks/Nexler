@@ -6,6 +6,7 @@ import nexler  # import nexler to check its version
 from git import Repo
 import traceback
 
+
 def upgrade():
     try:
         # Step 1: Check the current version

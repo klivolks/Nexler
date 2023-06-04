@@ -1,6 +1,6 @@
-from flask import g, request
+from flask import g
 from functools import wraps
-from jwt import decode, PyJWTError
+from jwt import decode, ExpiredSignatureError, InvalidTokenError
 from werkzeug import exceptions
 
 import config
@@ -11,13 +11,15 @@ class UserService:
     @property
     def userId(self):
         try:
-            auth_header = request.headers.get('Authorization', None)
+            auth_header = request_util.headers('Authorization')
             if auth_header:
                 token = auth_header.split(" ")[1]
                 data = decode(token, config.Config().JWT_SECRET_KEY, algorithms="HS256")
                 return data.get('user_id', None)
             return None
-        except PyJWTError:
+        except ExpiredSignatureError:
+            raise exceptions.Unauthorized(description="Token has expired.")
+        except InvalidTokenError:
             raise exceptions.BadRequest
 
     def protected(self, f):
@@ -30,6 +32,9 @@ class UserService:
                 return f(*args, **kwargs)
 
         return wrapper
+
+    def Id(self):
+        return g.get('user_id')
 
 
 user = UserService()

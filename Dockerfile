@@ -8,7 +8,7 @@ RUN pip install --upgrade pip
 WORKDIR /app
 
 # Copy application code to the docker image
-COPY ./ /app
+COPY . /app
 
 # Install the Python dependencies
 COPY requirements.txt /app/requirements.txt

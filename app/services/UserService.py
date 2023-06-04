@@ -1,4 +1,4 @@
-from flask import g
+from flask import g, request
 from functools import wraps
 from jwt import decode, PyJWTError
 
@@ -10,15 +10,20 @@ class UserService:
     @property
     def userId(self):
         try:
-            data = decode(request_util.headers('X-Access-Token'), config.Config().JWT_SECRET_KEY, algorithms="HS256")
-            return data.get('user_id', None)
+            auth_header = request.headers.get('Authorization', None)
+            if auth_header:
+                token = auth_header.split(" ")[1]
+                data = decode(token, config.Config().JWT_SECRET_KEY, algorithms="HS256")
+                return data.get('user_id', None)
+            return None
         except PyJWTError:
             return None
 
     def protected(self, f):
         @wraps(f)
         def wrapper(*args, **kwargs):
-            if not g.get('user_id', None):
+            g.user_id = self.userId
+            if not g.user_id:
                 return {"message": "Unauthorized"}, 401
             else:
                 return f(*args, **kwargs)

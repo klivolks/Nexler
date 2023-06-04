@@ -19,30 +19,32 @@ def create_component(args):
             methods = args.methods.split(',') if args.methods else ['get', 'post', 'put', 'delete']
 
             # Define method templates for different HTTP methods
+            protected_decorator = "@protected\n    " if args.protected else ""
+
             method_templates = {
                 'get': f"""
-    def get{method_variables}:
+    {protected_decorator}def get{method_variables}:
         try:
             return response_util.success({{"message": "This is the GET method of {args.url}"}})
         except Exception as e:
             return response_util.error(str(e))
 """,
                 'post': f"""
-    def post{method_variables}:
+    {protected_decorator}def post{method_variables}:
         try:
             return response_util.success({{"message": "This is the POST method of {args.url}"}})
         except Exception as e:
             return response_util.error(str(e))
 """,
                 'put': f"""
-    def put{method_variables}:
+    {protected_decorator}def put{method_variables}:
         try:
             return response_util.success({{"message": "This is the PUT method of {args.url}"}})
         except Exception as e:
             return response_util.error(str(e))
 """,
                 'delete': f"""
-    def delete{method_variables}:
+    {protected_decorator}def delete{method_variables}:
         try:
             return response_util.success({{"message": "This is the DELETE method of {args.url}"}})
         except Exception as e:
@@ -56,6 +58,7 @@ def create_component(args):
             class_definition = f"""
 from flask_restful import Resource
 from app.utils import response_util
+{"from app.services.UserService import protected, user" if args.protected else ""}
 
 class {args.moduleName}(Resource):
 """ + ''.join(method_definitions)
@@ -91,7 +94,6 @@ class {args.moduleName}(Resource):
         if url.endswith('/'):
             url = url[:-1]
 
-        # Add the new route
         route_line = f"    api.add_resource({args.moduleName}, '{url}{url_variables_str}')"
         lines.append(route_line)
 

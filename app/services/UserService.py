@@ -1,6 +1,7 @@
 from flask import g, request
 from functools import wraps
 from jwt import decode, PyJWTError
+from werkzeug import exceptions
 
 import config
 from app.utils import request_util
@@ -17,7 +18,7 @@ class UserService:
                 return data.get('user_id', None)
             return None
         except PyJWTError:
-            return None
+            raise exceptions.BadRequest
 
     def protected(self, f):
         @wraps(f)

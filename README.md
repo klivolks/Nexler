@@ -177,7 +177,7 @@ Nexler is an open-source project, and we welcome contributions of all kinds. Bef
 
 ## License
 
-This project is licensed under the terms of the MIT license. For more information, see the LICENSE file.
+This project is licensed under the terms of the [AGPL 3.0 license](LICENSE).
 
 ---
 

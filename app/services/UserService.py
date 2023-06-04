@@ -33,6 +33,7 @@ class UserService:
 
         return wrapper
 
+    @property
     def Id(self):
         return g.get('user_id')
 

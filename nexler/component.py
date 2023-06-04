@@ -16,8 +16,12 @@ def create_component(args):
             dir_util.create_directory(directory_path)
             variables_str = ', '.join(args.variables) if args.variables else ''
             method_variables = f"(self, {variables_str})" if variables_str else "(self)"
-            methods = args.methods if isinstance(args.methods, list) else [args.methods] if args.methods else ['get', 'post', 'put', 'delete']
-
+            if isinstance(args.methods, list):
+                methods = args.methods
+            elif isinstance(args.methods, str):
+                methods = [method.strip() for method in args.methods.split(',')]
+            else:
+                methods = ['get', 'post', 'put', 'delete']
             # Define method templates for different HTTP methods
             protected_decorator = "@protected\n    " if args.protected else ""
 

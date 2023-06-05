@@ -37,8 +37,8 @@ def upgrade():
 
             # Update the necessary files and folders
             folders_files_to_update = ["run.py", "setup.py", "nexler", "app/services",
-                                       "app/utils", "app/config", "docs", "tests/app/utils",
-                                       "tests/app/services", "README.md", "requirements.txt", "migrations"]
+                                       "app/utils", "app/config", "tests/app/utils",
+                                       "tests/app/services", "requirements.txt", "migrations"]
 
             for item in folders_files_to_update:
                 # If it is a file or directory and exists in the current location, remove it

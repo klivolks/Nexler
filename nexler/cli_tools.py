@@ -17,6 +17,8 @@ def main():
     create_parser.add_argument('--component', default=None, help='Component Class Name (for logic module only)')
     create_parser.add_argument('--protected', action='store_true', help='Create a protected component')
     create_parser.add_argument('--methods', default=None, help='Methods for the module')
+    create_parser.add_argument('--main', default=None, help='Name of the main logic directory.')
+    create_parser.add_argument('--independent', action='store_true', help='generate independent logic that can be imported to any component')
 
     # upgrade sub-command
     upgrade_parser = subparsers.add_parser('upgrade', help='Upgrade Nexler to the latest version')

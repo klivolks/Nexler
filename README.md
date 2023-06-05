@@ -70,106 +70,22 @@ Nexler uses a clean and organized structure. The `app/` directory is the main so
 
 ## Usage
 
-### Creating a Component
+Nexler provides CLI commands for various operations like creating components, logic, database migrations, etc.
 
-You can create a new component using the `create` command. The command
+ Detailed explanations of these commands along with examples can be found in `docs/cli_tools.md`.
 
- requires the component's name and its URL. You can also specify optional URL variables.
+Here is an example of creating a component and logic:
 
 ```shell
 nexler create component MyComponent --url "/mycomponent" --variables=id,name
-```
-
-In this example, a new component named 'MyComponent' is created and mapped to the '/mycomponent' URL. The component will have `id` and `name` as parameters for its methods, specified by the `--variables` argument.
-
-### Creating Logic
-
-You can create new logic for a component using the `create` command. The command requires the name of the module and the component.
-
-```shell
 nexler create logic MyLogic --component=MyComponent
 ```
 
-In this example, a new logic named 'MyLogic' is created for the component named 'MyComponent'.
-
-## Difference from Other Frameworks
-
-Nexler stands out from other Python web frameworks like Flask, FastAPI, and Django with its approach to simplifying RESTful API development.
-
-1. **Nexler vs Flask:** Flask is a micro-framework that leaves much of the decision making to developers. Unlike Flask, Nexler comes with more built-in tools like UserService for user authentication and a `create` command for automating module generation. These tools make the development process smoother and remove the need for additional plugins.
-
-2. **Nexler vs FastAPI:** FastAPI uses Pydantic for data validation and serialization, which can be verbose and cumbersome. Nexler, on the other hand, uses simpler decorators and intuitive Python syntax for these tasks. This makes Nexler easier to grasp for beginners and more convenient for experienced developers no need to relay on deep logic and complex thinking for basic functionalities.
-
-3. **Nexler vs Django:** Django is a full-featured framework designed for creating complex web applications, whereas Nexler is primarily designed for building RESTful APIs. This makes Nexler more lightweight and efficient for API development along with faster processing and lower resource utilisation.
-
-## UserService
-
-UserService provides a way to manage user authentication and authorization. This service can be imported from `app.services.UserService`. UserService exposes a `userId` property to access the authenticated user's ID and a `protected` decorator to protect routes that require user authentication.
-
-Example usage:
-
-```python
-from flask_restful import Resource
-from app.services.UserService import user, protected
-
-class Test(Resource):
-  # protect a route
-  @protected
-  def get(self):
-      return "This route is protected!"
-```
-
-## CurrencyService
-
-CurrencyService provides an in-built currency conversion tool that supports the currencies of 194 countries and updates daily. This service can be imported from `app.utils.money_util`.
-
-## PasswordEncryption
-
-Nexler implements Argon2, one of the most secure encryption mechanisms available today, for password management. This can be found in the `app.utils.pswd_util`.
-
-## Database Migrations
-
-To migrate all JSON files inside the migrations folder automatically, use the `nexler migrate` command. The name of each JSON file should correspond with the collection name, and the contents should follow the format `[{doc1},{doc2},...]`.
-
-```shell
-nexler migrate
-```
-
-## Optional Commands
-
-You can customize the creation of components and logic with optional arguments. Here are a few examples:
-
-1. To specify optional URL variables during component creation:
-
-```shell
-nexler create component MyComponent --url "/mycomponent" --variables=doc,id
-```
-
-2. To create a protected component that requires user authentication:
-
-```shell
-nexler create component MyProtectedComponent --url "/myprotectedcomponent" --protected
-```
-
-3. To specify the HTTP methods for a component:
-
-```shell
-nexler create component MyComponent --url "/myurlcomponent" --methods=get
-```
-
-## Upgrade
-
-You can upgrade to the latest version of Nexler by running the following command:
-
-```shell
-nexler upgrade
-```
+In these examples, a new component named 'MyComponent' is created and mapped to the '/mycomponent' URL with `id` and `name` as parameters for its methods. Similarly, a new logic named 'MyLogic' is created for the component 'MyComponent'.
 
 ## Documentation
 
-
-
-Please refer to the documentation in the `docs/` directory for more detailed information on Nexler.
+For comprehensive and detailed information, please refer to the official Nexler documentation available in the `docs/` directory. This includes guides, tutorials, and detailed descriptions of Nexler features.
 
 ## Contributing
 

@@ -8,6 +8,7 @@ This document will help you understand how to utilize the Nexler CLI (Command Li
 3. [Creating a Model](#creating-a-model)
 4. [Database Migration](#database-migration)
 5. [Upgrade](#upgrade)
+6. [Serve](#serve)
 
 
 ## Creating a Component
@@ -90,7 +91,6 @@ Here's the format for the JSON:
 [
     {"Variable": "_id", "Format": "str", "Required": false},
     {"Variable": "register_number", "Format": "str", "Required": false}
-    // Additional variables
 ]
 ```
 
@@ -143,6 +143,14 @@ You can upgrade to the latest version of Nexler by running the following command
 
 ```shell
 nexler upgrade
+```
+
+## Serve
+
+You can run development server by running the following command:
+
+```shell
+nexler serve
 ```
 
 ---

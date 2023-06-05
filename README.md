@@ -25,12 +25,9 @@ Now featuring an in-built currency conversion tool that supports the currencies 
 6. [UserService](#userservice)
 7. [CurrencyService](#currencyservice)
 8. [PasswordEncryption](#passwordencryption)
-9. [Database Migrations](#database-migrations)
-10. [Optional Commands](#optional-commands)
-11. [Upgrade](#upgrade)
-12. [Documentation](#documentation)
-13. [Contributing](#contributing)
-14. [License](#license)
+9. [Documentation](#documentation)
+10. [Contributing](#contributing)
+11. [License](#license)
 
 ## Features
 
@@ -82,6 +79,40 @@ nexler create logic MyLogic --component=MyComponent
 ```
 
 In these examples, a new component named 'MyComponent' is created and mapped to the '/mycomponent' URL with `id` and `name` as parameters for its methods. Similarly, a new logic named 'MyLogic' is created for the component 'MyComponent'.
+
+## Difference from Other Frameworks
+
+Nexler stands out from other Python web frameworks like Flask, FastAPI, and Django with its approach to simplifying RESTful API development.
+
+1. **Nexler vs Flask:** Flask is a micro-framework that leaves much of the decision making to developers. Unlike Flask, Nexler comes with more built-in tools like UserService for user authentication and a `create` command for automating module generation. These tools make the development process smoother and remove the need for additional plugins.
+
+2. **Nexler vs FastAPI:** FastAPI uses Pydantic for data validation and serialization, which can be verbose and cumbersome. Nexler, on the other hand, uses simpler decorators and intuitive Python syntax for these tasks. This makes Nexler easier to grasp for beginners and more convenient for experienced developers no need to relay on deep logic and complex thinking for basic functionalities.
+
+3. **Nexler vs Django:** Django is a full-featured framework designed for creating complex web applications, whereas Nexler is primarily designed for building RESTful APIs. This makes Nexler more lightweight and efficient for API development along with faster processing and lower resource utilisation.
+
+## UserService
+
+UserService provides a way to manage user authentication and authorization. This service can be imported from `app.services.UserService`. UserService exposes a `userId` property to access the authenticated user's ID and a `protected` decorator to protect routes that require user authentication.
+
+Example usage:
+
+```python
+from flask_restful import Resource
+from app.services.UserService import user, protected
+class Test(Resource):
+  # protect a route
+  @protected
+  def get(self):
+      return "This route is protected!"
+```
+
+## CurrencyService
+
+CurrencyService provides an in-built currency conversion tool that supports the currencies of 194 countries and updates daily. This service can be imported from `app.utils.money_util`.
+
+## PasswordEncryption
+
+Nexler implements Argon2, one of the most secure encryption mechanisms available today, for password management. This can be found in the `app.utils.pswd_util`.
 
 ## Documentation
 

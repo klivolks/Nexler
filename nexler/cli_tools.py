@@ -1,5 +1,5 @@
 import argparse
-from nexler import component, logic, upgrade, migrate  # import the upgrade module
+from nexler import component, logic, upgrade, migrate, model  # import the upgrade module
 from nexler import __version__ as nexler_version
 
 
@@ -10,7 +10,7 @@ def main():
 
     # create sub-command
     create_parser = subparsers.add_parser('create', help='Create a new component or logic module')
-    create_parser.add_argument('module', help='Name of the module (component/logic)', choices=['component', 'logic'])
+    create_parser.add_argument('module', help='Name of the module (component/logic/model)', choices=['component', 'logic', 'model'])
     create_parser.add_argument('moduleName', help='Module Class Name or Component Class Name')
     create_parser.add_argument('--url', default=None, help='URL for the component')
     create_parser.add_argument('--variables', default=None, help='Variables for the module')
@@ -19,6 +19,7 @@ def main():
     create_parser.add_argument('--methods', default=None, help='Methods for the module')
     create_parser.add_argument('--main', default=None, help='Name of the main logic directory.')
     create_parser.add_argument('--independent', action='store_true', help='generate independent logic that can be imported to any component')
+    create_parser.add_argument('--logic', default=None, help='Logic Class Name (for model only)')
 
     # upgrade sub-command
     upgrade_parser = subparsers.add_parser('upgrade', help='Upgrade Nexler to the latest version')
@@ -37,6 +38,8 @@ def main():
             if not args.component:
                 create_parser.error("The --component argument is required for creating logic.")
             logic.create_logic(args)
+        elif args.module == 'model':
+            model.create_model(args)  # call the create_model function from the model module
         else:
             create_parser.error(f"The module '{args.module}' is not recognized. Use 'component' or 'logic'.")
     elif args.command == 'upgrade':

@@ -5,8 +5,10 @@ This document will help you understand how to utilize the Nexler CLI (Command Li
 ## Table of Contents
 1. [Creating a Component](#creating-a-component)
 2. [Creating Logic](#creating-logic)
-3. [Database Migration](#database-migration)
-4. [Upgrade](#upgrade)
+3. [Creating a Model](#creating-a-model)
+4. [Database Migration](#database-migration)
+5. [Upgrade](#upgrade)
+
 
 ## Creating a Component
 
@@ -78,6 +80,52 @@ The `create logic` command supports additional options for customizing the behav
     nexler create logic SubLogic --component=MyComponent --main=MainLogic
     ```
     This command creates a new logic module named 'SubLogic' for the component 'MyComponent' inside 'MainLogic' folder and ensures it's imported in the `__init__.py` of the component.
+## Creating a Model
+
+With Nexler, you can automate the creation of new models by utilizing a straightforward command. However, before running this command, ensure a JSON file with the format `<ModelName>.json` is available in the `app/models/variables/` directory. This JSON file defines the fields for the model and must follow the structure as illustrated in the example below.
+
+Here's the format for the JSON:
+
+```json
+[
+    {"Variable": "_id", "Format": "str", "Required": false},
+    {"Variable": "register_number", "Format": "str", "Required": false}
+    // Additional variables
+]
+```
+
+Once the JSON file is properly set up, you can use the following syntax to create a model:
+
+```shell
+nexler create model <ModelName> --logic=<LogicName> [--main=<MainLogicName>]
+```
+
+Example usage:
+
+```shell
+nexler create model User --logic=HelloWorldLogic --main=HelloWorld
+```
+
+In this example, a new model named 'User' is created for the logic named 'HelloWorldLogic' in 'HelloWorld' directory. The model fields will be based on `User.json` in the `app/models/variables/` directory.
+
+### Additional Options
+
+The `create model` command supports additional options for customizing the behavior of the model:
+
+- To create a model associated with a logic module, which has the same name as its parent directory:
+    ```shell
+    nexler create model UserModel --logic=MyLogic
+    ```
+    This command creates a new model named 'UserModel' for the logic 'MyLogic' in 'MyLogic' directory.
+
+- To create a standalone model, without linking it to any specific logic or main logic:
+    ```shell
+    nexler create model UserModel
+    ```
+    This command creates a standalone model named 'UserModel' without importing it to any specific logic.
+
+Note: In both cases, make sure `<ModelName>.json` exists in `app/models/variables/` and is correctly formatted as per the requirements. if not it will create only _id and dummy data.
+
 
 ## Database Migration
 

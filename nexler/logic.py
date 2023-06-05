@@ -1,3 +1,4 @@
+import traceback
 from app.utils import dir_util, file_util, response_util
 import os
 import re
@@ -8,11 +9,17 @@ def create_logic(args):
         # Construct the directory path
         directory_path = f"app/logic/{args.component}"
 
-        # Create the directory
-        dir_util.create_directory(directory_path)
+        # Check if directory exists
+        if not os.path.exists(directory_path):
+            # Create the directory
+            dir_util.create_directory(directory_path)
 
-        # Construct the file path
-        file_path = os.path.join(directory_path, '__init__.py')
+            # Create __init__.py in the directory
+            init_file_path = os.path.join(directory_path, '__init__.py')
+            file_util.write_file(init_file_path, '')
+
+        # Construct the file path for module
+        module_file_path = os.path.join(directory_path, f"{args.moduleName}.py")
 
         # Construct the class definition
         class_definition = f"""
@@ -20,38 +27,35 @@ class {args.moduleName}:
     def __init__(self):
         pass
 """
-        # Create the file and write the class definition to it
-        file_util.write_file(file_path, class_definition)
+        # Create the module file and write the class definition to it
+        file_util.write_file(module_file_path, class_definition)
 
-        # Append the import line to the logic __init__.py
-        logic_init_path = 'app/logic/__init__.py'
-        import_line = f"from .{args.component} import {args.moduleName}\n"
-        file_util.append_file(logic_init_path, import_line)
+        # Update the __init__.py to include the new module
+        init_file_content = file_util.read_file(os.path.join(directory_path, '__init__.py'))
+        import_line = f"from .{args.moduleName} import {args.moduleName}"
+        if import_line not in init_file_content:
+            init_file_content = import_line + '\n' + init_file_content
+            file_util.write_file(os.path.join(directory_path, '__init__.py'), init_file_content)
 
-        # Update the component __init__.py file
+        # Update the component __init__.py file to import the new logic module
         component_init_path = f'app/components/{args.component}/__init__.py'
-        content = file_util.read_file(component_init_path)
+        component_init_content = file_util.read_file(component_init_path)
+        component_import_line = f"from app.logic.{args.component} import {args.moduleName}"
+        if component_import_line not in component_init_content:
+            # Check if there is already an import from the same logic directory
+            existing_import = re.search(rf"from app\.logic\.{args.component} import (.+)", component_init_content)
+            if existing_import:
+                # Append the new module to the existing import
+                new_import = existing_import.group(1) + ', ' + args.moduleName
+                component_init_content = component_init_content.replace(existing_import.group(0),
+                                                                        f"from app.logic.{args.component} import {new_import}")
+            else:
+                # Add a new import line
+                component_init_content = component_import_line + '\n' + component_init_content
 
-        # Split the content by lines
-        lines = content.split('\n')
-
-        # Find the last import line
-        last_import_index = -1
-        for i, line in enumerate(lines):
-            if re.match(r"from .+ import .+", line):
-                last_import_index = i
-
-        # Insert the new import line after the last import line
-        if last_import_index != -1:
-            lines.insert(last_import_index + 1, f"from app.logic import {args.moduleName}")
-        else:
-            lines.insert(0, f"from app.logic import {args.moduleName}")
-
-        # Join the lines back together and write the updated content back to the file
-        updated_content = '\n'.join(lines)
-        file_util.write_file(component_init_path, updated_content)
+            file_util.write_file(component_init_path, component_init_content)
 
         print(f"Logic '{args.moduleName}' created for component: {args.component}")
 
     except Exception as e:
-        print(f"An error occurred while creating the logic: {e}")
+        print(f"An error occurred while creating the logic: {e} Trace: {traceback.format_exc()}")

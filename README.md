@@ -87,7 +87,7 @@ In this example, a new component named 'MyComponent' is created and mapped to th
 You can create new logic for a component using the `create` command. The command requires the name of the module and the component.
 
 ```shell
-nexler create logic MyLogic MyComponent
+nexler create logic MyLogic --component=MyComponent
 ```
 
 In this example, a new logic named 'MyLogic' is created for the component named 'MyComponent'.

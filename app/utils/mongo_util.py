@@ -1,5 +1,4 @@
 from bson import ObjectId
-import re
 
 
 class Pipeline:
@@ -33,19 +32,43 @@ class Pipeline:
 class Query:
     def __init__(self):
         self._query = {}
+        self._current_field = None
+        self._current_logical_operator = None
+        self._current_comparison_operator = None
 
-    def __setattr__(self, field, value):
-        if field in ("_limit", "_start", "_sort"):
-            super().__setattr__(field, value)
-        elif field.startswith("_"):
-            if field == "_id":
-                self._query[field] = ObjectId(value)
+    def __getattr__(self, item):
+        if item in ["ne", "gt", "lt", "eq", "or_", "and_"]:
+            if item.endswith("_"):
+                self._current_logical_operator = f"${item[:-1]}"
             else:
-                super().__setattr__(field, value)
-        elif field == "search":
-            self._query[value[0]] = re.compile(value[1], re.IGNORECASE)
+                self._current_comparison_operator = f"${item}"
+            return self
         else:
-            self._query[field] = value
+            self._current_field = item
+            return self
+
+    def __setattr__(self, key, value):
+        if key.startswith("_"):
+            self.__dict__[key] = value
+        else:
+            self._add_to_query(key, value)
+
+    def _add_to_query(self, key, value):
+        if self._current_comparison_operator:
+            comparison = {self._current_comparison_operator: value}
+            if self._current_logical_operator:
+                self._query.setdefault(self._current_logical_operator, []).append({key: comparison})
+            else:
+                self._query[key] = comparison
+        else:
+            self._query[key] = value
+
+        self._reset_operators()
+
+    def _reset_operators(self):
+        self._current_field = None
+        self._current_logical_operator = None
+        self._current_comparison_operator = None
 
     def build(self):
         return self._query

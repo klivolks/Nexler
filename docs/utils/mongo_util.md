@@ -28,11 +28,11 @@ pipe.lookup.from_field = ("from_collection", "local_field", "foreign_field", "as
 pipe.sort.age = 1  
 
 # Construct the pipeline
-pipeline = new_pipeline(pipe)  
+pipeline = new_pipeline(pipe)
 ```
 
 ### 2. Query
-The `Query` class helps to construct MongoDB find queries. It supports several query operations like setting conditions on fields, regular expression search, and specific operations on `_id` field.
+The `Query` class helps to construct MongoDB find queries. It supports a variety of query operations such as setting conditions on fields, comparison operators, and logical operators.
 
 **Usage:**
 
@@ -43,14 +43,18 @@ from app.utils.mongo_util import Query
 query = Query()
 
 # Set conditions
-query._id = '605c66b16f3b15a1561d26a6'  
-query.name = 'John'  
+query._id = '605c66b16f3b15a1561d26a6'
+query.name = 'John'
 
-# Set a search condition
-query.search = ('name', 'Jo') # search for 'Jo' in the 'name' field, case insensitive
+# Set conditions with comparison operators
+query.ne.phone = '1234567890'  # where 'phone' is not equal to '1234567890'
+
+# Set conditions with logical operators
+query.or_.ne.phone = '1234567890'  # where 'phone' is not equal to '1234567890' or
+query.and_.status = 1  # where 'status' is equal to 1
 
 # Build the query
-built_query = query.build() 
+built_query = query.build()
 ```
 
 ## Functions
@@ -100,4 +104,6 @@ cursor2 = table.get(built_query)
 processed = process_cursor(cursor2, start=10, limit=10, sort=('_id', -1))
 ```
 
-In this example, a `Pipeline` and `Query` object are created to interact with a MongoDB collection. The objects are then used in `aggregate` and `find` operations, respectively. The cursors returned from these operations are processed using the `process_cursor` function.
+In this example, a `Pipeline` and `Query` object are created to interact with a MongoDB
+
+ collection. The objects are then used in `aggregate` and `find` operations, respectively. The cursors returned from these operations are processed using the `process_cursor` function.

@@ -60,6 +60,10 @@ class TestStringUtil(unittest.TestCase):
         result = str_util.camel_case('hello_world')
         self.assertEqual(result, 'helloWorld')
 
+    def test_extract_numbers(self):
+        result = str_util.extract_numbers('123abc456def7890')
+        self.assertEqual(result, '1234567890')
+
 
 if __name__ == "__main__":
     unittest.main()

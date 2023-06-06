@@ -55,3 +55,7 @@ def snake_case(s):
 def camel_case(s):
     words = s.split('_')
     return words[0].lower() + ''.join(word.title() for word in words[1:])
+
+
+def extract_numbers(s):
+    return ''.join(re.findall(r'\d+', s))

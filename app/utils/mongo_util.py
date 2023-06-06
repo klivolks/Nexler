@@ -76,7 +76,6 @@ class Query:
         return self._query
 
 
-
 def new_pipeline(pipeline):
     return pipeline.build()
 
@@ -93,6 +92,7 @@ def process_cursor(cursor, start=None, limit=None, sort=None):
     count = len(data)
 
     return {"count": count, "data": data}
+
 
 if __name__ == "__main__":
     q = Query()

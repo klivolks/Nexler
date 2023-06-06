@@ -37,12 +37,13 @@ class Query:
         self._current_comparison_operator = None
 
     def __getattr__(self, item):
-        if item in ["ne", "gt", "lt", "eq", "or_", "and_"]:
-            if item.endswith("_"):
-                self._current_logical_operator = f"${item[:-1]}"
-            else:
-                self._current_comparison_operator = f"${item}"
+        if item in ["ne", "gt", "lt", "eq"]:
+            self._current_comparison_operator = f"${item}"
             return self
+        elif item in ["or_", "and_"]:
+            self._current_logical_operator = f"${item[:-1]}"
+            self._query[self._current_logical_operator] = self._query.get(self._current_logical_operator, [])
+            return Query()  # Return new Query object for nested conditions
         else:
             self._current_field = item
             return self
@@ -53,25 +54,27 @@ class Query:
         else:
             self._add_to_query(key, value)
 
+    def __iadd__(self, other):
+        if isinstance(other, Query):
+            if self._current_logical_operator:
+                self._query[self._current_logical_operator].append(other.build())
+        return self
+
     def _add_to_query(self, key, value):
         if self._current_comparison_operator:
             comparison = {self._current_comparison_operator: value}
-            if self._current_logical_operator:
-                self._query.setdefault(self._current_logical_operator, []).append({key: comparison})
-            else:
-                self._query[key] = comparison
+            self._query[key] = comparison
+            self._reset_operators()
         else:
             self._query[key] = value
 
-        self._reset_operators()
-
     def _reset_operators(self):
         self._current_field = None
-        self._current_logical_operator = None
         self._current_comparison_operator = None
 
     def build(self):
         return self._query
+
 
 
 def new_pipeline(pipeline):
@@ -90,3 +93,19 @@ def process_cursor(cursor, start=None, limit=None, sort=None):
     count = len(data)
 
     return {"count": count, "data": data}
+
+if __name__ == "__main__":
+    q = Query()
+    q.email = "x"  # Simple query
+    print(q.build())
+
+    q = Query()
+    q.email = "x"
+    q.or_.phone = "1234567890"  # Complex query
+    print(q.build())
+
+    q = Query()
+    q.email = "x"
+    q.or_.ne.phone = "1234567890"
+    q.and_.status = 1  # Complex query with multiple conditions
+    print(q.build())

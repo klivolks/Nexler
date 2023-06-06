@@ -35,7 +35,7 @@ def create_model(args):
                 property_setter += f"""
     @property
     def {var_name}(self):
-        return self.__id
+        return self._{var_name}
 
     @{var_name}.setter
     def {var_name}(self, value):

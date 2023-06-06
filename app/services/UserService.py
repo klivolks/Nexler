@@ -14,8 +14,9 @@ class UserService:
             auth_header = request_util.headers('Authorization')
             if auth_header:
                 token = auth_header.split(" ")[1]
-                data = decode(token, config.Config().JWT_SECRET_KEY, algorithms="HS256")
-                return data.get('user_id', None)
+                if token:
+                    data = decode(token, config.Config().JWT_SECRET_KEY, algorithms="HS256")
+                    return data.get('user_id', None)
             return None
         except ExpiredSignatureError:
             raise exceptions.Unauthorized(description="Token has expired.")

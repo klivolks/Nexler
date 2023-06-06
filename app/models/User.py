@@ -6,7 +6,6 @@ class User:
     user = collection("User")
 
     def __init__(self, _id=None, org=None, register_number=None, username=None, password=None, email=None, phone=None, first_name=None, last_name=None, date_of_birth=None, date_joined=None, last_login=None, profile_picture=None, bio=None, location=None, country=None, website=None, gender=None, social_links=None, language=None, timezone=None, account_verified=None, last_password_reset=None, security_question=None, security_answer=None, email_verified=None, phone_verified=None, is_active=None, is_superuser=None):
-        
         self._id = _id
         self.org = org
         self.register_number = register_number

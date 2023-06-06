@@ -14,7 +14,7 @@ class UserService:
             auth_header = request_util.headers('Authorization')
             if auth_header:
                 token = auth_header.split(" ")[1]
-                if token:
+                if token and token != 'null':
                     data = decode(token, config.Config().JWT_SECRET_KEY, algorithms="HS256")
                     return data.get('user_id', None)
             return None

@@ -22,6 +22,7 @@ def create_model(args):
         class_variables = ""
         init_variables = ""
         save_variables = ""
+        property_setter = ""
         for index, variable in enumerate(variables):
             var_name = variable['Variable']
             var_type = variable.get('Format', 'str')
@@ -30,6 +31,17 @@ def create_model(args):
             default_value = None if not var_required else f'{var_type}'
             class_variables += f", {var_name}={default_value}"
             init_variables += f"\n        self.{var_name} = {var_name}"
+            if var_type == 'ObjectId':
+                property_setter += f"""@property
+    def {var_name}(self):
+        return self.__id
+
+    @{var_name}.setter
+    def {var_name}(self, value):
+        if value is not None:
+            self._{var_name} = ObjectId(value)
+        else:
+            self._{var_name} = None"""
 
             if var_name != '_id':
                 save_variables += f"'{var_name}': self.{var_name}"
@@ -120,6 +132,8 @@ class {moduleName}:
 
     def count(self, query):
         return self.{moduleName.lower()}.count(query)
+    
+    {property_setter}
 """
 
         # Create the model file and write the class definition to it
@@ -166,7 +180,7 @@ class {moduleName}:
         model_import = f"from .{moduleName} import {moduleName}"
 
         if model_import not in init_file_content:
-            init_file_content += "\n" + model_import
+            init_file_content += model_import + "\n"
             file_util.write_file(init_file_path, init_file_content)
 
         print(f"Model '{moduleName}' created.")

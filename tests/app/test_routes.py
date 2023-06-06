@@ -15,9 +15,9 @@ class RoutesTestCase(unittest.TestCase):
 
         json_response = response.get_json()
 
-        self.assertEqual(json_response['Message'], 'This is nexler framework for restful apis by klivolks')
-        self.assertIsInstance(json_response['Services'], list)
-        self.assertIsInstance(json_response['Utilities'], list)
+        self.assertEqual(json_response['data']['Message'], 'This is Nexler framework for restful APIs by klivolks')
+        self.assertIsInstance(json_response['data']['Services'], list)
+        self.assertIsInstance(json_response['data']['Utilities'], list)
 
 
 if __name__ == '__main__':

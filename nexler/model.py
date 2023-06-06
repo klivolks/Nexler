@@ -32,7 +32,8 @@ def create_model(args):
             class_variables += f", {var_name}={default_value}"
             init_variables += f"\n        self.{var_name} = {var_name}"
             if var_type == 'ObjectId':
-                property_setter += f"""@property
+                property_setter += f"""
+    @property
     def {var_name}(self):
         return self.__id
 
@@ -41,7 +42,8 @@ def create_model(args):
         if value is not None:
             self._{var_name} = ObjectId(value)
         else:
-            self._{var_name} = None"""
+            self._{var_name} = None
+"""
 
             if var_name != '_id':
                 save_variables += f"'{var_name}': self.{var_name}"
@@ -132,7 +134,6 @@ class {moduleName}:
 
     def count(self, query):
         return self.{moduleName.lower()}.count(query)
-    
     {property_setter}
 """
 

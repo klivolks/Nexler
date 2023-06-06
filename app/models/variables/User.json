@@ -1,5 +1,6 @@
 [
     {"Variable": "_id", "Format": "ObjectId", "Required": false},
+    {"Variable": "org", "Format": "ObjectId", "Required": false},
     {"Variable": "register_number", "Format": "str", "Required": false},
     {"Variable": "username", "Format": "str", "Required": false},
     {"Variable": "password", "Format": "str", "Required": false},

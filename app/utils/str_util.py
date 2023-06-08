@@ -57,5 +57,10 @@ def camel_case(s):
     return words[0].lower() + ''.join(word.title() for word in words[1:])
 
 
+def pascal_case(s):
+    words = s.split('_')
+    return ''.join(word.title() for word in words)
+
+
 def extract_numbers(s):
     return ''.join(re.findall(r'\d+', s))

@@ -4,6 +4,7 @@
 
 <p align="left">
   <a href="https://www.python.org/"><img alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"/></a>
+  <a href="https://www.openai.com/"><img alt="OpenAI" src="https://img.shields.io/badge/OpenAI-4b11a8?style=for-the-badge&logo=openai&logoColor=white"/></a>
 </p>
 
 ![Python](https://img.shields.io/badge/python-v3.7+-blue.svg)
@@ -13,7 +14,9 @@
 
 Nexler is a lightweight yet powerful framework for simplifying the development of RESTful APIs in Python. With a strong focus on component generation and URL handling, Nexler provides a streamlined process for building and managing your API components. Its modular structure makes it easy to develop, maintain, and understand your codebase.
 
-Now featuring an in-built currency conversion tool that supports the currencies of 194 countries and updates daily, and password encryption based on Argon2 - one of the most secure encryption mechanisms available today. 
+First AI integrated framework in world. ChatGPT's integration into Nexler provides users with the ability to quickly and easily edit, create content and code within the Nexler framework, allowing for faster development times and enhanced user experience.
+
+Nexler have an in-built currency conversion tool that supports the currencies of 194 countries and updates daily, and password encryption based on Argon2 - one of the most secure encryption mechanisms available today. 
 
 ## Table of Contents
 

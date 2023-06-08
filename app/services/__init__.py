@@ -1,2 +1,2 @@
-from .ApiService import ApiService
+from .ApiService import ApiService, ExternalApi, InternalApi
 from .UserService import UserService

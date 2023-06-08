@@ -15,3 +15,5 @@ GitPython~=3.1.31
 PyJWT~=2.7.0
 argon2-cffi~=21.3.0
 inflect~=6.0.4
+requests~=2.31.0
+openai~=0.27.8

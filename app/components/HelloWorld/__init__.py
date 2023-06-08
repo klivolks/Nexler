@@ -6,6 +6,9 @@ from app.utils import response_util
 class HelloWorld(Resource):
     @staticmethod
     def get():
+        """
+        :return:
+        """
         try:
             logic = HelloWorldLogic()
             services = logic.get_all_services()

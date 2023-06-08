@@ -118,7 +118,8 @@ class {moduleName}:
             }}
             # Remove None values from data
             data = {{k: v for k, v in data.items() if v is not None}}
-            result = self.{moduleName.lower()}.set({{'_id': ObjectId(self._id)}},data)
+            self.{moduleName.lower()}.set({{'_id': ObjectId(self._id)}}, data)
+        return self._id
 
     def get(self, query):
         return self.{moduleName.lower()}.get(query)
@@ -134,8 +135,7 @@ class {moduleName}:
 
     def count(self, query):
         return self.{moduleName.lower()}.count(query)
-    {property_setter}
-"""
+    {property_setter}"""
 
         # Create the model file and write the class definition to it
         file_util.write_file(model_file_path, class_definition)

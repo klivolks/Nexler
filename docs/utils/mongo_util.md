@@ -50,8 +50,11 @@ query.name = 'John'
 query.ne.phone = '1234567890'  # where 'phone' is not equal to '1234567890'
 
 # Set conditions with logical operators
-query.or_.ne.phone = '1234567890'  # where 'phone' is not equal to '1234567890' or
-query.and_.status = 1  # where 'status' is equal to 1
+query._id = '648150e77c16dd9884fc44c9'
+query1 = query.or_
+query1.ne.phone = '1234567890'  # where 'phone' is not equal to '1234567890' or
+query1.status = 1  # where 'status' is equal to 1
+query += query1
 
 # Build the query
 built_query = query.build()
@@ -64,6 +67,9 @@ This function takes a `Pipeline` object and returns the constructed pipeline.
 
 ### 2. process_cursor(cursor, start=None, limit=None, sort=None)
 This function processes a MongoDB cursor, with optional parameters for start, limit, and sort. It returns a dictionary with the count of documents and the documents themselves.
+
+### 3. process_value(value)
+This function processes a passed value to string if ObjectId and dd/mm/YYYY if date.
 
 **Usage:**
 

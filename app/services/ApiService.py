@@ -1,5 +1,7 @@
+import requests
+import json
 from daba.Mongo import collection
-from app.utils import request_util, dt_util, mongo_util
+from app.utils import request_util, dt_util, mongo_util, str_util, config_util
 
 
 class ApiService:
@@ -40,3 +42,74 @@ class ApiService:
             return False
 
         return True
+
+
+class ExternalApi:
+    def __init__(
+            self,
+            url,
+            data=None,
+            user_agent=None,
+            authorization=None,
+            accept=None,
+            content_type=None
+    ):
+        self.url = url
+        self.data = data
+        self.headers = {
+            "User-Agent": user_agent or "Mozilla/5.0",
+            "Authorization": authorization or "",
+            "Accept": accept or "application/json",
+            "Content-Type": content_type or ""
+        }
+        self.response = None
+
+    def fetch(self, method):
+        if self.headers['Content-Type'] == 'application/json':
+            data = json.dumps(self.data)
+        else:
+            data = self.data
+
+        if method.lower() == 'get':
+            self.response = requests.get(self.url, headers=self.headers)
+        elif method.lower() == 'post':
+            self.response = requests.post(self.url, headers=self.headers, data=data)
+        elif method.lower() == 'put':
+            self.response = requests.put(self.url, headers=self.headers, data=data)
+        elif method.lower() == 'delete':
+            self.response = requests.delete(self.url, headers=self.headers)
+        else:
+            raise ValueError(f"Invalid method: {method}")
+
+        return self.parse_response()
+
+    def parse_response(self):
+        if 200 <= self.response.status_code < 300:
+            content_type = self.response.headers['content-type']
+            if 'application/json' in content_type:
+                return str_util.parse(self.response.text)
+            else:
+                return self.response.text
+        else:
+            return f"Error: received status code {self.response.status_code}, Message: {self.response.text}"
+
+
+class InternalApi(ExternalApi):
+    def __init__(self, service='gateway', path=""):
+        self.token = None
+        self.headers = {
+            "User-Agent": "Nexler/1.1",
+            "Authorization": f"Bearer {self.token}",
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+        if service == 'gateway':
+            self.headers['X-API-Key'] = config_util.Config().get('GATEWAY_KEY')
+            self.headers['Referer'] = config_util.Config().get('SERVICE_NAME')
+            url = config_util.Config().get('GATEWAY_URL')
+        else:
+            api_config = config_util.Config(f'app/config/{service}.json')
+            self.headers['X-API-Key'] = api_config.get('API_KEY')
+            self.headers['Referer'] = api_config.get('SERVICE_NAME')
+            url = api_config.get('API_URL')
+        super().__init__(url + path)

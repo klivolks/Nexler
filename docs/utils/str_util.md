@@ -16,9 +16,11 @@ The `str_util.py` module, a part of the `app.utils` package, offers a set of uti
 
 - **capitalize(s)**: This function capitalizes the first letter of each word in the provided string.
 
-- **convert_to_snake_case(s)**: This function converts the provided string to snake_case.
+- **snake_case(s)**: This function converts the provided string to snake_case.
 
-- **convert_to_camel_case(s)**: This function converts the provided string to camelCase.
+- **camel_case(s)**: This function converts the provided string to camelCase myString if string passed is my_string.
+
+- **pascal_case(s)**: This function converts the provided string to PascalCase MyString if string passed is my_string.
 
 - **extract_numbers(s)**: This function extracts numbers from the provided string.
 

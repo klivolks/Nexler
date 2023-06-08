@@ -1,3 +1,6 @@
+import datetime
+
+from app.utils import dt_util
 from bson import ObjectId
 
 
@@ -49,7 +52,9 @@ class Query:
             return self
 
     def __setattr__(self, key, value):
-        if key.startswith("_"):
+        if key == "_id":
+            self._add_to_query(key, ObjectId(value))
+        elif key.startswith("_"):
             self.__dict__[key] = value
         else:
             self._add_to_query(key, value)
@@ -94,18 +99,31 @@ def process_cursor(cursor, start=None, limit=None, sort=None):
     return {"count": count, "data": data}
 
 
+def process_value(value):
+    if isinstance(value, ObjectId):
+        return str(value)
+    if isinstance(value, datetime.datetime):
+        return dt_util.human_date(value, "%d/%m/%Y")
+    else:
+        return value
+
+
 if __name__ == "__main__":
     q = Query()
-    q.email = "x"  # Simple query
+    q._id = "x"  # Simple query
     print(q.build())
 
     q = Query()
     q.email = "x"
-    q.or_.phone = "1234567890"  # Complex query
+    q1 = q.or_
+    q1.phone = "1234567890"  # Complex query
+    q += q1
     print(q.build())
 
     q = Query()
     q.email = "x"
-    q.or_.ne.phone = "1234567890"
-    q.and_.status = 1  # Complex query with multiple conditions
+    q1 = q.or_
+    q1.ne.phone = "1234567890"
+    q += q1
+    q.status = 1  # Complex query with multiple conditions
     print(q.build())

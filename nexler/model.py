@@ -5,7 +5,7 @@ from app.utils import file_util, str_util
 
 def create_model(args):
     try:
-        moduleName = str_util.camel_case(args.moduleName)
+        moduleName = str_util.pascal_case(args.moduleName)
         variables_json_file = args.moduleName + '.json'
 
         # Construct the path for the JSON file

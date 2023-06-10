@@ -62,7 +62,8 @@ def upgrade():
                 # If it exists in the downloaded package, move it to the correct location
                 if os.path.exists(f"Nexler-main/{item}"):
                     dir_part = os.path.dirname(item)
-                    check_and_create_dir(dir_part)  # create directories if they don't exist
+                    if bool(dir_part):
+                        check_and_create_dir(dir_part)  # create directories if they don't exist
 
                     shutil.move(f"Nexler-main/{item}", f"./{item}")  # move item to the correct directory
 

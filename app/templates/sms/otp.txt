@@ -1,0 +1,1 @@
+Your OTP for verification is {otp}. Expires in {expiry} minutes. Thank you for using apps developed by KLIVOLKS PRIVATE LIMITED.

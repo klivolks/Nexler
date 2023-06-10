@@ -72,7 +72,8 @@ def upgrade():
 
             # check and create required directories for further enhancement and services
             directories_needed = [
-                "app/templates/email"
+                "app/templates/email",
+                "app/templates/sms"
             ]
             for items in directories_needed:
                 check_and_create_dir(items)

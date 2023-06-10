@@ -38,9 +38,28 @@ class ChatGPT:
         """
         file_path = dir_util.safe_join(dir_util.app_path(), self.file)
         data = format(file_util.read_file(file_path))
-        new_file = file_path[:-3] + '_2.py'
+        new_file = file_path[:-3] + '_2.' + file_path[-2:]
         response = openai.Edit.create(
             model="code-davinci-edit-001",
+            input=data,
+            instruction=self.instruction,
+            temperature=self.temperature,
+            top_p=self.top_p
+        )
+        result = response['choices'][0]
+        new_data = result['text']
+        file_util.write_file(new_file, new_data)
+        return response['usage']['total_tokens']
+
+    def edit(self):
+        """
+        :return:
+        """
+        file_path = dir_util.safe_join(dir_util.app_path(), self.file)
+        data = format(file_util.read_file(file_path))
+        new_file = file_path[:-3] + '_2.' + file_path[-2:]
+        response = openai.Edit.create(
+            model="text-davinci-edit-001",
             input=data,
             instruction=self.instruction,
             temperature=self.temperature,
@@ -74,7 +93,7 @@ class ChatGPT:
 
 if __name__ == "__main__":
     gpt = ChatGPT()
-    gpt.file = 'README.md'
-    gpt.instruction = "write one or two sentence on ChatGPT was integrated into nexler to edit, create and code in nexler framework"
-    response = gpt.create()
+    gpt.file = 'app/services/EmailService/AWSSES.py'
+    gpt.instruction = "create a function for adding contact list and adding new contact to that contact list"
+    response = gpt.code()
     print(response)

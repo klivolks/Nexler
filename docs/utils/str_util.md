@@ -24,6 +24,8 @@ The `str_util.py` module, a part of the `app.utils` package, offers a set of uti
 
 - **extract_numbers(s)**: This function extracts numbers from the provided string.
 
+- **generate_random_token(length)**: This function creates a random token of length asked.
+
 ## Usage
 
 To utilize these functions, import the required ones from the `app.utils.str_util` module and use them in your code as needed.

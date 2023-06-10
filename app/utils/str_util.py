@@ -5,6 +5,7 @@ import string
 import binascii
 from xml.etree import ElementTree as ET
 import yaml
+import random
 
 
 def str_encode(s, encoding="utf-8", strType="base64"):
@@ -64,3 +65,22 @@ def pascal_case(s):
 
 def extract_numbers(s):
     return ''.join(re.findall(r'\d+', s))
+
+
+def generate_random_token(length):
+    """
+    Generate a unique token with a specific length.
+
+    :param length: The length of the generated token.
+    :return: The generated token.
+    """
+    # Define the characters that will be used to generate the token
+    # In this case, all the uppercase letters, lowercase letters and digits will be used
+    characters = string.ascii_letters + string.digits
+
+    # Use the random.choices function to select 'length' number of characters from the 'characters' string
+    # The ''.join function is used to join these characters into a single string
+    token = ''.join(random.choices(characters, k=length))
+
+    return token
+

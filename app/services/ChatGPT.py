@@ -93,7 +93,7 @@ class ChatGPT:
 
 if __name__ == "__main__":
     gpt = ChatGPT()
-    gpt.file = 'app/services/EmailService/AWSSES.py'
-    gpt.instruction = "create a function for adding contact list and adding new contact to that contact list"
+    gpt.file = 'app/services/PhoneOTP/TextLocal.py'
+    gpt.instruction = "edit send_otp function to send otp replacing {otp} with self.otp using textlocal api"
     response = gpt.code()
     print(response)

@@ -62,16 +62,3 @@ class AWSEmailService:
                 'LastName': contact_last_name
             }) if contact_first_name or contact_last_name else None
         )
-
-
-if __name__ == "__main__":
-    service = AWSEmailService()
-    service.sender_email = "no-reply@klivolks.com"
-    service.receiver_email = "vishnu@klivolks.com"
-    service.subject = "test subject"
-    service.body = "test body"
-    service.send_email(otp='123456', name='vishnu')
-
-    # Create a new contact list and add a contact to it
-    service.create_contact_list('TestContactList')
-    service.add_contact_to_list('TestContactList', 'newcontact@example.com', 'FirstName', 'LastName')

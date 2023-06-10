@@ -16,6 +16,8 @@ ChatGPT provides several methods:
 
 - `code`: This method reads code from a file, sends it to OpenAI's "code-davinci-edit-001" engine for editing, and saves the edited code in a new file. The editing is guided by the `instruction` provided.
 
+- `edit`: This method reads text from a file, sends it to OpenAI's "text-davinci-edit-001" engine for editing, and saves the edited data in a new file. The editing is guided by the `instruction` provided.
+
 - `insert`: This method reads code from a file, inserts generated code into a specified location (marked by '[insert]'), and saves the new code in a new file. The code to be inserted is generated using OpenAI's "text-davinci-003" engine.
 
 Each of these methods takes an `instruction` argument that guides the text or code generation. The `instruction` should be set before calling the method.

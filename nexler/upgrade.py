@@ -7,6 +7,17 @@ from git import Repo
 import traceback
 
 
+def check_and_create_dir(path):
+    """
+    Check if the given path exists and if not create it.
+    :param path: The path to check and create.
+    :return: None
+    """
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+
+
 def upgrade():
     try:
         # Step 1: Check the current version
@@ -51,13 +62,19 @@ def upgrade():
                 # If it exists in the downloaded package, move it to the correct location
                 if os.path.exists(f"Nexler-main/{item}"):
                     dir_part = os.path.dirname(item)
-                    if dir_part:  # ensure the path contains a directory part
-                        os.makedirs(dir_part, exist_ok=True)  # create directories if they don't exist
+                    check_and_create_dir(dir_part)  # create directories if they don't exist
 
                     shutil.move(f"Nexler-main/{item}", f"./{item}")  # move item to the correct directory
 
                 else:
                     print(f"{item} does not exist in the downloaded package.")
+
+            # check and create required directories for further enhancement and services
+            directories_needed = [
+                "app/templates/email"
+            ]
+            for items in directories_needed:
+                check_and_create_dir(items)
 
             # Remove the downloaded zip file and the extracted folder
             os.remove("Nexler-main.zip")

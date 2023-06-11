@@ -1,5 +1,5 @@
 import argparse
-from nexler import component, logic, upgrade, migrate, model, serve
+from nexler import component, logic, upgrade, migrate, model, serve, chatgpt
 from nexler import __version__ as nexler_version
 
 
@@ -10,7 +10,8 @@ def main():
 
     # create sub-command
     create_parser = subparsers.add_parser('create', help='Create a new component or logic module')
-    create_parser.add_argument('module', help='Name of the module (component/logic/model)', choices=['component', 'logic', 'model'])
+    create_parser.add_argument('module', help='Name of the module (component/logic/model)',
+                               choices=['component', 'logic', 'model'])
     create_parser.add_argument('moduleName', help='Module Class Name or Component Class Name')
     create_parser.add_argument('--url', default=None, help='URL for the component')
     create_parser.add_argument('--variables', default=None, help='Variables for the module')
@@ -18,8 +19,18 @@ def main():
     create_parser.add_argument('--protected', action='store_true', help='Create a protected component')
     create_parser.add_argument('--methods', default=None, help='Methods for the module')
     create_parser.add_argument('--main', default=None, help='Name of the main logic directory.')
-    create_parser.add_argument('--independent', action='store_true', help='generate independent logic that can be imported to any component')
+    create_parser.add_argument('--independent', action='store_true',
+                               help='generate independent logic that can be imported to any component')
     create_parser.add_argument('--logic', default=None, help='Logic Class Name (for model only)')
+
+    # AI sub-command
+    ai_parser = subparsers.add_parser('ai', help='Use AI in cli')
+    ai_parser.add_argument('function', help='What to do? code/edit/create/insert (Insert should have [insert] placeholder',
+                           choices=['code', 'edit', 'create', 'insert'])
+    ai_parser.add_argument('--instruction', help='Instruction')
+    ai_parser.add_argument('--file', default=None, help='Which file to use?')
+    ai_parser.add_argument('--start', default=None, help='Start line number')
+    ai_parser.add_argument('--end', default=None, help='End line number')
 
     # upgrade sub-command
     upgrade_parser = subparsers.add_parser('upgrade', help='Upgrade Nexler to the latest version')
@@ -47,6 +58,8 @@ def main():
             create_parser.error(f"The module '{args.module}' is not recognized. Use 'component' or 'logic'.")
     elif args.command == 'upgrade':
         upgrade.upgrade()  # call the upgrade function from the upgrade module
+    elif args.command == 'ai':
+        chatgpt.ai(args)
     elif args.command == 'serve':
         serve.serve()
     elif args.command == 'migrate':

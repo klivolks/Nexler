@@ -1,5 +1,5 @@
 import datetime
-
+import re
 from app.utils import dt_util
 from bson import ObjectId
 
@@ -38,6 +38,7 @@ class Query:
         self._current_field = None
         self._current_logical_operator = None
         self._current_comparison_operator = None
+        self._search_flag = False
 
     def __getattr__(self, item):
         if item in ["ne", "gt", "lt", "eq"]:
@@ -47,6 +48,9 @@ class Query:
             self._current_logical_operator = f"${item[:-1]}"
             self._query[self._current_logical_operator] = self._query.get(self._current_logical_operator, [])
             return Query()  # Return new Query object for nested conditions
+        elif item == "search":
+            self._search_flag = True
+            return self
         else:
             self._current_field = item
             return self
@@ -66,7 +70,10 @@ class Query:
         return self
 
     def _add_to_query(self, key, value):
-        if self._current_comparison_operator:
+        if self._search_flag:
+            self._query[key] = {"$regex": re.compile(value, re.IGNORECASE)}
+            self._search_flag = False
+        elif self._current_comparison_operator:
             comparison = {self._current_comparison_operator: value}
             self._query[key] = comparison
             self._reset_operators()

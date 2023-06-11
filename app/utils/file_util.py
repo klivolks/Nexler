@@ -75,3 +75,7 @@ def convert_video(path, target_resolution):
     clip = VideoFileClip(path)
     clip_resized = resize.resize(clip, height=target_resolution)
     return clip_resized.write_videofile(path, codec='libx264')
+
+
+def read_file_lines(file_path):
+    return read_file(file_path).splitlines()

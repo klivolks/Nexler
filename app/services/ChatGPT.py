@@ -32,13 +32,28 @@ class ChatGPT:
 
         return result['text']  # the generated text
 
-    def code(self):
+    def code(self, start_line=None, end_line=None):
         """
-        :return:
+        This method reads a portion or the full file based on the start and end lines provided.
+        If these lines are not provided, it reads the entire file.
         """
         file_path = dir_util.safe_join(dir_util.app_path(), self.file)
-        data = format(file_util.read_file(file_path))
+
+        # If start_line and/or end_line is/are provided, read the specified portion of the file.
+        # Otherwise, read the entire file.
+        lines = file_util.read_file_lines(file_path)
+
+        if start_line is not None and end_line is not None:
+            data = format('\n'.join(lines[start_line - 1:end_line]))  # Line numbers start from 1, so we subtract 1.
+        elif start_line is not None:
+            data = format('\n'.join(lines[start_line - 1:]))
+        elif end_line is not None:
+            data = format('\n'.join(lines[:end_line]))
+        else:
+            data = format(file_util.read_file(file_path))
+
         new_file = file_path[:-3] + '_2.' + file_path[-2:]
+
         response = openai.Edit.create(
             model="code-davinci-edit-001",
             input=data,
@@ -46,9 +61,11 @@ class ChatGPT:
             temperature=self.temperature,
             top_p=self.top_p
         )
+
         result = response['choices'][0]
         new_data = result['text']
         file_util.write_file(new_file, new_data)
+
         return response['usage']['total_tokens']
 
     def edit(self):
@@ -93,7 +110,7 @@ class ChatGPT:
 
 if __name__ == "__main__":
     gpt = ChatGPT()
-    gpt.file = 'app/services/PhoneOTP/TextLocal.py'
-    gpt.instruction = "edit send_otp function to send otp replacing {otp} with self.otp using textlocal api"
+    gpt.file = 'app/utils/file_util.py'
+    gpt.instruction = "complete read_file_lines() method"
     response = gpt.code()
     print(response)

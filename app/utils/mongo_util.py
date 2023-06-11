@@ -71,7 +71,7 @@ class Query:
 
     def _add_to_query(self, key, value):
         if self._search_flag:
-            self._query[key] = {"$regex": re.compile(value, re.IGNORECASE)}
+            self._query[key] = {"$regex": value}
             self._search_flag = False
         elif self._current_comparison_operator:
             comparison = {self._current_comparison_operator: value}

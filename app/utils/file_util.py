@@ -1,3 +1,4 @@
+import csv
 import os
 from PIL import Image
 from moviepy.video.io.VideoFileClip import VideoFileClip
@@ -79,3 +80,10 @@ def convert_video(path, target_resolution):
 
 def read_file_lines(file_path):
     return read_file(file_path).splitlines()
+
+
+def process_csv_data(file_data):
+    rows = []
+    for row in csv.DictReader(file_data.splitlines()):
+        rows.append(row)
+    return rows

@@ -1,6 +1,6 @@
 # `file_util.py` User Documentation
 
-The `file_util.py` module offers a variety of utility functions to handle file I/O operations, as well as perform image and video file processing. This module is part of the `app.utils` package.
+The `file_util.py` module offers a variety of utility functions to handle file I/O operations, perform image and video file processing, and process CSV data. This module is part of the `app.utils` package.
 
 ## Functions
 
@@ -29,6 +29,10 @@ These functions provide tools for image and video processing.
 - **`generate_thumbnail(path, sizes=None)`**: This function generates thumbnails of the given sizes for the image at the specified path.
 
 - **`convert_video(path, target_resolution)`**: This function converts the video at the given path to a target resolution.
+
+### CSV Data Processing Function
+
+- **`process_csv_data(file_data)`**: This function processes the input CSV data, converting each row into a dictionary. It returns a list of these dictionaries. The input `file_data` should be a string representation of the CSV data with each row separated by newline characters and columns separated by commas.
 
 In all of the above functions, `path` is the location of the file to be processed. Additional parameters vary depending on the function.
 

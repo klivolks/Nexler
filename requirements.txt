@@ -19,3 +19,4 @@ requests~=2.31.0
 openai~=0.27.8
 boto3~=1.26.151
 Faker~=18.10.1
+forex-python~=1.8

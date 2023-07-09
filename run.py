@@ -1,20 +1,18 @@
 import os
+from environment import config_name
+
 import logging.config
 from flask import Flask, g
 from flask_restful import Api
 from flask_cors import CORS
-from dotenv import load_dotenv
 
 from app.routes import initialize_routes
 from app.utils import error_util, config_util
 from app.services import ApiService, UserService
 
-load_dotenv()
-
 
 def create_app():
     # Load the correct configuration
-    config_name = os.getenv('FLASK_ENV') or 'default'
     app = Flask(__name__)
     config_module = f"config.{config_name.capitalize()}Config"
     app.config.from_object(config_module)

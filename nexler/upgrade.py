@@ -17,7 +17,6 @@ def check_and_create_dir(path):
         os.makedirs(path)
 
 
-
 def upgrade():
     try:
         # Step 1: Check the current version
@@ -49,7 +48,8 @@ def upgrade():
             # Update the necessary files and folders
             folders_files_to_update = ["run.py", "setup.py", "nexler", "app/services",
                                        "app/utils", "tests/app/utils",
-                                       "tests/app/services", "requirements.txt", "migrations", ".env-example"]
+                                       "tests/app/services", "requirements.txt", "migrations", ".env-example",
+                                       "environment.py"]
 
             for item in folders_files_to_update:
                 # If it is a file or directory and exists in the current location, remove it

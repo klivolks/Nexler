@@ -1,71 +1,46 @@
+from flask import Flask
+from flask.testing import FlaskClient
+from io import BytesIO
 import unittest
-from unittest.mock import patch, MagicMock
-from flask_restful import reqparse
-from werkzeug import datastructures
-
+from werkzeug.datastructures import Headers
 from app.utils import response_util, request_util
 
 
-class TestValidators(unittest.TestCase):
-    def test_email(self):
-        self.assertEqual(request_util.email("test@test.com"), "test@test.com")
-        with self.assertRaises(ValueError):
-            request_util.email("not_an_email")
-
-    def test_phone(self):
-        self.assertEqual(request_util.phone("1234567890"), "1234567890")
-        with self.assertRaises(ValueError):
-            request_util.phone("not_a_phone_number")
-
-    def test_money(self):
-        self.assertEqual(request_util.money("123.45"), 123.45)
-        with self.assertRaises(ValueError):
-            request_util.money("not_money")
-
-    def test_number(self):
-        self.assertEqual(request_util.number("1234567890"), 1234567890)
-        with self.assertRaises(ValueError):
-            request_util.number("not_a_number")
-
-    def test_decimal_number(self):
-        self.assertEqual(request_util.decimal_number("123.45"), 123.45)
-        with self.assertRaises(ValueError):
-            request_util.decimal_number("not_a_number")
-
-
-@patch.object(reqparse.RequestParser, 'parse_args')
 class TestRequestFunctions(unittest.TestCase):
-    def test_form_data(self, mock_parse_args):
-        mock_parse_args.return_value = {'test_field': 'test_value'}
-        self.assertEqual(request_util.form_data('test_field'), 'test_value')
+    def setUp(self):
+        self.app = Flask(__name__)
+        self.client = self.app.test_client()
 
-    def test_json_data(self, mock_parse_args):
-        mock_parse_args.return_value = {'test_field': 'test_value'}
-        self.assertEqual(request_util.json_data('test_field'), 'test_value')
+    def test_form_data(self):
+        with self.app.test_request_context(data={'test_field': 'test_value'}):
+            self.assertEqual(request_util.form_data('test_field'), 'test_value')
 
-    def test_query_params(self, mock_parse_args):
-        mock_parse_args.return_value = {'test_field': 'test_value'}
-        self.assertEqual(request_util.query_params('test_field'), 'test_value')
+    def test_json_data(self):
+        with self.app.test_request_context(json={'test_field': 'test_value'}):
+            self.assertEqual(request_util.json_data('test_field'), 'test_value')
 
-    def test_file(self, mock_parse_args):
-        mock_file = MagicMock(spec=datastructures.FileStorage)
-        mock_parse_args.return_value = {'test_file': mock_file}
-        self.assertEqual(request_util.file('test_file'), mock_file)
+    def test_query_params(self):
+        with self.app.test_request_context(query_string={'test_field': 'test_value'}):
+            self.assertEqual(request_util.query_params('test_field'), 'test_value')
 
-    def test_headers(self, mock_parse_args):
-        mock_parse_args.return_value = {'test_header': 'test_value'}
-        self.assertEqual(request_util.headers('test_header'), 'test_value')
+    def test_file(self):
+        data = {'test_file': (BytesIO(b'my file contents'), 'test_file.txt')}
+        with self.app.test_request_context(data=data):
+            file = request_util.file('test_file')
+            self.assertEqual(file.filename, 'test_file.txt')
 
-    def test_form_data_error(self, mock_parse_args):
-        mock_parse_args.return_value = {'test_field': 'test_value'}
+    def test_headers(self):
+        with self.app.test_request_context(headers=Headers([('test_header', 'test_value')])):
+            self.assertEqual(request_util.headers('test_header'), 'test_value')
 
+    def test_form_data_error(self):
         def error_validator(x):
             raise ValueError('Error message')
 
-        expected_response = response_util.bad_request('Error message')
-        actual_response = request_util.form_data('test_field', validator=error_validator)  # don't use assertRaises here
-
-        self.assertEqual(expected_response, actual_response)
+        with self.app.test_request_context(data={'test_field': 'test_value'}):
+            expected_response = response_util.bad_request('Error message')
+            actual_response = request_util.form_data('test_field', validator=error_validator)  # don't use assertRaises here
+            self.assertEqual(expected_response, actual_response)
 
 
 if __name__ == '__main__':

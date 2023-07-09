@@ -6,6 +6,7 @@ import nexler  # import nexler to check its version
 import requests
 import json
 import traceback
+import time
 
 
 def check_and_create_dir(path):
@@ -22,9 +23,10 @@ def upgrade():
     try:
         # Step 1: Check the current version
         current_version = nexler.__version__
+        t = time.time()
 
         # Step 2: Compare with the version from GitHub
-        url = "https://raw.githubusercontent.com/klivolks/Nexler/main/nexler/__init__.py"
+        url = f"https://raw.githubusercontent.com/klivolks/Nexler/main/nexler/__init__.py?v={t}"
         response = requests.get(url)
         lines = response.text.split('\n')
         for line in lines:
@@ -45,7 +47,7 @@ def upgrade():
                 zip_ref.extractall("./")
 
             # Fetch the list of files to upgrade from a remote source
-            REMOTE_FILE_URL = "https://github.com/klivolks/Nexler/raw/main/nexler/upgrade_list.json"  # replace with your actual URL
+            REMOTE_FILE_URL = f"https://github.com/klivolks/Nexler/raw/main/nexler/upgrade_list.json?v={t}"  # replace with your actual URL
             response = requests.get(REMOTE_FILE_URL)
             FILES_TO_UPGRADE = json.loads(response.text)
 

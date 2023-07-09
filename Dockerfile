@@ -1,6 +1,12 @@
 # Build Stage
 FROM python:3.11-alpine as build
 
+# Install build dependencies
+RUN apk add --update --no-cache --virtual .tmp-build-deps \
+    gcc libc-dev linux-headers
+
+RUN apk add --no-cache g++ && apk add libffi-dev
+
 # Upgrade pip
 RUN pip install --upgrade pip
 
@@ -18,10 +24,6 @@ RUN pip install .
 FROM python:3.11-alpine
 
 # Install build dependencies
-RUN apk add --update --no-cache --virtual .tmp-build-deps \
-    gcc libc-dev linux-headers
-
-RUN apk add --no-cache g++ && apk add libffi-dev
 RUN apk add --no-cache ffmpeg
 
 # Install nginx and supervisord

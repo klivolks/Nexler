@@ -3,7 +3,8 @@ import shutil
 import urllib.request
 import zipfile
 import nexler  # import nexler to check its version
-from git import Repo
+import requests
+import json
 import traceback
 
 
@@ -23,15 +24,13 @@ def upgrade():
         current_version = nexler.__version__
 
         # Step 2: Compare with the version from GitHub
-        repo = Repo.clone_from("https://github.com/klivolks/Nexler.git", "temp_repo")
-        temp_nexler_init_file = open("temp_repo/nexler/__init__.py", "r")
-        lines = temp_nexler_init_file.readlines()
+        url = "https://raw.githubusercontent.com/klivolks/Nexler/main/nexler/__init__.py"
+        response = requests.get(url)
+        lines = response.text.split('\n')
         for line in lines:
             if "__version__" in line:
                 github_version = line.split("=")[-1].strip().strip("\"'")
-
-        # Clean up the temp repo
-        shutil.rmtree("temp_repo")
+                break
 
         # Check if the versions are different
         if github_version != current_version:
@@ -45,13 +44,12 @@ def upgrade():
             with zipfile.ZipFile("Nexler-main.zip", "r") as zip_ref:
                 zip_ref.extractall("./")
 
-            # Update the necessary files and folders
-            folders_files_to_update = ["run.py", "setup.py", "nexler", "app/services",
-                                       "app/utils", "tests/app/utils",
-                                       "tests/app/services", "requirements.txt", "migrations", ".env-example",
-                                       "environment.py"]
+            # Fetch the list of files to upgrade from a remote source
+            REMOTE_FILE_URL = "https://github.com/klivolks/Nexler/raw/main/nexler/upgrade_list.json"  # replace with your actual URL
+            response = requests.get(REMOTE_FILE_URL)
+            FILES_TO_UPGRADE = json.loads(response.text)
 
-            for item in folders_files_to_update:
+            for item in FILES_TO_UPGRADE:
                 # If it is a file or directory and exists in the current location, remove it
                 if os.path.exists(item):
                     if os.path.isfile(item):

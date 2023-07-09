@@ -1,2 +1,2 @@
-__version__ = "1.1.21"
+__version__ = "1.1.22"
 __name__ = "nexler"

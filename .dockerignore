@@ -1,3 +1,5 @@
+.env
+.env-example
 venv/
 *.egg-info/
 build/

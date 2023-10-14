@@ -39,9 +39,11 @@ class TestMongoUtil(unittest.TestCase):
         self.assertEqual(query.build(), {"name": 'John'})
 
         query = Query()
-        query.search = ('name', 'Jo')
+        q1 = query.search
+        q1.name = 'Jo'
+        query += q1
         self.assertTrue('name' in query.build())
-        self.assertTrue(query.build()['name'].pattern, 'Jo')
+        self.assertTrue(query.build()['name'], {'$regex': 'Jo'})
 
     def test_new_pipeline(self):
         pipe = Pipeline()

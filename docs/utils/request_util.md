@@ -24,19 +24,19 @@ Validation functions are used to validate and sanitize user input.
 
 These functions extract data from different parts of the request and optionally validate them using provided validator functions.
 
-- **form_data(field_name, field_type=str, validator=None)**: This function extracts the field named `field_name` from the form data of the request, optionally validating it using `validator` if provided.
+- **form_data(field_name, field_type=str, validator=None, is_required_field=True)**: This function extracts the field named `field_name` from the form data of the request, optionally validating it using `validator` if provided.
 
-- **json_data(field_name, field_type=str, validator=None)**: This function extracts the field named `field_name` from the JSON body of the request, optionally validating it using `validator` if provided.
+- **json_data(field_name, field_type=str, validator=None, is_required_field=True)**: This function extracts the field named `field_name` from the JSON body of the request, optionally validating it using `validator` if provided.
 
-- **query_params(field_name, field_type=str, validator=None)**: This function extracts the field named `field_name` from the query parameters of the request, optionally validating it using `validator` if provided.
+- **query_params(field_name, field_type=str, validator=None, is_required_field=True)**: This function extracts the field named `field_name` from the query parameters of the request, optionally validating it using `validator` if provided.
 
-- **file(file_name)**: This function extracts the file named `file_name` from the files in the request.
+- **file(file_name, is_required_field=True)**: This function extracts the file named `file_name` from the files in the request.
 
 - **headers(field_name, field_type=str, validator=None)**: This function extracts the field named `field_name` from the headers of the request, optionally validating it using `validator` if provided.
 
-In all of the above functions, `field_name` is the name of the field to be extracted from the respective part of the request. `field_type` is an optional type parameter to indicate the expected type of the field. `validator` is an optional function that takes the extracted value as input and performs some validation on it.
+In all of the above functions, `field_name` is the name of the field to be extracted from the respective part of the request. `field_type` is an optional type parameter to indicate the expected type of the field. `validator` is an optional function that takes the extracted value as input and performs some validation on it. `is_required_field` is a bool that check whether the field is required and if so raises an error if not present.
 
-If the validation fails in any of the above functions, they return a "bad request" response using the `response_util.bad_request` function, with an error message detailing the cause of the failure.
+If the validation fails in any of the above functions, they raise a "bad request" exception with an error message detailing the cause of the failure.
 
 ## Usage
 

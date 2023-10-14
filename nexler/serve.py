@@ -19,5 +19,6 @@ spec.loader.exec_module(config_module)
 
 from run import run
 
+
 def serve():
     run()

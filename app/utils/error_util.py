@@ -25,18 +25,16 @@ def handle_http_exception(e):
         return response_util.error(f"Internal server error: {e}", 500)
 
 
-
-
 def handle_bad_request(e):
     return response_util.bad_request(f"{str(e)}")
 
 
-def handle_unauthorized(e):\
-    return response_util.unauthorized(f"{str(e)}")
+def handle_unauthorized(e): \
+        return response_util.unauthorized(f"{str(e)}")
 
 
-def handle_forbidden(e):\
-    return response_util.forbidden(f"{str(e)}")
+def handle_forbidden(e): \
+        return response_util.forbidden(f"{str(e)}")
 
 
 def handle_not_found(e):

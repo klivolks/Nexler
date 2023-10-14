@@ -112,7 +112,7 @@ def search_file(path: str, filename: str):
     raise NotFound(response_util.error("File not found in directory."))
 
 
-def list_files_by_type(path: str, file_type: str) -> list[Any] | list[bytes]:
+def list_files_by_type(path: str, file_type: str):  # -> list[Any] | list[bytes] return annotation excluded to support python < 3.10
     absolute_path = safe_join(app_directory, path)
     if not os.path.exists(absolute_path):
         raise NotFound(response_util.error("Directory does not exist."))

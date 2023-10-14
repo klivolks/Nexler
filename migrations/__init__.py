@@ -1,6 +1,7 @@
 from app.utils import dir_util, file_util, str_util
 from daba.Mongo import collection
 
+
 class Migrate:
     def __init__(self):
         self.tables = dir_util.list_files_by_type('migrations/', 'json')

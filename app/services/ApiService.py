@@ -1,3 +1,4 @@
+import httpx
 import requests
 import json
 from daba.Mongo import collection
@@ -57,29 +58,30 @@ class ExternalApi:
         self.url = url
         self.data = data
         self.headers = {
-            "User-Agent": user_agent or "Mozilla/5.0",
+            "User-Agent": user_agent or "Nexler/1.1",
             "Authorization": authorization or "",
             "Accept": accept or "application/json",
             "Content-Type": content_type or ""
         }
         self.response = None
 
-    def fetch(self, method):
+    async def fetch(self, method):
         if self.headers['Content-Type'] == 'application/json':
             data = json.dumps(self.data)
         else:
             data = self.data
 
-        if method.lower() == 'get':
-            self.response = requests.get(self.url, headers=self.headers)
-        elif method.lower() == 'post':
-            self.response = requests.post(self.url, headers=self.headers, data=data)
-        elif method.lower() == 'put':
-            self.response = requests.put(self.url, headers=self.headers, data=data)
-        elif method.lower() == 'delete':
-            self.response = requests.delete(self.url, headers=self.headers)
-        else:
-            raise ValueError(f"Invalid method: {method}")
+        async with httpx.AsyncClient() as client:
+            if method.lower() == 'get':
+                self.response = await client.get(self.url, headers=self.headers)
+            elif method.lower() == 'post':
+                self.response = await client.post(self.url, headers=self.headers, data=data)
+            elif method.lower() == 'put':
+                self.response = await client.put(self.url, headers=self.headers, data=data)
+            elif method.lower() == 'delete':
+                self.response = await client.delete(self.url, headers=self.headers)
+            else:
+                raise ValueError(f"Invalid method: {method}")
 
         return self.parse_response()
 
@@ -96,6 +98,13 @@ class ExternalApi:
 
 class InternalApi(ExternalApi):
     def __init__(self, service='gateway', path=""):
+
+        api_config = config_util.Config(f'app/config/{service}.json')
+        if service == 'gateway':
+            url = config_util.Config().get('GATEWAY_URL')
+        else:
+            url = api_config.get('API_URL')
+        super().__init__(url + path)
         self.token = None
         self.headers = {
             "User-Agent": "Nexler/1.1",
@@ -106,10 +115,11 @@ class InternalApi(ExternalApi):
         if service == 'gateway':
             self.headers['X-API-Key'] = config_util.Config().get('GATEWAY_KEY')
             self.headers['Referer'] = config_util.Config().get('SERVICE_NAME')
-            url = config_util.Config().get('GATEWAY_URL')
         else:
-            api_config = config_util.Config(f'app/config/{service}.json')
             self.headers['X-API-Key'] = api_config.get('API_KEY')
             self.headers['Referer'] = api_config.get('SERVICE_NAME')
-            url = api_config.get('API_URL')
-        super().__init__(url + path)
+
+
+if __name__ == "__main__":
+    api = InternalApi()
+    print(api.headers)

@@ -5,7 +5,7 @@ The `mongo_util.py` module simplifies MongoDB operations in Python. It provides 
 ## Classes
 
 ### 1. Pipeline
-The `Pipeline` class assists in the creation of MongoDB aggregation pipelines. It supports multiple aggregation stages like `match`, `unwind`, `lookup`, and `sort`.
+The `Pipeline` class assists in the creation of MongoDB aggregation pipelines. It supports multiple aggregation stages like `match`, `unwind`, `lookup`, `sort`, `limit`, and `project`.
 
 **Usage:**
 

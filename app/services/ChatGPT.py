@@ -106,11 +106,3 @@ class ChatGPT:
         new_data = inputs[0] + result['text'] + inputs[1]
         file_util.write_file(new_file, new_data)
         return response['usage']['total_tokens']
-
-
-if __name__ == "__main__":
-    gpt = ChatGPT()
-    gpt.file = 'app/utils/file_util.py'
-    gpt.instruction = "complete read_file_lines() method"
-    response = gpt.code()
-    print(response)

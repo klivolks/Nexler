@@ -1,9 +1,9 @@
 from flask import Flask
-from flask.testing import FlaskClient
+from werkzeug import exceptions
 from io import BytesIO
 import unittest
 from werkzeug.datastructures import Headers
-from app.utils import response_util, request_util
+from app.utils import request_util
 
 
 class TestRequestFunctions(unittest.TestCase):
@@ -38,9 +38,10 @@ class TestRequestFunctions(unittest.TestCase):
             raise ValueError('Error message')
 
         with self.app.test_request_context(data={'test_field': 'test_value'}):
-            expected_response = response_util.bad_request('Error message')
-            actual_response = request_util.form_data('test_field', validator=error_validator)  # don't use assertRaises here
-            self.assertEqual(expected_response, actual_response)
+            with self.assertRaises(exceptions.BadRequest) as context:
+                request_util.form_data('test_field', validator=error_validator)
+
+            self.assertEqual(str(context.exception), '400 Bad Request: Error message')
 
 
 if __name__ == '__main__':

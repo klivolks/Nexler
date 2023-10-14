@@ -1,5 +1,4 @@
 import datetime
-import re
 from app.utils import dt_util
 from bson import ObjectId
 
@@ -24,6 +23,10 @@ class Pipeline:
             self._pipeline.append(
                 {f"${self._stage}": {"from": field, "localField": value[0], "foreignField": value[1], "as": value[2]}})
         elif self._stage == "sort":
+            self._pipeline.append({f"${self._stage}": {field: value}})
+        elif self._stage == "limit":
+            self._pipeline.append({f"${self._stage}": value})
+        elif self._stage == "project":
             self._pipeline.append({f"${self._stage}": {field: value}})
         else:
             raise ValueError(f"Unsupported stage: {self._stage}")
@@ -116,21 +119,27 @@ def process_value(value):
 
 
 if __name__ == "__main__":
-    q = Query()
-    q._id = "x"  # Simple query
-    print(q.build())
+    # q = Query()
+    # q._id = "x"  # Simple query
+    # print(q.build())
+    #
+    # q = Query()
+    # q.email = "x"
+    # q1 = q.or_
+    # q1.phone = "1234567890"  # Complex query
+    # q += q1
+    # print(q.build())
+    #
+    # q = Query()
+    # q.email = "x"
+    # q1 = q.or_
+    # q1.ne.phone = "1234567890"
+    # q += q1
+    # q.status = 1  # Complex query with multiple conditions
+    # print(q.build())
 
     q = Query()
-    q.email = "x"
-    q1 = q.or_
-    q1.phone = "1234567890"  # Complex query
+    q1 = q.search
+    q1.name = 'Jo'
     q += q1
-    print(q.build())
-
-    q = Query()
-    q.email = "x"
-    q1 = q.or_
-    q1.ne.phone = "1234567890"
-    q += q1
-    q.status = 1  # Complex query with multiple conditions
     print(q.build())

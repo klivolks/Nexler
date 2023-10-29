@@ -19,7 +19,7 @@ Nexler automates the creation of new components via a simple command that takes 
 Use the command:
 
 ```shell
-nexler create component <ComponentName> [--url="/component_url"] [--variables=var1,var2,...]
+nexler create component <ComponentName> [--url="/component_url"] [--variables=var1,var2,...] [--main="FolderName"]
 ```
 
 Example usage:
@@ -51,7 +51,11 @@ The `create component` command offers further customization:
     ```shell
     nexler create component MyComponent --url "/myurlcomponent" --methods=get
     ```
+- Creating Subcomponent for a main component
 
+    ```shell
+  nexler create component MyComponent --url "/myurlcomponent" --main=MainComponent
+  ```
 ## Creating Logic
 
 Logic modules are associated with components to encapsulate application's business rules. Nexler simplifies the creation of new logic modules.

@@ -1,12 +1,16 @@
-from app.utils import dir_util, file_util, response_util
+from app.utils import dir_util, file_util
 import traceback
 import os
 
 
 def create_component(args):
     try:
-        directory_path = f"app/components/{args.moduleName}"
-        file_path = os.path.join(directory_path, '__init__.py')
+        if args.main:
+            directory_path = f"app/components/{args.main}"
+            file_path = os.path.join(directory_path, f'{args.moduleName}.py')
+        else:
+            directory_path = f"app/components/{args.moduleName}"
+            file_path = os.path.join(directory_path, '__init__.py')
         component_exists = False
 
         variables = args.variables.split(',') if args.variables else None
@@ -18,7 +22,8 @@ def create_component(args):
             print(f"Component '{args.moduleName}' already exists, skipping creation.")
             component_exists = True
         else:
-            dir_util.create_directory(directory_path)
+            if not args.main:
+                dir_util.create_directory(directory_path)
             if isinstance(args.methods, str):
                 methods = args.methods.split(',')
             else:
@@ -73,7 +78,10 @@ class {args.moduleName}(Resource):
 
         # Add import line to the components init file
         components_init_path = 'app/components/__init__.py'
-        import_line = f"from .{args.moduleName} import {args.moduleName}\n"
+        if args.main:
+            import_line = f"from .{args.main}.{args.moduleName} import {args.moduleName}\n"
+        else:
+            import_line = f"from .{args.moduleName} import {args.moduleName}\n"
 
         with open(components_init_path, 'r') as f:
             if import_line not in f.read():

@@ -77,7 +77,7 @@ Nexler provides CLI commands for various operations like creating components, lo
 Here is an example of creating a component and logic:
 
 ```shell
-nexler create component MyComponent --url "/mycomponent" --variables=id,name
+nexler create component MyComponent --url "/mycomponent" --variables=id,name(optional) --main=MyComponentFolder(optional)
 nexler create logic MyLogic --component=MyComponent
 ```
 

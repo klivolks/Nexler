@@ -1,8 +1,7 @@
 import httpx
-import requests
 import json
 from daba.Mongo import collection
-from app.utils import request_util, dt_util, mongo_util, str_util, config_util
+from nexler.utils import request_util, dt_util, mongo_util, str_util, config_util
 
 
 class ApiService:

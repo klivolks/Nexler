@@ -64,9 +64,7 @@ Nexler uses a clean and organized structure. The `app/` directory is the main so
 - `logic/`: Houses the logic modules associated with components.
 - `routes/`: Contains route definitions for the application.
 - `models/`: Contains all the data models used in the application.
-- `services/`: Houses services like UserService, CurrencyService etc.
-- `utils/`: Contains various utilities to keep the code DRY.
-- `docs/`: Contains documentation for Nexler and its usage.
+- `config/`: Here you can save your app specific configurations to call later.
 
 ## Usage
 
@@ -101,21 +99,23 @@ Example usage:
 
 ```python
 from flask_restful import Resource
-from app.services.UserService import user, protected
+from nexler.services.AuthService import user, protected
+
+
 class Test(Resource):
-  # protect a route
-  @protected
-  def get(self):
-      return "This route is protected!"
+    # protect a route
+    @protected
+    def get(self):
+        return "This route is protected!"
 ```
 
 ## CurrencyService
 
-CurrencyService provides an in-built currency conversion tool that supports the currencies of 194 countries and updates daily. This service can be imported from `app.utils.money_util`.
+CurrencyService provides an in-built currency conversion tool that supports the currencies of 194 countries and updates daily. This service can be imported from `nexler.utils.money_util`.
 
 ## PasswordEncryption
 
-Nexler implements Argon2, one of the most secure encryption mechanisms available today, for password management. This can be found in the `app.utils.pswd_util`.
+Nexler implements Argon2, one of the most secure encryption mechanisms available today, for password management. This can be found in the `nexler.utils.pswd_util`.
 
 ## Documentation
 

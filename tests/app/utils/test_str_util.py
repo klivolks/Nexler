@@ -1,7 +1,6 @@
 import unittest
-from app.utils import str_util
+from nexler.utils import str_util
 from xml.etree.ElementTree import Element, tostring
-from collections import OrderedDict
 
 
 class TestStringUtil(unittest.TestCase):

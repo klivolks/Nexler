@@ -28,21 +28,23 @@ The `dir_util.py` module provides a set of utility functions for directory and f
 
 ## Usage
 
-To use these utility functions, import the required functions from the `app.utils.doc_util` module and use them in your code where needed. 
+To use these utility functions, import the required functions from the `nexler.utils.doc_util` module and use them in your code where needed. 
 
 For example:
 
 ```python
-from app.utils.dir_util import create_directory, list_files
+from nexler.utils.dir_util import create_directory, list_files
+
 
 def setup_project():
     create_directory("new_project")
     # ... other setup code ...
 
+
 def process_files():
     file_list = list_files("new_project")
     for file in file_list:
-        # ... process each file ...
+# ... process each file ...
 ```
 
 In this example, the `create_directory` function is used to create a new directory, and the `list_files` function is used to get a list of all files in that directory.

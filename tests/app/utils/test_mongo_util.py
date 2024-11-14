@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock, Mock
 from bson import ObjectId
-from app.utils.mongo_util import Pipeline, Query, new_pipeline, process_cursor
+from nexler.utils.mongo_util import Pipeline, Query, new_pipeline, process_cursor
 
 
 class TestMongoUtil(unittest.TestCase):

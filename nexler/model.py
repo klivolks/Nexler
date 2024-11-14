@@ -1,6 +1,6 @@
 import os
 import traceback
-from app.utils import file_util, str_util
+from nexler.utils import str_util, file_util
 
 
 def create_model(args):

@@ -1,7 +1,7 @@
 from forex_python.converter import CurrencyRates
 import locale
 import inflect
-from app.utils import mongo_util, str_util
+from nexler.utils import mongo_util
 from daba.Mongo import collection
 
 engine = inflect.engine()

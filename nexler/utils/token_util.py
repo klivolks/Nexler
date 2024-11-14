@@ -1,7 +1,7 @@
 import traceback
 
 import jwt
-from app.utils import config_util, dt_util, error_util
+from nexler.utils import config_util, dt_util, error_util
 
 JWT_SECRET_KEY = config_util.Config().get('JWT_SECRET_KEY')
 JWT_ALGORITHM = config_util.Config().get('JWT_ALGORITHM')

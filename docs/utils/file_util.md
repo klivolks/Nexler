@@ -1,6 +1,6 @@
 # `file_util.py` User Documentation
 
-The `file_util.py` module offers a variety of utility functions to handle file I/O operations, perform image and video file processing, and process CSV data. This module is part of the `app.utils` package.
+The `file_util.py` module offers a variety of utility functions to handle file I/O operations, perform image and video file processing, and process CSV data. This module is part of the `nexler.utils` package.
 
 ## Functions
 
@@ -40,12 +40,13 @@ If any error occurs during the processing of the functions, they return an error
 
 ## Usage
 
-To utilize these utility functions, import the required functions from the `app.utils.file_util` module and use them in your code where needed.
+To utilize these utility functions, import the required functions from the `nexler.utils.file_util` module and use them in your code where needed.
 
 For example:
 
 ```python
-from app.utils.file_util import write_file
+from nexler.utils import write_file
+
 
 def save_content():
     path = "/path/to/file.txt"

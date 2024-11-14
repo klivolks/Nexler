@@ -1,5 +1,5 @@
 import unittest
-from app.utils import money_util
+from nexler.utils import money_util
 
 
 class TestMoneyUtil(unittest.TestCase):

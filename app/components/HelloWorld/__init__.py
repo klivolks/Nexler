@@ -1,6 +1,6 @@
 from app.logic.HelloWorld import HelloWorldLogic
 from flask_restful import Resource
-from app.utils import response_util
+from nexler.utils import response_util, error_util
 
 
 class HelloWorld(Resource):
@@ -18,6 +18,6 @@ class HelloWorld(Resource):
                 "Services": services,
                 "Utilities": utilities,
             }
-            return response_util.success(data)  # HTTP Status Code
+            return response_util.success(data)
         except Exception as e:
-            return response_util.server_error(str(e))  # HTTP Status Code
+            return error_util.handle_server_error(e)

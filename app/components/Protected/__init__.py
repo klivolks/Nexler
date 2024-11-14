@@ -1,6 +1,6 @@
 from flask_restful import Resource
-from app.utils import response_util
-from app.services.UserService import protected, user
+from nexler.utils import response_util, error_util
+from nexler.services.AuthService import protected, user
 
 
 class Protected(Resource):
@@ -10,7 +10,7 @@ class Protected(Resource):
             # Logic goes here
             return response_util.success({"message": f"This is the GET method of /protected. The user is {user.Id}"})
         except Exception as e:
-            return response_util.error(str(e))
+            return error_util.handle_server_error(e)
 
     @protected
     def post(self):
@@ -18,7 +18,7 @@ class Protected(Resource):
             # Logic goes here
             return response_util.success({"message": f"This is the POST method of /protected. The user is {user.Id}"})
         except Exception as e:
-            return response_util.error(str(e))
+            return error_util.handle_server_error(e)
 
     @protected
     def put(self):
@@ -26,7 +26,7 @@ class Protected(Resource):
             # Logic goes here
             return response_util.success({"message": f"This is the PUT method of /protected. The user is {user.Id}"})
         except Exception as e:
-            return response_util.error(str(e))
+            return error_util.handle_server_error(e)
 
     @protected
     def delete(self):
@@ -34,4 +34,4 @@ class Protected(Resource):
             # Logic goes here
             return response_util.success({"message": f"This is the DELETE method of /protected. The user is {user.Id}"})
         except Exception as e:
-            return response_util.error(str(e))
+            return error_util.handle_server_error(e)

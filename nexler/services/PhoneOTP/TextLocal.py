@@ -1,5 +1,6 @@
-from app.services import ExternalApi
-from app.utils import config_util, file_util, dir_util
+from nexler.services import ExternalApi
+from nexler.utils import config_util, dir_util
+from nexler.utils import file_util
 
 
 class TextLocal:

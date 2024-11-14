@@ -9,7 +9,7 @@
 You can import the classes as follows:
 
 ```python
-from app.services import ApiService, ExternalApi, InternalApi
+from nexler.services import ApiService, ExternalApi, InternalApi
 ```
 
 ## ApiService

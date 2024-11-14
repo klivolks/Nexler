@@ -1,6 +1,6 @@
 # `pswd_util.py` User Documentation
 
-`pswd_util.py` module provides utility functions to hash passwords and verify hashed passwords. This module is part of the `app.utils` package.
+`pswd_util.py` module provides utility functions to hash passwords and verify hashed passwords. This module is part of the `nexler.utils` package.
 
 ## Functions
 
@@ -33,12 +33,12 @@ This function returns a boolean. It returns True if the plain-text password matc
 
 ## Usage
 
-To use these utility functions, simply import the `hash_password` and `check_password` functions from the `app.utils.pswd_util` module and use them in your code where needed.
+To use these utility functions, simply import the `hash_password` and `check_password` functions from the `nexler.utils.pswd_util` module and use them in your code where needed.
 
 For example:
 
 ```python
-from app.utils.pswd_util import hash_password, check_password
+from nexler.utils.pswd_util import hash_password, check_password
 
 # Hash a password
 hashed_password = hash_password('my_password')

@@ -1,9 +1,8 @@
 import os
 import shutil
-from typing import List, Any
 from werkzeug.exceptions import Conflict, NotFound, BadRequest, InternalServerError
 from dotenv import load_dotenv
-from app.utils import response_util
+from nexler.utils import response_util
 
 load_dotenv()
 app_directory = os.getenv('PROJECT_ROOT', os.path.dirname(os.path.abspath(__file__)))

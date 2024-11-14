@@ -2,7 +2,7 @@ import unittest
 import os
 from PIL import Image
 from moviepy.video.io.VideoFileClip import VideoFileClip
-from app.utils import file_util  # assuming the above code is saved as file_util.py
+from nexler.utils import file_util
 
 
 class TestFileUtil(unittest.TestCase):

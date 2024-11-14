@@ -25,11 +25,13 @@ To use these utility functions, import the required functions from the `dt_util`
 For example:
 
 ```python
-from app.utils.dt_util import add_days, days_difference, get_current_time
+from nexler.utils.dt_util import add_days, days_difference, get_current_time
+
 
 def schedule_meeting():
     meeting_date = add_days(get_current_time(), 3)
     # ... other scheduling code ...
+
 
 def get_meeting_duration(meeting_start, meeting_end):
     duration = days_difference(meeting_start, meeting_end)

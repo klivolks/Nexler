@@ -7,8 +7,8 @@ from flask_restful import Api
 from flask_cors import CORS
 
 from app.routes import initialize_routes
-from app.utils import error_util, config_util
-from app.services import ApiService, UserService
+from nexler.utils import error_util, config_util
+from nexler.services import ApiService, UserService
 
 
 def create_app():
@@ -51,7 +51,6 @@ def before_request():
         g.user_id = user_service.userId
     else:
         return error_util.handle_forbidden("Please check your api key or referer")
-
 
 
 def run():

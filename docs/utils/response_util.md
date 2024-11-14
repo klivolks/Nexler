@@ -40,12 +40,13 @@ The `response_util.py` module provides a set of utility functions to return HTTP
 
 ## Usage
 
-To use these utility functions, simply import the required functions from the `app.utils.response_util` module and use them in your code where needed.
+To use these utility functions, simply import the required functions from the `nexler.utils.response_util` module and use them in your code where needed.
 
 For example:
 
 ```python
-from app.utils.response_util import success, bad_request
+from nexler.utils import success, bad_request
+
 
 def get(self):
     try:

@@ -1,5 +1,6 @@
 import unittest
-from app.utils import response_util
+from nexler.utils import response_util
+
 
 class TestResponseUtil(unittest.TestCase):
     def test_check_data_with_dict(self):

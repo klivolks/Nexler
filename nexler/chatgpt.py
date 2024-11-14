@@ -1,4 +1,4 @@
-from app.services.ChatGPT import ChatGPT
+from nexler.services.ChatGPT import ChatGPT
 
 
 def ai(args):

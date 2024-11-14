@@ -18,19 +18,19 @@ The `money_util.py` module provides a collection of functions to perform money r
 
 ## Usage
 
-To use these utility functions, simply import the required functions from the `app.utils.money_util` module and use them in your code where needed.
+To use these utility functions, simply import the required functions from the `nexler.utils.money_util` module and use them in your code where needed.
 
 For example:
 
 ```python
-from app.utils.money_util import validate_amount, convert_to_text, convert_currency
+from nexler.utils import validate_amount, convert_to_text, convert_currency
 
 amount = '1234.56'
 base_currency = 'USD'
 target_currency = 'EUR'
 
 if validate_amount(amount):
-    print(convert_to_text(amount, base_currency, with_currency=True))  
+    print(convert_to_text(amount, base_currency, with_currency=True))
     converted_amount = convert_currency(amount, base_currency, target_currency)
     print(f"The amount in {target_currency} is {converted_amount}")
 else:

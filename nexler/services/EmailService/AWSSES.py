@@ -1,6 +1,7 @@
 import boto3
 import json
-from app.utils import config_util, dir_util, file_util
+from nexler.utils import config_util, dir_util
+from nexler.utils import file_util
 
 
 class AWSEmailService:

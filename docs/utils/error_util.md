@@ -1,6 +1,6 @@
 # `error_util.py` User Documentation
 
-`error_util.py` module provides utility functions to handle various types of exceptions and return appropriate HTTP response codes and messages. This module is part of the `app.utils` package.
+`error_util.py` module provides utility functions to handle various types of exceptions and return appropriate HTTP response codes and messages. This module is part of the `nexler.utils` package.
 
 ## Functions
 
@@ -41,7 +41,7 @@ This function registers the exception handlers to an `app` object. This should b
 Typically, you would use these utility functions to register error handlers to your Flask application during its initialization. Here is an example:
 
 ```python
-from app.utils.error_util import register_error_handlers
+from nexler.utils.error_util import register_error_handlers
 
 # Assume 'app' is your Flask application instance
 register_error_handlers(app)

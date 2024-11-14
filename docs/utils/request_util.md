@@ -1,6 +1,6 @@
 # `request_util.py` User Documentation
 
-`request_util.py` module provides utility functions to validate and extract data from the request in different ways. This module is part of `app.utils` package. 
+`request_util.py` module provides utility functions to validate and extract data from the request in different ways. This module is part of `nexler.utils` package. 
 
 ## Functions
 
@@ -40,12 +40,13 @@ If the validation fails in any of the above functions, they raise a "bad request
 
 ## Usage
 
-To use these utility functions, simply import the required functions from the `app.utils.request_util` module and use them in your code where needed.
+To use these utility functions, simply import the required functions from the `nexler.utils.request_util` module and use them in your code where needed.
 
 For example:
 
 ```python
-from app.utils.request_util import form_data, email
+from nexler.utils.request_util import form_data, email
+
 
 def post(self):
     user_email = form_data('email', validator=email)

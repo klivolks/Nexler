@@ -3,7 +3,7 @@ from werkzeug import exceptions
 from io import BytesIO
 import unittest
 from werkzeug.datastructures import Headers
-from app.utils import request_util
+from nexler.utils import request_util
 
 
 class TestRequestFunctions(unittest.TestCase):

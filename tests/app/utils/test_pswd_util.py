@@ -1,5 +1,5 @@
 import unittest
-from app.utils import pswd_util
+from nexler.utils import pswd_util
 
 
 class TestPswdUtil(unittest.TestCase):

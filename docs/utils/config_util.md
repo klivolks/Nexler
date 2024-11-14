@@ -1,6 +1,6 @@
 # `config_util.py` User Documentation
 
-`config_util.py` module provides utility functions to fetch and handle configuration from environment variables or config files. This module is part of the `app.utils` package.
+`config_util.py` module provides utility functions to fetch and handle configuration from environment variables or config files. This module is part of the `nexler.utils` package.
 
 ## Class
 
@@ -22,12 +22,12 @@ When a `Config` object is created, it loads configuration values from the specif
 
 ## Usage
 
-To use these utility functions, simply import the `Config` class from the `app.utils.config_util` module and use it in your code where needed.
+To use these utility functions, simply import the `Config` class from the `nexler.utils.config_util` module and use it in your code where needed.
 
 For example:
 
 ```python
-from app.utils.config_util import Config
+from nexler.utils.config_util import Config
 
 # Initialize a new Config object
 config = Config("/path/to/config.json")

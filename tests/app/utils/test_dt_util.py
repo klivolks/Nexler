@@ -1,7 +1,6 @@
 import unittest
 from datetime import datetime, timedelta
-from dateutil.relativedelta import relativedelta
-from app.utils import dt_util
+from nexler.utils import dt_util
 
 
 class TestDtUtil(unittest.TestCase):

@@ -1,7 +1,7 @@
 import traceback
 from werkzeug.exceptions import HTTPException
 
-from app.utils import response_util
+from nexler.utils import response_util
 
 trace = traceback.format_exc()
 

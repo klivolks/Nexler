@@ -4,7 +4,7 @@ from unittest import mock
 from werkzeug.exceptions import NotFound, Conflict
 from tempfile import TemporaryDirectory
 
-from app.utils import dir_util
+from nexler.utils import dir_util
 
 
 class TestDirUtil(unittest.TestCase):
@@ -26,7 +26,7 @@ class TestDirUtil(unittest.TestCase):
         outside_dir = "/outside_app"
         with mock.patch('os.path.exists', return_value=False), \
                 mock.patch('os.makedirs') as mock_makedirs, \
-                mock.patch('app.utils.dir_util.safe_join',
+                mock.patch('nexler.utils.dir_util.safe_join',
                            side_effect=Exception("Path is not a subpath of the app directory.")):
             with self.assertRaises(Exception):
                 dir_util.create_directory(outside_dir)

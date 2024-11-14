@@ -4,7 +4,7 @@ from jwt import decode, ExpiredSignatureError, InvalidTokenError
 from werkzeug import exceptions
 
 import config
-from app.utils import request_util
+from nexler.utils import request_util
 
 
 class UserService:

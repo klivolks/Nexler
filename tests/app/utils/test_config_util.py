@@ -1,6 +1,6 @@
 import unittest
 import os
-from app.utils import config_util
+from nexler.utils import config_util
 
 
 class TestConfigUtil(unittest.TestCase):

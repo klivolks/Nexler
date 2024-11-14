@@ -3,7 +3,7 @@ from unittest.mock import patch
 from werkzeug.exceptions import BadRequest, Unauthorized, Forbidden, NotFound, MethodNotAllowed, Conflict, \
     UnsupportedMediaType, InternalServerError, NotImplemented
 
-from app.utils import error_util, response_util
+from nexler.utils import error_util
 
 
 class TestErrorHandlers(unittest.TestCase):
@@ -21,7 +21,7 @@ class TestErrorHandlers(unittest.TestCase):
 
     def test_handle_http_exception(self):
         for error_type, response_name, mock_response, status_code in self.error_types:
-            with patch(f'app.utils.response_util.{response_name}', return_value=mock_response) as mock_response_util:
+            with patch(f'nexler.utils.response_util.{response_name}', return_value=mock_response) as mock_response_util:
                 try:
                     raise error_type(description=f'Test {response_name} exception')
                 except error_type as e:
@@ -41,7 +41,7 @@ class TestErrorHandlers(unittest.TestCase):
         ]
 
         for handler, exception_type, mock_response in specific_errors:
-            with patch(f'app.utils.response_util.bad_request', return_value=mock_response) as mock_response_util:
+            with patch(f'nexler.utils.response_util.bad_request', return_value=mock_response) as mock_response_util:
                 exception = exception_type(f'Test {handler} exception')
                 response = getattr(error_util, handler)(exception)
                 mock_response_util.assert_called()

@@ -1,6 +1,6 @@
 # `token_util.py` User Documentation
 
-The `token_util.py` module, part of the `app.utils` package, provides a set of utility functions for creating, decoding, and managing JWT (JSON Web Tokens) tokens. These tokens are used for secure user authentication and maintaining sessions in the application. 
+The `token_util.py` module, part of the `nexler.utils` package, provides a set of utility functions for creating, decoding, and managing JWT (JSON Web Tokens) tokens. These tokens are used for secure user authentication and maintaining sessions in the application. 
 
 ## Functions
 
@@ -16,12 +16,14 @@ The `token_util.py` module, part of the `app.utils` package, provides a set of u
 
 ## Usage
 
-To utilize these functions, import the required ones from the `app.utils.token_util` module and use them in your code as needed.
+To utilize these functions, import the required ones from the `nexler.utils.token_util` module and use them in your code as needed.
 
 For example:
 
 ```python
-from app.utils import token_util
+
+from nexler.utils import token_util
+
 
 def login(user_id):
     access_token, refresh_token = token_util.create_tokens(user_id)

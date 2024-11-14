@@ -10,7 +10,7 @@ The `Pipeline` class assists in the creation of MongoDB aggregation pipelines. I
 **Usage:**
 
 ```python
-from app.utils.mongo_util import Pipeline, new_pipeline
+from nexler.utils.mongo_util import Pipeline, new_pipeline
 
 # Create a new pipeline instance
 pipe = Pipeline()
@@ -25,7 +25,7 @@ pipe.unwind.array_field = True  # preserve null and empty arrays
 pipe.lookup.from_field = ("from_collection", "local_field", "foreign_field", "as_field")
 
 # Add a sort condition
-pipe.sort.age = 1  
+pipe.sort.age = 1
 
 # Construct the pipeline
 pipeline = new_pipeline(pipe)
@@ -37,7 +37,7 @@ The `Query` class helps to construct MongoDB find queries. It supports a variety
 **Usage:**
 
 ```python
-from app.utils.mongo_util import Query
+from nexler.utils.mongo_util import Query
 
 # Create a new Query instance
 query = Query()
@@ -74,7 +74,7 @@ This function processes a passed value to string if ObjectId and dd/mm/YYYY if d
 **Usage:**
 
 ```python
-from app.utils.mongo_util import process_cursor
+from nexler.utils.mongo_util import process_cursor
 
 # Assuming 'cursor' is a pymongo.cursor.Cursor instance returned by a find() call
 processed = process_cursor(cursor, start=10, limit=5, sort=('age', 1))
@@ -84,7 +84,7 @@ processed = process_cursor(cursor, start=10, limit=5, sort=('age', 1))
 
 ```python
 from daba.Mongo import collection
-from app.utils.mongo_util import Pipeline, Query, new_pipeline, process_cursor
+from nexler.utils.mongo_util import Pipeline, Query, new_pipeline, process_cursor
 
 table = collection('x')
 

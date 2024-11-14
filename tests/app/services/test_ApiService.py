@@ -3,12 +3,12 @@ from unittest.mock import patch, Mock
 import asyncio
 
 # Assuming your original file's name is 'api_services.py'
-from app.services import ApiService, ExternalApi, InternalApi
+from nexler.services import ApiService, ExternalApi, InternalApi
 
 
 class ApiServiceTest(unittest.TestCase):
 
-    @patch('app.utils.request_util.headers')
+    @patch('nexler.utils.request_util.headers')
     @patch('daba.Mongo.collection')
     def test_verify_request(self, MockCollection, MockHeaders):
         # Mock the necessary methods and attributes
@@ -48,7 +48,7 @@ class ExternalApiTest(unittest.TestCase):
 
 class InternalApiTest(unittest.TestCase):
 
-    @patch('app.utils.config_util.Config.get')
+    @patch('nexler.utils.config_util.Config.get')
     def test_init(self, MockConfigGet):
         MockConfigGet.return_value = "mock_value"
 

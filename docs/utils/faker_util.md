@@ -23,7 +23,7 @@ To utilize these functions, you must first import them from the `faker_util` mod
 For example:
 
 ```python
-from app.utils import faker_util
+from nexler.utils import faker_util
 
 # Generate and write fake user data to CSV
 faker_util.write_csv()

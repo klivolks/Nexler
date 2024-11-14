@@ -1,6 +1,6 @@
 # `str_util.py` User Documentation
 
-The `str_util.py` module, a part of the `app.utils` package, offers a set of utility functions for string manipulation, such as encoding, decoding, parsing, etc. Here are the details of each function:
+The `str_util.py` module, a part of the `nexler.utils` package, offers a set of utility functions for string manipulation, such as encoding, decoding, parsing, etc. Here are the details of each function:
 
 ## Functions
 
@@ -28,12 +28,13 @@ The `str_util.py` module, a part of the `app.utils` package, offers a set of uti
 
 ## Usage
 
-To utilize these functions, import the required ones from the `app.utils.str_util` module and use them in your code as needed.
+To utilize these functions, import the required ones from the `nexler.utils.str_util` module and use them in your code as needed.
 
 For example:
 
 ```python
-from app.utils.str_util import str_encode, str_decode, remove_punctuation
+from nexler.utils.str_util import str_encode, str_decode, remove_punctuation
+
 
 def process(self):
     text = 'Hello, World!'

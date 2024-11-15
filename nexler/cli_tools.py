@@ -1,5 +1,5 @@
 import argparse
-from nexler import component, logic, upgrade, migrate, model, serve, chatgpt
+from nexler import component, logic, upgrade, migrate, model, serve, chatgpt, enc_key
 from nexler import __version__ as nexler_version
 
 
@@ -41,6 +41,10 @@ def main():
     # serve sub-command
     serve_parser = subparsers.add_parser('serve', help='Serve app at port defined in .env file')
 
+    # encryption sub-command
+    encrypt_parser = subparsers.add_parser('encrypt', help='Generate encryption keys for JSON Web Encryption. Refer manual for more details.')
+    encrypt_parser.add_argument('action', help='Generate keys', choices=['generate'])
+
     args = parser.parse_args()
 
     if args.command == 'create':
@@ -64,6 +68,9 @@ def main():
         serve.serve()
     elif args.command == 'migrate':
         migrate.migrate()  # call the migrate function from the migrate module
+    elif args.command == 'encrypt':
+        if args.action == 'generate':
+            enc_key.generate_enc_key()
 
 
 if __name__ == "__main__":

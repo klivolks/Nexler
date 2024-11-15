@@ -1,4 +1,4 @@
 ["run.py", "setup.py", "nexler", "app/services",
                     "app/utils", "tests/app/utils",
-                    "tests/app/services", "requirements.txt", "migrations", ".env-example",
+                    "tests/app/services", "tests/nexler","requirements.txt", "migrations", ".env-example",
                     "environment.py"]

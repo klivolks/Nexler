@@ -26,7 +26,7 @@ class ExternalApiTest(unittest.TestCase):
 
     def test_init(self):
         ext_api = ExternalApi(url="http://test.com")
-        self.assertEqual(ext_api.headers['User-Agent'], "Nexler/1.1")
+        self.assertEqual(ext_api.headers['User-Agent'], "nexler/1.1")
 
     @patch('httpx.AsyncClient')
     def test_fetch(self, MockAsyncClient):
@@ -55,7 +55,7 @@ class InternalApiTest(unittest.TestCase):
         int_api = InternalApi()
 
         # Checking for each header
-        self.assertEqual(int_api.headers['User-Agent'], "Nexler/1.1")
+        self.assertEqual(int_api.headers['User-Agent'], "nexler/1.1")
         self.assertEqual(int_api.headers['Authorization'], f"Bearer {int_api.token}")
         self.assertEqual(int_api.headers['Accept'], "application/json")
         self.assertEqual(int_api.headers['Content-Type'], "application/json")

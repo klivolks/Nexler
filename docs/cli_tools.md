@@ -10,6 +10,7 @@ This document provides an overview of Nexler CLI (Command Line Interface) tools 
 5. [Upgrade](#upgrade)
 6. [AI Integration](#ai-integration)
 7. [Serve](#serve)
+8. [Encryption](#encryption)
 
 
 ## Creating a Component
@@ -163,5 +164,13 @@ Run development server:
 ```shell
 nexler serve
 ```
+## Encryption
+
+From Nexler 1.2.1, we have new feature of JSON Web Encryption for tokens. Refer token utility for how to use the encryption. This command creates private and public keys that can be shared among other services to decrypt and encrypt tokens. The folder is `./encryption`.
+
+```shell
+nexler encrypt generate
+```
 
 For detailed Nexler information, refer to the official `docs/` directory documentation. If you need further assistance, feel free to open an issue on GitHub or contact klivolks directly.
+

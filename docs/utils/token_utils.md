@@ -1,6 +1,28 @@
 # `token_util.py` User Documentation
 
-The `token_util.py` module, part of the `nexler.utils` package, provides a set of utility functions for creating, decoding, and managing JWT (JSON Web Tokens) tokens. These tokens are used for secure user authentication and maintaining sessions in the application. 
+The `token_util.py` module, part of the `nexler.utils` package, provides a set of utility functions for creating, decoding, and managing JWT (JSON Web Tokens) tokens. These tokens are used for secure user authentication and maintaining sessions in the application. Our system now supports JSON Web Encryption (JWE), offering an additional layer of security essential for financial and healthcare institutions.
+
+## How to Use JWE:
+### Set Up Keys:
+Ensure that your private and public keys are saved in your app's directory. Define their paths in the environment variables:
+
+```
+PRIVATE_KEY_PATH=/path/to/private_key.pem
+PUBLIC_KEY_PATH=/path/to/public_key.pem
+```
+
+Generate Keys (if needed):
+If this is a base app, and you don't already have keys, you can generate them by running the following command in your terminal:
+
+```bash
+nexler encrypt generate
+```
+This will create the required private and public keys.
+
+Enable JWE:
+To activate JWE encryption, add the following to your environment variables:
+
+```JWE_ENCRYPTION=on```
 
 ## Functions
 

@@ -1,5 +1,5 @@
 # Build Stage
-FROM python:3.12.0a1-alpine as build
+FROM python:3.14.0a1-alpine as build
 
 # Install build dependencies
 RUN apk add --update --no-cache --virtual .tmp-build-deps \
@@ -21,7 +21,7 @@ COPY requirements.txt /app/requirements.txt
 RUN pip install .
 
 # Production Stage
-FROM python:3.12.0a1-alpine
+FROM python:3.14.0a1-alpine
 
 # Install build dependencies
 RUN apk add --no-cache ffmpeg

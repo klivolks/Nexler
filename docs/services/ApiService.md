@@ -19,6 +19,8 @@ This class provides methods for verifying API requests. It maintains a count of 
 ### Usage
 
 ```python
+from nexler.services import ApiService
+
 api_service = ApiService()
 is_verified = api_service.verified
 ```
@@ -30,13 +32,16 @@ is_verified = api_service.verified
 
 ## ExternalApi
 
-This class is for making HTTP requests to external APIs. 
+This class is for making HTTP requests to external APIs. The function is asynchronous. So usage is a little bit different
 
 ### Usage
 
 ```python
+import asyncio
+from nexler.services import ExternalApi
+
 external_api = ExternalApi("http://api.example.com")
-data = external_api.fetch("get")
+data = asyncio.run(external_api.fetch("get"))
 ```
 
 ### Properties and Methods
@@ -59,8 +64,11 @@ If another internal service is used you should have a `service-name.json` in `ap
 ### Usage
 
 ```python
+import asyncio
+from nexler.services import InternalApi
+
 internal_api = InternalApi(service='gateway', path="")
-data = internal_api.fetch("get")
+data = asyncio.run(internal_api.fetch("get"))
 ```
 
 ### Properties and Methods

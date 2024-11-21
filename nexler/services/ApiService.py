@@ -1,7 +1,8 @@
 import httpx
 import json
 from daba.Mongo import collection
-from nexler.utils import request_util, dt_util, mongo_util, str_util, config_util
+from nexler.utils import request_util, dt_util, mongo_util, str_util, config_util, token_util
+from nexler.services.AuthService import user
 
 
 class ApiService:
@@ -52,7 +53,8 @@ class ExternalApi:
             user_agent=None,
             authorization=None,
             accept=None,
-            content_type=None
+            content_type=None,
+            headers=None
     ):
         self.url = url
         self.data = data
@@ -62,6 +64,8 @@ class ExternalApi:
             "Accept": accept or "application/json",
             "Content-Type": content_type or ""
         }
+        if headers:
+            self.headers.update(headers)
         self.response = None
 
     async def fetch(self, method):
@@ -96,29 +100,37 @@ class ExternalApi:
 
 
 class InternalApi(ExternalApi):
-    def __init__(self, service='gateway', path=""):
-
+    def __init__(self, service='gateway', path="", data=None, secure=False):
+        self.token = None
         api_config = config_util.Config(f'app/config/{service}.json')
         if service == 'gateway':
             url = config_util.Config().get('GATEWAY_URL')
         else:
             url = api_config.get('API_URL')
-        super().__init__(url + path)
-        self.token = None
+        if not url:
+            raise SystemError(f'API configuration for {service} is null.')
+        super().__init__(str(url) + str(path))
         self.headers = {
             "User-Agent": "Nexler/1.1",
-            "Authorization": f"Bearer {self.token}",
             "Accept": "application/json",
             "Content-Type": "application/json"
         }
+        if secure:
+            self.token = token_util.create_access_token(user.Id)
+            self.headers["Authorization"] = f"Bearer {self.token}"
         if service == 'gateway':
             self.headers['X-API-Key'] = config_util.Config().get('GATEWAY_KEY')
             self.headers['Referer'] = config_util.Config().get('SERVICE_NAME')
         else:
             self.headers['X-API-Key'] = api_config.get('API_KEY')
             self.headers['Referer'] = api_config.get('SERVICE_NAME')
+        if data:
+            self.data = data
 
 
 if __name__ == "__main__":
-    api = InternalApi()
-    print(api.headers)
+    api = InternalApi(secure=True)
+    import asyncio
+    test = asyncio.run(api.fetch('get'))
+    print(test)
+

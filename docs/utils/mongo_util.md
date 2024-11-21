@@ -1,115 +1,131 @@
-# `mongo_util.py` User Documentation
-
-The `mongo_util.py` module simplifies MongoDB operations in Python. It provides classes and functions for creating MongoDB pipelines and queries, and processing MongoDB cursors, catering to a wide range of MongoDB aggregation stages and query operations.
+# mongo_util.py User Guide
+The mongo_util.py module provides utilities for building MongoDB aggregation pipelines, constructing queries, and processing cursors with ease. It abstracts MongoDB's syntax into a Pythonic interface, making it accessible for developers.
 
 ## Classes
-
 ### 1. Pipeline
-The `Pipeline` class assists in the creation of MongoDB aggregation pipelines. It supports multiple aggregation stages like `match`, `unwind`, `lookup`, `sort`, `limit`, and `project`.
+The Pipeline class enables the creation of MongoDB aggregation pipelines dynamically. It supports multiple aggregation stages, added via attribute assignment.
 
-**Usage:**
+#### Supported Stages:
+- match: Filter documents using conditions.
+- unwind: Deconstruct array fields; supports preserveNullAndEmptyArrays.
+- lookup: Perform left outer joins with other collections.
+- sort: Sort documents in ascending or descending order.
+- limit: Limit the number of documents in the result.
+- project: Reshape or filter fields in the output.
 
-```python
+Example Usage:
+
+```
 from nexler.utils.mongo_util import Pipeline, new_pipeline
 
-# Create a new pipeline instance
+# Initialize the pipeline
 pipe = Pipeline()
 
-# Add a match condition
-pipe.match._id = '605c66b16f3b15a1561d26a6'
+# Add stages
+pipe.match._id = '605c66b16f3b15a1561d26a6'  # Match documents by '_id'
+pipe.unwind.array_field = True               # Unwind array_field with preserved null values
+pipe.lookup.from_field = ("collection", "local_field", "foreign_field", "as_field")  # Lookup stage
+pipe.sort.age = 1                            # Sort in ascending order by 'age'
+pipe.limit = 10                              # Limit output to 10 documents
 
-# Add an unwind condition
-pipe.unwind.array_field = True  # preserve null and empty arrays
-
-# Add a lookup condition
-pipe.lookup.from_field = ("from_collection", "local_field", "foreign_field", "as_field")
-
-# Add a sort condition
-pipe.sort.age = 1
-
-# Construct the pipeline
+# Build the pipeline
 pipeline = new_pipeline(pipe)
 ```
-
 ### 2. Query
-The `Query` class helps to construct MongoDB find queries. It supports a variety of query operations such as setting conditions on fields, comparison operators, and logical operators.
+The Query class simplifies the creation of find queries, including support for comparison and logical operators.
 
-**Usage:**
+#### Supported Operators:
+Comparison:
+- $eq: Equal to.
+- $ne: Not equal to.
+- $gt: Greater than.
+- $lt: Less than.
+Logical:
+- $or: Match if any condition is true.
+- $and: Match if all conditions are true.
+Search:
+- $regex: Regular expression matching.
+Example Usage:
 
-```python
+```
 from nexler.utils.mongo_util import Query
 
-# Create a new Query instance
+# Create a new query
 query = Query()
 
-# Set conditions
-query._id = '605c66b16f3b15a1561d26a6'
-query.name = 'John'
-
-# Set conditions with comparison operators
-query.ne.phone = '1234567890'  # where 'phone' is not equal to '1234567890'
-
-# Set conditions with logical operators
-query._id = '648150e77c16dd9884fc44c9'
-query1 = query.or_
-query1.ne.phone = '1234567890'  # where 'phone' is not equal to '1234567890' or
-query1.status = 1  # where 'status' is equal to 1
-query += query1
+# Define conditions
+query.name = 'John'                         # Match documents where 'name' is 'John'
+query.ne.status = 0                         # Where 'status' is not 0
+query.or_.age = {'$gt': 30}                 # Match age > 30 or
+query.or_.active = True                     # active is True
 
 # Build the query
 built_query = query.build()
 ```
-
 ## Functions
-
 ### 1. new_pipeline(pipeline)
-This function takes a `Pipeline` object and returns the constructed pipeline.
+Builds and returns the aggregation pipeline.
 
+Parameters:
+- pipeline (Pipeline): A Pipeline object.
+Returns:
+- list: MongoDB aggregation pipeline.
 ### 2. process_cursor(cursor, start=None, limit=None, sort=None)
-This function processes a MongoDB cursor, with optional parameters for start, limit, and sort. It returns a dictionary with the count of documents and the documents themselves.
+Processes a MongoDB cursor to apply sorting, pagination, and extract results.
 
-### 3. process_value(value)
-This function processes a passed value to string if ObjectId and dd/mm/YYYY if date.
+Parameters:
+- cursor: MongoDB cursor from a find or aggregate operation.
+- start (optional): Start index for pagination.
+- limit (optional): Limit on the number of results.
+- sort (optional): Tuple of (field, order) for sorting.
+Returns:
+- dict: Contains count (total documents) and data (list of documents).
 
-**Usage:**
-
-```python
+Example:
+```
 from nexler.utils.mongo_util import process_cursor
 
-# Assuming 'cursor' is a pymongo.cursor.Cursor instance returned by a find() call
-processed = process_cursor(cursor, start=10, limit=5, sort=('age', 1))
+processed = process_cursor(cursor, start=5, limit=10, sort=('_id', -1))
 ```
+### 3. process_value(value)
+Processes MongoDB-specific data types:
 
-## Example:
-
-```python
+- Converts ObjectId to a string.
+- Formats datetime fields to dd/mm/YYYY.
+Parameters:
+- value: The value to process.
+Returns:
+- Processed value.
+Complete Example
+```
 from daba.Mongo import collection
 from nexler.utils.mongo_util import Pipeline, Query, new_pipeline, process_cursor
 
+# Initialize a collection
 table = collection('x')
 
-# Create a pipeline
+# Step 1: Create a pipeline
 pipe = Pipeline()
-pipe.match._id = '605c66b16f3b15a1561d26a6'
-pipe.sort.age = 1
+pipe.match.status = 1
+pipe.sort.age = -1
 pipeline = new_pipeline(pipe)
+cursor1 = table.aggregate(pipeline)
 
-# Use the pipeline in an aggregation
-cursor1 = table.find(pipeline)
-
-# Create a query
+# Step 2: Create a query
 query = Query()
-query._id = '605c66b16f3b15a1561d26a6'
 query.name = 'John'
+query.gt.age = 25
 built_query = query.build()
+cursor2 = table.find(built_query)
 
-# Use the query in a find operation
-cursor2 = table.get(built_query)
-
-# Process the cursor
-processed = process_cursor(cursor2, start=10, limit=10, sort=('_id', -1))
+# Step 3: Process the cursor
+processed = process_cursor(cursor2, start=0, limit=10, sort=('_id', -1))
+print(processed)
 ```
 
-In this example, a `Pipeline` and `Query` object are created to interact with a MongoDB
+## Summary
+With mongo_util.py, you can:
 
- collection. The objects are then used in `aggregate` and `find` operations, respectively. The cursors returned from these operations are processed using the `process_cursor` function.
+- Dynamically create aggregation pipelines with the Pipeline class.
+- Build complex queries with the Query class.
+- Easily process cursors and handle MongoDB-specific data formats.

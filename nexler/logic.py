@@ -20,7 +20,10 @@ def create_logic(args):
         if os.path.exists(module_file_path):
             print(f"Logic '{args.moduleName}' already exists.")
             # Check if the component's __init__.py already imports the logic
-            component_init_path = f'app/components/{args.component}/__init__.py'
+            if args.subcomponent:
+                component_init_path = f'app/components/{args.component}/{args.subcomponent}.py'
+            else:
+                component_init_path = f'app/components/{args.component}/__init__.py'
             component_init_content = file_util.read_file(component_init_path)
             import_path = f"app.logic.{directory_name}"
             component_import_line = f"from {import_path} import {args.moduleName}"
@@ -81,7 +84,10 @@ class {args.moduleName}:
             file_util.write_file(os.path.join(directory_path, '__init__.py'), init_file_content)
 
         # Update the component __init__.py file to import the new logic module
-        component_init_path = f'app/components/{args.component}/__init__.py'
+        if args.subcomponent:
+            component_init_path = f'app/components/{args.component}/{args.subcomponent}.py'
+        else:
+            component_init_path = f'app/components/{args.component}/__init__.py'
         component_init_content = file_util.read_file(component_init_path)
 
         # Determine the import path based on whether the logic is independent

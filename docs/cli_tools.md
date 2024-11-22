@@ -64,8 +64,10 @@ Logic modules are associated with components to encapsulate application's busine
 Use the command:
 
 ```shell
-nexler create logic <LogicName> --component=<ComponentName>
+nexler create logic <LogicName> --component=<ComponentName> [--subcomponent=<SubComponentName>]
 ```
+
+Now supports optional subcomponent.
 
 Example usage:
 

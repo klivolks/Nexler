@@ -27,10 +27,10 @@ class UserService:
         @wraps(f)
         def wrapper(*args, **kwargs):
             g.user_id = self.userId
-            if not g.user_id:
-                return {"message": "Unauthorized"}, 401
-            else:
+            if g.user_id:
                 return f(*args, **kwargs)
+            else:
+                return {"message": "Unauthorized"}, 401
 
         return wrapper
 

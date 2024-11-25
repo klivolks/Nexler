@@ -1,7 +1,7 @@
 [{
   "Referer": "Postman",
   "Key": "03d476861afd384510f2cb80ccfa8511",
-  "Limit": 1000,
+  "Limit": -1,
   "Status": 1,
   "CallCount": 1
 }]

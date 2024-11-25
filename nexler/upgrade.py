@@ -1,5 +1,6 @@
 import os
 import shutil
+import subprocess
 import urllib.request
 import zipfile
 import nexler  # import nexler to check its version
@@ -83,7 +84,7 @@ def upgrade():
             shutil.rmtree("Nexler-main")
 
             # Step 4: Install the new version
-            os.system("pip install .")
+            subprocess.run(["pip", "install", "."], check=True)
 
         else:
             print("Nexler is up-to-date.")

@@ -29,8 +29,12 @@ class ApiService:
         if not referer_data:
             return False
 
+        # -1 means there is no monthly limit. Any positive number will be checked for monthly access.
+        if referer_data["Limit"] == -1:
+            return True
+
         # Checking the Monthly Access
-        current_month = dt_util.get_current_time().month
+        current_month = int(str(dt_util.get_current_time().year) + str(dt_util.get_current_time().month))
         query = mongo_util.Query()
         query.RefererId = referer_data["_id"]
         query.Month = current_month

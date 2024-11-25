@@ -99,7 +99,7 @@ Nexler stands out from other Python web frameworks like Flask, FastAPI, and Djan
 
 ## AuthService
 
-AuthService provides a way to manage user authentication and authorization. This service can be imported from `app.services.AuthService`. AuthService exposes a `userId` property to access the authenticated user's ID and a `protected` decorator to protect routes that require user authentication.
+AuthService provides a way to manage user authentication and authorization. This service can be imported from `nexler.services.AuthService`. AuthService exposes a `userId` property to access the authenticated user's ID and a `protected` decorator to protect routes that require user authentication.
 
 Example usage:
 

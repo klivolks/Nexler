@@ -26,6 +26,7 @@ def create_component(args):
                 dir_util.create_directory(directory_path)
             if isinstance(args.methods, str):
                 methods = args.methods.split(',')
+                methods = [method.lower() for method in methods]
             else:
                 methods = ['get', 'post', 'put', 'delete']
             # Define method templates for different HTTP methods
@@ -67,7 +68,7 @@ def create_component(args):
             # Class definition
             class_definition = f"""from flask_restful import Resource
 from nexler.utils import response_util, error_util
-{"from app.services.UserService import protected, user" if args.protected else ""}
+{"from nexler.services.AuthService import protected, user" if args.protected else ""}
 
 
 class {args.moduleName}(Resource):

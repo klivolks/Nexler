@@ -85,8 +85,12 @@ def upgrade():
             shutil.rmtree("Nexler-main")
 
             # Step 4: Install the new version
-            os.system("python setup.py bdist_wheel")
-            subprocess.check_call([sys.executable, "-m", "pip", "install", f"dist/nexler-{github_version}-py3-none-any.whl"])
+            if sys.platform == "win32":
+                print("Running on Windows...")
+                print("Incase of error run command 'pip install .'")
+                os.system("python.exe pip install .")
+            else:
+                os.system("pip install .")
 
         else:
             print("Nexler is up-to-date.")

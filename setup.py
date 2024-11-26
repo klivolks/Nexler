@@ -5,9 +5,9 @@ with open('requirements.txt') as f:
     requirements = f.read().splitlines()
 
 setup(
-    name='nexler',
+    name=f'nexler',
     version=nexler_version,
-    packages=find_packages(),
+    packages=find_packages(exclude=["tests", "docs", "app", "migrations", "logs", "config"]),
     include_package_data=True,
     install_requires=requirements,
     entry_points='''

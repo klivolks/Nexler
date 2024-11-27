@@ -26,6 +26,7 @@ def upgrade():
         # Step 1: Check the current version
         current_version = nexler.__version__
         t = time.time()
+        github_version = None
 
         # Step 2: Compare with the version from GitHub
         url = f"https://raw.githubusercontent.com/klivolks/Nexler/main/nexler/__init__.py?v={t}"
@@ -80,6 +81,16 @@ def upgrade():
             for items in directories_needed:
                 check_and_create_dir(items)
 
+            directories_removed = [
+                "app/services",
+                "app/utils",
+                "tests/app/utils",
+                "tests/app/services"
+            ]
+            for items in directories_removed:
+                if os.path.exists(items):
+                    os.remove(items)
+
             # Remove the downloaded zip file and the extracted folder
             os.remove("Nexler-main.zip")
             shutil.rmtree("Nexler-main")
@@ -88,7 +99,31 @@ def upgrade():
             if sys.platform == "win32":
                 print("Running on Windows...")
                 print("Incase of error run command 'pip install .'")
-                os.system("python.exe pip install .")
+                temp_script = "complete_win_upgrade.py"
+                with open(temp_script, "w") as f:
+                    f.write(f"""
+                    import os 
+                    import sys 
+                    import time 
+                    import subprocess
+    
+                    time.sleep(2) # Wait to ensure the current process exits completely
+    
+                    # Run the pip install command to upgrade Nexler
+                    try: 
+                        subprocess.check_call([sys.executable, "-m", "pip", "install", "."]) 
+                        print("Nexler upgraded successfully to version {github_version}.") 
+                    except Exception as e: 
+                        print(f"Upgrade failed: {{e}}. try 'pip install .'") 
+                        sys.exit(1)
+    
+                    # Clean up: Remove this temporary script
+                    os.remove("{temp_script}") """)
+
+                # Step 4: Execute the temporary script in a new process and exit
+                subprocess.Popen([sys.executable, temp_script])
+                print("Upgrade process has been deferred. Please wait...")
+                sys.exit(0)
             else:
                 os.system("pip install .")
 

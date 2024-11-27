@@ -105,20 +105,20 @@ def upgrade():
 import sys 
 import time 
 import subprocess
-
+print("Please wait....")
 time.sleep(2) # Wait to ensure the current process exits completely
 
 # Run the pip install command to upgrade Nexler
 try: 
     subprocess.check_call([sys.executable, "-m", "pip", "install", "."]) 
     print("Nexler upgraded successfully to version {github_version}.") 
-    sys.exit(1)
 except Exception as e: 
     print(f"Upgrade failed: {{e}}. try 'pip install .'") 
     sys.exit(1)
 
 # Clean up: Remove this temporary script
-os.remove("{temp_script}") """)
+os.remove("{temp_script}")
+sys.exit(0)""")
 
                 # Step 4: Execute the temporary script in a new process and exit
                 subprocess.Popen([sys.executable, temp_script])

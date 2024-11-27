@@ -59,8 +59,8 @@ class TestFileUtil(unittest.TestCase):
         import shutil
         shutil.copy2(self.video_path, self.temp_video_path)
         file_util.convert_video(self.temp_video_path, 480)
-        clip = VideoFileClip(self.temp_video_path)
-        self.assertEqual(clip.size[1], 480)
+        with VideoFileClip(self.temp_video_path) as clip:  # Ensures proper closure
+            self.assertEqual(480, clip.size[1])
 
 
 if __name__ == '__main__':

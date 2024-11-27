@@ -1,8 +1,7 @@
 import csv
 import os
 from PIL import Image
-from moviepy.video.io.VideoFileClip import VideoFileClip
-from moviepy.video.fx import resize
+from moviepy import *
 
 from app.config import ALLOWED_EXTENSIONS
 
@@ -73,9 +72,19 @@ def generate_thumbnail(path, sizes=None):
 
 def convert_video(path, target_resolution):
     """Convert video to target resolution."""
-    clip = VideoFileClip(path)
-    clip_resized = resize.resize(clip, height=target_resolution)
-    return clip_resized.write_videofile(path, codec='libx264')
+    temp_path = path.replace(".mp4", "_temp.mp4")  # Create a temporary file path
+    with VideoFileClip(path) as clip:  # Ensure the clip is properly closed after processing
+        clip_resized = clip.resized(height=target_resolution)
+        clip_resized.write_videofile(
+            temp_path,
+            codec="libx264",      # H.264 codec
+            audio_codec="aac",    # AAC for audio
+            ffmpeg_params=["-movflags", "faststart"]  # For QuickTime compatibility
+        )
+        clip_resized.close()  # Close resources explicitly
+
+    # Replace the original file with the resized version
+    os.replace(temp_path, path)
 
 
 def read_file_lines(file_path):

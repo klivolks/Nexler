@@ -7,7 +7,7 @@ with open('requirements.txt') as f:
 setup(
     name=f'nexler',
     version=nexler_version,
-    packages=find_packages(exclude=["tests", "docs", "app", "migrations", "logs", "config"]),
+    packages=find_packages(exclude=["tests", "docs", "app", "logs"]),
     include_package_data=True,
     install_requires=requirements,
     entry_points='''

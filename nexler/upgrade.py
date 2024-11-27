@@ -112,6 +112,7 @@ time.sleep(2) # Wait to ensure the current process exits completely
 try: 
     subprocess.check_call([sys.executable, "-m", "pip", "install", "."]) 
     print("Nexler upgraded successfully to version {github_version}.") 
+    sys.exit(1)
 except Exception as e: 
     print(f"Upgrade failed: {{e}}. try 'pip install .'") 
     sys.exit(1)

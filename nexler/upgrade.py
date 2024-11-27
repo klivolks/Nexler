@@ -101,24 +101,23 @@ def upgrade():
                 print("Incase of error run command 'pip install .'")
                 temp_script = "complete_win_upgrade.py"
                 with open(temp_script, "w") as f:
-                    f.write(f"""
-                    import os 
-                    import sys 
-                    import time 
-                    import subprocess
-    
-                    time.sleep(2) # Wait to ensure the current process exits completely
-    
-                    # Run the pip install command to upgrade Nexler
-                    try: 
-                        subprocess.check_call([sys.executable, "-m", "pip", "install", "."]) 
-                        print("Nexler upgraded successfully to version {github_version}.") 
-                    except Exception as e: 
-                        print(f"Upgrade failed: {{e}}. try 'pip install .'") 
-                        sys.exit(1)
-    
-                    # Clean up: Remove this temporary script
-                    os.remove("{temp_script}") """)
+                    f.write(f"""import os 
+import sys 
+import time 
+import subprocess
+
+time.sleep(2) # Wait to ensure the current process exits completely
+
+# Run the pip install command to upgrade Nexler
+try: 
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "."]) 
+    print("Nexler upgraded successfully to version {github_version}.") 
+except Exception as e: 
+    print(f"Upgrade failed: {{e}}. try 'pip install .'") 
+    sys.exit(1)
+
+# Clean up: Remove this temporary script
+os.remove("{temp_script}") """)
 
                 # Step 4: Execute the temporary script in a new process and exit
                 subprocess.Popen([sys.executable, temp_script])

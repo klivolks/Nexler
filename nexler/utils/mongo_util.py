@@ -34,6 +34,10 @@ class Pipeline:
     def build(self):
         return self._pipeline
 
+    @property
+    def custom(self):
+        return self._pipeline
+
 
 class Query:
     def __init__(self):

@@ -12,6 +12,7 @@ The Pipeline class enables the creation of MongoDB aggregation pipelines dynamic
 - sort: Sort documents in ascending or descending order.
 - limit: Limit the number of documents in the result.
 - project: Reshape or filter fields in the output.
+- custom: Appends stage not above to current pipeline. usage: `pipeline.custom.append(stage)` If using multiple check in match you can use this. 
 
 Example Usage:
 

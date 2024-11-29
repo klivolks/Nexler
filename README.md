@@ -17,7 +17,9 @@
 
 Nexler is a lightweight yet powerful framework for simplifying the development of RESTful APIs in Python. With a strong focus on component generation and URL handling, Nexler provides a streamlined process for building and managing your API components. Its modular structure makes it easy to develop, maintain, and understand your codebase.
 
-Introducing JSON Web Encryption from version v1.2.1. Making the app more secure and reliable.
+Introducing **JSON Web Encryption** in version **v1.2.1**, enhancing application security and reliability.  
+
+With version **v1.2.19**, the **RedisService** was introduced to boost performance and scalability.
 
 First AI integrated framework in world. ChatGPTs' integration into Nexler provides users with the ability to quickly and easily edit, create content and code within the Nexler framework, allowing for faster development times and enhanced user experience.
 
@@ -133,7 +135,7 @@ Nexler is an open-source project, and we welcome contributions of all kinds. Bef
 
 ## License
 
-This project is licensed under the terms of the [AGPL 3.0 license](LICENSE).
+This project is licensed under the [MIT License](LICENSE), granting permission to use, modify, distribute, and sublicense the software with minimal restrictions.
 
 ---
 

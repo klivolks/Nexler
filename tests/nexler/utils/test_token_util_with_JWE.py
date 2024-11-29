@@ -2,7 +2,7 @@ import unittest
 import datetime
 from unittest.mock import patch
 import jwt
-from nexler.utils import config_util, dt_util, token_util
+from nexler.utils import config_util, dt_util, token_util, str_util
 
 
 class TestTokenUtil(unittest.TestCase):
@@ -10,7 +10,7 @@ class TestTokenUtil(unittest.TestCase):
     @patch('nexler.utils.token_util.JWT_SECRET_KEY', config_util.Config().get('JWT_SECRET_KEY'))
     @patch('nexler.utils.token_util.JWT_ALGORITHM', config_util.Config().get('JWT_ALGORITHM'))
     def setUp(self):
-        self.user_id = 'test_user'
+        self.user_id = str_util.generate_random_token(8)
 
     def test_create_access_token(self):
         token = token_util.create_access_token(self.user_id)

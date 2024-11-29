@@ -3,7 +3,7 @@ import json
 import base64
 import string
 import binascii
-from xml.etree import ElementTree as ET
+from defusedxml import ElementTree as ET
 import yaml
 import random
 

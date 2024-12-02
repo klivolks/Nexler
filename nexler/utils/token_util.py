@@ -18,6 +18,8 @@ PRIVATE_KEY_PATH = f'{dir_util.app_directory}/encryption/private_key.pem' if con
     'PRIVATE_KEY_PATH') is None else config_util.Config().get(
     'PRIVATE_KEY_PATH')
 
+blacklisted_tokens = set()
+
 
 # Load RSA private key
 def load_private_key():
@@ -99,15 +101,41 @@ def create_refresh_token(user_id: str):
 
 
 def decode_token(token):
+    """
+    Decodes a JWT token, with optional JWE decryption.
+
+    :param token: The JWT token to decode.
+    :return: The decoded payload or an error response.
+    """
     try:
-        if JWE_ENCRYPTION == 'on':
+        if not token:
+            return error_util.handle_unauthorized("Missing token")
+
+        if is_blacklisted(token):
+            return error_util.handle_unauthorized("Token has been revoked.")
+
+        # Optional JWE decryption
+        if JWE_ENCRYPTION.lower() == 'on':
             token = decrypt_jwe(token)
-        payload = jwt.decode(token, JWT_SECRET_KEY, algorithms=[JWT_ALGORITHM])
+
+        # Decode the JWT
+        payload = jwt.decode(
+            token,
+            JWT_SECRET_KEY,
+            algorithms=[JWT_ALGORITHM or "HS256"]
+        )
         return payload
+
     except jwt.ExpiredSignatureError:
         return error_util.handle_unauthorized("Token has expired")
+
     except jwt.InvalidTokenError:
         return error_util.handle_unauthorized("Invalid token")
+
+    except Exception as e:
+        # Log unexpected errors for debugging
+        # logging.error(f"Unexpected error during token decoding: {str(e)}")
+        return error_util.handle_unauthorized("Token decoding failed")
 
 
 def create_tokens(user_id: str):
@@ -125,3 +153,18 @@ def generate_access_token_from_refresh_token(refresh_token: str):
         return create_access_token(user_id)
     except jwt.InvalidTokenError:
         return error_util.handle_unauthorized("Invalid refresh token")
+
+
+def add_to_blacklist(token):
+    """
+    Add a token to the blacklist.
+    """
+    blacklisted_tokens.add(token)
+    return True
+
+
+def is_blacklisted(token):
+    """
+    Check if a token is blacklisted.
+    """
+    return token in blacklisted_tokens

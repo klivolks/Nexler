@@ -2,6 +2,8 @@ import unittest
 import datetime
 from unittest.mock import patch
 import jwt
+from nexler.utils.token_util import decode_token
+
 from nexler.utils import config_util, dt_util, str_util
 from nexler.utils import token_util
 
@@ -56,6 +58,46 @@ class TestTokenUtil(unittest.TestCase):
         if isinstance(token, tuple):  # If error response returned
             token = token[0]
         self.assertEqual(token["message"], "Invalid refresh token")
+
+    @patch('nexler.utils.token_util.is_blacklisted')
+    @patch('nexler.utils.token_util.jwt.decode')
+    def test_missing_token(self, mock_jwt_decode, mock_is_blacklisted):
+        token = decode_token(None)
+        if isinstance(token, tuple):  # If error response returned
+            token = token[0]
+        self.assertEqual(token["message"], "Missing token")
+
+    @patch('nexler.utils.token_util.is_blacklisted')
+    @patch('nexler.utils.token_util.jwt.decode')
+    def test_revoked_token(self, mock_jwt_decode, mock_is_blacklisted):
+        mock_is_blacklisted.return_value = True
+        result = decode_token("revoked_token")
+        if isinstance(result, tuple):  # If error response returned
+            result = result[0]
+        self.assertEqual(result["message"], "Token has been revoked.")
+        mock_is_blacklisted.assert_called_once_with("revoked_token")
+
+    @patch('nexler.utils.token_util.is_blacklisted')
+    @patch('nexler.utils.token_util.jwt.decode')
+    def test_expired_token(self, mock_jwt_decode, mock_is_blacklisted):
+        mock_is_blacklisted.return_value = False
+        mock_jwt_decode.side_effect = jwt.ExpiredSignatureError
+        result = decode_token("expired_token")
+        if isinstance(result, tuple):  # If error response returned
+            result = result[0]
+        self.assertEqual(result["message"], "Token has expired")
+        mock_jwt_decode.assert_called_once()
+
+    @patch('nexler.utils.token_util.is_blacklisted')
+    @patch('nexler.utils.token_util.jwt.decode')
+    def test_invalid_token(self, mock_jwt_decode, mock_is_blacklisted):
+        mock_is_blacklisted.return_value = False
+        mock_jwt_decode.side_effect = jwt.InvalidTokenError
+        result = decode_token("invalid_token")
+        if isinstance(result, tuple):  # If error response returned
+            result = result[0]
+        self.assertEqual(result["message"], "Invalid token")
+        mock_jwt_decode.assert_called_once()
 
 
 if __name__ == '__main__':

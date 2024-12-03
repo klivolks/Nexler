@@ -20,7 +20,7 @@ def read_file(path):
 def write_file(path, content):
     """Write the given content to the file at the given path. Overwrites existing content."""
     if allowed_file(path):
-        with open(path, 'wb', encoding='utf-8') as file:
+        with open(path, 'w', encoding='utf-8') as file:
             file.write(content)
     else:
         raise ValueError("File type not allowed")

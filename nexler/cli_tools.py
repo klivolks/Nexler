@@ -12,7 +12,7 @@ def main():
     # create sub-command
     create_parser = subparsers.add_parser('create', help='Create a new component or logic module')
     create_parser.add_argument('module', help='Name of the module (component/logic/model)',
-                               choices=['component', 'logic', 'model'])
+                               choices=['component', 'logic', 'model', 'schema'])
     create_parser.add_argument('moduleName', help='Module Class Name or Component Class Name')
     create_parser.add_argument('--url', default=None, help='URL for the component')
     create_parser.add_argument('--variables', default=None, help='Variables for the module')
@@ -24,6 +24,7 @@ def main():
     create_parser.add_argument('--independent', action='store_true',
                                help='generate independent logic that can be imported to any component')
     create_parser.add_argument('--logic', default=None, help='Logic Class Name (for model only)')
+    create_parser.add_argument('--blank', action='store_true', help='Create a blank model without a json schema')
 
     # AI sub-command
     ai_parser = subparsers.add_parser('ai', help='Use AI in cli')
@@ -60,8 +61,10 @@ def main():
             logic.create_logic(args)
         elif args.module == 'model':
             model.create_model(args)  # call the create_model function from the model module
+        elif args.module == 'schema':
+            model.create_schema(args)
         else:
-            create_parser.error(f"The module '{args.module}' is not recognized. Use 'component' or 'logic'.")
+            create_parser.error(f"The module '{args.module}' is not recognized. Use 'component', 'model' or 'logic'.")
     elif args.command == 'upgrade':
         upgrade.upgrade()  # call the upgrade function from the upgrade module
     elif args.command == 'ai':

@@ -127,13 +127,24 @@ The `create model` command supports customization:
     nexler create model UserModel
     ```
 
-Ensure `<ModelName>.json` exists in `app/models/variables/` and is correctly formatted.
+- Create a blank model for complex functions when schema already exists and pipeline functions are needed.
+
+  ```shell
+  nexler create model ModelName --blank
+  ```
+  
+- Create a json schema to create model. Created json schema can be found at app/models/variables/
+
+  ```shell
+  nexler create schema SchemaName
+  ```
+
+Ensure `<ModelName>.json` exists in `app/models/variables/` and is correctly formatted if not using `--blank` method.
 
 ## Database Migration
 
-Nexler provides automatic migration for JSON files inside the migrations folder. Each JSON file should
-
- correspond to a collection name.
+Nexler provides automatic migration for JSON files inside the migrations folder. 
+Each JSON file should correspond to a collection name.
 
 Migrate all JSON files using:
 

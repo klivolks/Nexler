@@ -1,43 +1,47 @@
 from flask import g
 from functools import wraps
-from jwt import decode, ExpiredSignatureError, InvalidTokenError
-from werkzeug import exceptions
-
-import config
-from nexler.utils import request_util
+from nexler.utils import token_util, request_util, error_util
 
 
 class UserService:
     @property
     def userId(self):
+        """
+        Extract user_id from JWT token in Authorization header.
+        """
         try:
             auth_header = request_util.headers('Authorization')
             if auth_header:
-                token = auth_header.split(" ")[1]
+                token_parts = auth_header.split(" ")
+                token = token_parts[1] if len(token_parts) > 1 else None
                 if token and token != 'null':
-                    data = decode(token, config.Config().JWT_SECRET_KEY, algorithms="HS256")
-                    return data.get('user_id', None)
+                    data = token_util.decode_token(token)
+                    return data.get('user_id')
             return None
-        except ExpiredSignatureError:
-            raise exceptions.Unauthorized(description="Token has expired.")
-        except InvalidTokenError:
-            raise exceptions.BadRequest
+        except Exception as e:
+            raise error_util.handle_server_error(f'Authentication failed: {e}')
 
     def protected(self, f):
+        """
+        Decorator to protect routes by requiring a valid user token.
+        """
         @wraps(f)
         def wrapper(*args, **kwargs):
             g.user_id = self.userId
             if g.user_id:
                 return f(*args, **kwargs)
-            else:
-                return {"message": "Unauthorized"}, 401
+            return {"message": "Unauthorized"}, 401
 
         return wrapper
 
     @property
     def Id(self):
+        """
+        Get user_id from Flask's global context (g).
+        """
         return g.get('user_id')
 
 
+# Initialize the UserService
 user = UserService()
 protected = user.protected

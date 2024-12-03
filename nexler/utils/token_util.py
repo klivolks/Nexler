@@ -1,10 +1,9 @@
-import traceback
-
 import jwt
 from nexler.utils import config_util, dt_util, error_util, dir_util
 import base64
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives import hashes, serialization
+from nexler.services.Caching import RedisService
 
 JWT_SECRET_KEY = config_util.Config().get('JWT_SECRET_KEY')
 JWT_ALGORITHM = config_util.Config().get('JWT_ALGORITHM')
@@ -17,6 +16,10 @@ PUBLIC_KEY_PATH = f'{dir_util.app_directory}/encryption/public_key.pem' if confi
 PRIVATE_KEY_PATH = f'{dir_util.app_directory}/encryption/private_key.pem' if config_util.Config().get(
     'PRIVATE_KEY_PATH') is None else config_util.Config().get(
     'PRIVATE_KEY_PATH')
+SESSION_MANAGEMENT = config_util.Config().get('SESSION_MANAGEMENT')
+
+if not SESSION_MANAGEMENT or SESSION_MANAGEMENT == 'app':
+    blacklisted_tokens = set()
 
 
 # Load RSA private key
@@ -63,7 +66,6 @@ def decrypt_jwe(jwe_token: str) -> str:
         )
         return decrypted_token.decode('utf-8')
     except Exception as e:
-        print(traceback.format_exc())
         return error_util.handle_unauthorized("Invalid or corrupted token")
 
 
@@ -79,7 +81,6 @@ def create_access_token(user_id: str):
             return encrypt_jwt(jwt_token)
         return jwt_token
     except Exception as e:
-        print(traceback.format_exc())
         return error_util.handle_server_error(e)
 
 
@@ -99,15 +100,41 @@ def create_refresh_token(user_id: str):
 
 
 def decode_token(token):
+    """
+    Decodes a JWT token, with optional JWE decryption.
+
+    :param token: The JWT token to decode.
+    :return: The decoded payload or an error response.
+    """
     try:
-        if JWE_ENCRYPTION == 'on':
+        if not token:
+            return error_util.handle_unauthorized("Missing token")
+
+        if is_blacklisted(token):
+            return error_util.handle_unauthorized("Token has been revoked.")
+
+        # Optional JWE decryption
+        if JWE_ENCRYPTION.lower() == 'on':
             token = decrypt_jwe(token)
-        payload = jwt.decode(token, JWT_SECRET_KEY, algorithms=[JWT_ALGORITHM])
+
+        # Decode the JWT
+        payload = jwt.decode(
+            token,
+            JWT_SECRET_KEY,
+            algorithms=[JWT_ALGORITHM or "HS256"]
+        )
         return payload
+
     except jwt.ExpiredSignatureError:
         return error_util.handle_unauthorized("Token has expired")
+
     except jwt.InvalidTokenError:
         return error_util.handle_unauthorized("Invalid token")
+
+    except Exception as e:
+        # Log unexpected errors for debugging
+        # logging.error(f"Unexpected error during token decoding: {str(e)}")
+        return error_util.handle_unauthorized("Token decoding failed")
 
 
 def create_tokens(user_id: str):
@@ -125,3 +152,26 @@ def generate_access_token_from_refresh_token(refresh_token: str):
         return create_access_token(user_id)
     except jwt.InvalidTokenError:
         return error_util.handle_unauthorized("Invalid refresh token")
+
+
+def add_to_blacklist(token):
+    """
+    Add a token to the blacklist.
+    """
+    if not SESSION_MANAGEMENT or SESSION_MANAGEMENT == 'app':
+        blacklisted_tokens.add(token)
+    elif SESSION_MANAGEMENT == 'redis':
+        RedisService().set_string(f'token: {token}', 'blacklisted')
+    return True
+
+
+def is_blacklisted(token):
+    """
+    Check if a token is blacklisted.
+    """
+    if not SESSION_MANAGEMENT or SESSION_MANAGEMENT == 'app':
+        return token in blacklisted_tokens
+    elif SESSION_MANAGEMENT == 'redis':
+        if RedisService().get_string(f'token: {token}') == 'blacklisted':
+            return True
+    return False

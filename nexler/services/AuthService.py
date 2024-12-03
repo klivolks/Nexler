@@ -1,9 +1,9 @@
 from flask import g
 from functools import wraps
-from nexler.utils import token_util, request_util, error_util
+from nexler.utils import token_util, request_util, error_util, response_util
 
 
-class UserService:
+class AuthService:
     @property
     def userId(self):
         """
@@ -41,7 +41,32 @@ class UserService:
         """
         return g.get('user_id')
 
+    @staticmethod
+    def logout():
+        """
+        Invalidate the current user's token by adding it to a blacklist or taking equivalent action.
+        If you are not using a blacklist, logout can be treated as a client-side operation which is not safe.
+        """
+        try:
+            auth_header = request_util.headers('Authorization')
+            if not auth_header:
+                raise error_util.handle_forbidden('No authorisation header present.')
+
+            token_parts = auth_header.split(" ")
+            if len(token_parts) != 2 or token_parts[0].lower() != "bearer":
+                raise error_util.handle_forbidden('No valid token')
+
+            token = token_parts[1]
+
+            # Add the token to a blacklist (if implemented)
+            if token_util.add_to_blacklist(token):
+                return True
+
+            raise error_util.handle_server_error("Failed to logout")
+        except Exception as e:
+            raise error_util.handle_http_exception(e)
+
 
 # Initialize the UserService
-user = UserService()
+user = AuthService()
 protected = user.protected

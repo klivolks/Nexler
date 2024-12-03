@@ -8,7 +8,7 @@ from flask_cors import CORS
 
 from app.routes import initialize_routes
 from nexler.utils import error_util, config_util
-from nexler.services import ApiService, UserService
+from nexler.services import ApiService, AuthService
 
 
 def create_app():
@@ -46,7 +46,7 @@ app = create_app()
 @app.before_request
 def before_request():
     api_service = ApiService()
-    user_service = UserService()
+    user_service = AuthService()
     if config_util.Config().get('API_VERIFICATION') == 'off' or api_service.verified:
         g.user_id = user_service.userId
     else:

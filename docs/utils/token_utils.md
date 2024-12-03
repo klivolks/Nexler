@@ -19,7 +19,7 @@ nexler encrypt generate
 ```
 This will create the required private and public keys.
 
-Enable JWE:
+### Enable JWE:
 To activate JWE encryption, add the following to your environment variables:
 
 ```JWE_ENCRYPTION=on```

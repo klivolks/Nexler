@@ -44,6 +44,8 @@ def setup_project():
 def process_files():
     file_list = list_files("new_project")
     for file in file_list:
+        # do_something(file)
+        pass
 # ... process each file ...
 ```
 

@@ -16,7 +16,7 @@ PUBLIC_KEY_PATH = f'{dir_util.app_directory}/encryption/public_key.pem' if confi
 PRIVATE_KEY_PATH = f'{dir_util.app_directory}/encryption/private_key.pem' if config_util.Config().get(
     'PRIVATE_KEY_PATH') is None else config_util.Config().get(
     'PRIVATE_KEY_PATH')
-SESSION_MANAGEMENT = config_util.Config().get('SESSION_MANAGEMENT')
+SESSION_MANAGEMENT = config_util.Config().get('SESSION_MANAGEMENT') # app/redis/db
 
 if not SESSION_MANAGEMENT or SESSION_MANAGEMENT == 'app':
     blacklisted_tokens = set()

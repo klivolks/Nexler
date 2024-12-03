@@ -6,6 +6,7 @@ from nexler import __version__ as nexler_version
 def main():
     parser = argparse.ArgumentParser(prog='nexler', description='Nexler framework')
     parser.add_argument('--version', action='version', version=f'%(prog)s {nexler_version}')
+    parser.add_argument('-v', action='version', version=f'%(prog)s {nexler_version}')
     subparsers = parser.add_subparsers(dest='command', help='Sub-commands')
 
     # create sub-command

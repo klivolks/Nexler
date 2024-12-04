@@ -6,33 +6,34 @@ from nexler.utils import str_util, file_util
 def create_model(args):
     try:
         moduleName = str_util.pascal_case(args.moduleName)
-        variables_json_file = args.moduleName + '.json'
+        if not args.blank:
+            variables_json_file = args.moduleName + '.json'
 
-        # Construct the path for the JSON file
-        variables_json_path = f"app/models/variables/{variables_json_file}"
+            # Construct the path for the JSON file
+            variables_json_path = f"app/models/variables/{variables_json_file}"
 
-        if os.path.exists(variables_json_path):
-            variables_json = file_util.read_file(variables_json_path)
-            variables = str_util.parse(variables_json, 'json')
-        else:
-            variables = [{"Variable": "_id", "Format": "str", "Required": True},
-                         {"Variable": "data", "Format": "str", "Required": False}]
+            if os.path.exists(variables_json_path):
+                variables_json = file_util.read_file(variables_json_path)
+                variables = str_util.parse(variables_json, 'json')
+            else:
+                variables = [{"Variable": "_id", "Format": "str", "Required": True},
+                             {"Variable": "data", "Format": "str", "Required": False}]
 
-        # Construct the class variables and save variables
-        class_variables = ""
-        init_variables = ""
-        save_variables = ""
-        property_setter = ""
-        for index, variable in enumerate(variables):
-            var_name = variable['Variable']
-            var_type = variable.get('Format', 'str')
-            var_required = variable.get('Required', False)
+            # Construct the class variables and save variables
+            class_variables = ""
+            init_variables = ""
+            save_variables = ""
+            property_setter = ""
+            for index, variable in enumerate(variables):
+                var_name = variable['Variable']
+                var_type = variable.get('Format', 'str')
+                var_required = variable.get('Required', False)
 
-            default_value = None if not var_required else f'{var_type}'
-            class_variables += f", {var_name}={default_value}"
-            init_variables += f"\n        self.{var_name} = {var_name}"
-            if var_type == 'ObjectId':
-                property_setter += f"""
+                default_value = None if not var_required else f'{var_type}'
+                class_variables += f", {var_name}={default_value}"
+                init_variables += f"\n        self.{var_name} = {var_name}"
+                if var_type == 'ObjectId':
+                    property_setter += f"""
     @property
     def {var_name}(self):
         return self._{var_name}
@@ -45,10 +46,10 @@ def create_model(args):
             self._{var_name} = None
 """
 
-            if var_name != '_id':
-                save_variables += f"'{var_name}': self.{var_name}"
-                if index < len(variables) - 1:  # add a comma only if it's not the last variable
-                    save_variables += ",\n                "
+                if var_name != '_id':
+                    save_variables += f"'{var_name}': self.{var_name}"
+                    if index < len(variables) - 1:  # add a comma only if it's not the last variable
+                        save_variables += ",\n                "
 
         # Construct the file path for model
         model_file_path = f"app/models/{moduleName}.py"
@@ -92,8 +93,16 @@ def create_model(args):
             print(f"Model '{moduleName}' already exists. Added to logic {args.logic}")
             return
 
-        # Construct the class definition with importing the collection from daba.Mongo
-        class_definition = f"""from bson import ObjectId
+        if args.blank:
+            class_definition = f"""from bson import ObjectId
+from daba.Mongo import collection
+
+
+class {moduleName}:
+    {moduleName.lower()} = collection("{moduleName}")"""
+        else:
+            # Construct the class definition with importing the collection from daba.Mongo
+            class_definition = f"""from bson import ObjectId
 from daba.Mongo import collection
 
 
@@ -135,7 +144,8 @@ class {moduleName}:
 
     def count(self, query):
         return self.{moduleName.lower()}.count(query)
-    {property_setter}"""
+    {property_setter}
+"""
 
         # Create the model file and write the class definition to it
         file_util.write_file(model_file_path, class_definition)
@@ -188,3 +198,20 @@ class {moduleName}:
 
     except Exception as e:
         print(f"An error occurred while creating the model: {e} Trace: {traceback.format_exc()}")
+
+
+def create_schema(args):
+    try:
+        schemaName = args.moduleName
+        variables_json_path = f"app/models/variables/{schemaName}.json"
+        if os.path.exists(variables_json_path):
+            print(f"Schema {schemaName} already exists!")
+        else:
+            content = """[
+    {"Variable": "_id", "Format": "ObjectId", "Required": false},
+    {"Variable": "data", "Format": "str", "Required": false}
+]"""
+            file_util.write_file(variables_json_path, content)
+            print(f"Empty schema {schemaName} created successfully!")
+    except Exception as e:
+        print(f"An error occurred while creating the schema: {e} Trace: {traceback.format_exc()}")

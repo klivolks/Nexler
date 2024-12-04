@@ -21,18 +21,35 @@ class AuthService:
         except Exception as e:
             raise error_util.handle_server_error(f'Authentication failed: {e}')
 
-    def protected(self, f):
+    def has_permission(self, user_id, resource_id):
+        """
+        Placeholder for ABAC logic.
+        Check if the user has access to the specified resource.
+        """
+        # Implement your ABAC logic here
+        return True  # Simulating successful permission check
+
+    def protected(self, resource_id=None):
         """
         Decorator to protect routes by requiring a valid user token.
+        Optionally enforces ABAC if resource_id is provided.
         """
-        @wraps(f)
-        def wrapper(*args, **kwargs):
-            g.user_id = self.userId
-            if g.user_id:
-                return f(*args, **kwargs)
-            return {"message": "Unauthorized"}, 401
+        def decorator(f):
+            @wraps(f)
+            def wrapper(*args, **kwargs):
+                g.user_id = self.userId
+                if g.user_id:
+                    # Perform ABAC check if a resource_id is provided
+                    if resource_id and not self.has_permission(g.user_id, resource_id):
+                        return {"message": "Forbidden: Access denied"}, 403
+                    return f(*args, **kwargs)
+                return {"message": "Unauthorized: Please log in"}, 401
+            return wrapper
 
-        return wrapper
+        # Return the actual decorator for parameterized use
+        if callable(resource_id):  # Handles the case when no resource_id is passed
+            return decorator(resource_id)
+        return decorator
 
     @property
     def Id(self):

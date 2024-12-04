@@ -100,7 +100,7 @@ class ExternalApi:
             else:
                 return self.response.text
         else:
-            return f"Error: received status code {self.response.status_code}, Message: {self.response.text}"
+            return {"Error": f"received status code {self.response.status_code}", "Message": self.response.text}
 
 
 class InternalApi(ExternalApi):

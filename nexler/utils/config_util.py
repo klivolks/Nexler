@@ -1,12 +1,15 @@
 import os
 import json
 from dotenv import load_dotenv
+from nexler.utils import dir_util
 
 load_dotenv()
 
 
 class Config:
     def __init__(self, config_file_path=None):
+        if config_file_path:
+            config_file_path = dir_util.safe_join(dir_util.app_directory, config_file_path)
         self.config = {}
 
         # Load configuration from file

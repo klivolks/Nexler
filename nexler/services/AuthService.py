@@ -1,6 +1,7 @@
+import asyncio
 from flask import g
 from functools import wraps
-from nexler.utils import token_util, request_util, error_util, response_util
+from nexler.utils import token_util, request_util, error_util
 
 
 class AuthService:
@@ -23,17 +24,40 @@ class AuthService:
 
     def has_permission(self, user_id, resource_id):
         """
-        Placeholder for ABAC logic.
-        Check if the user has access to the specified resource.
+        Checks if the user has access to the specified resource based on ABAC policies.
+
+        Args:
+            user_id (str): The unique identifier of the user.
+            resource_id (str): The unique identifier of the resource.
+
+        Returns:
+            bool: True if the user has permission, False otherwise.
         """
-        # Implement your ABAC logic here
-        return True  # Simulating successful permission check
+
+        from nexler.services.Caching import RedisService
+        cache = RedisService().get_string(f"user:{user_id},resource:{resource_id}")
+        if cache:
+            if cache == "granted":
+                return True
+            return False
+
+        from nexler.services.ApiService import InternalApi
+        api = InternalApi('AuthService', "/permission/check", {"user_id": user_id, "resource_id": resource_id})
+        response = asyncio.run(api.fetch('post'))
+        if response.get('status') == 'success':
+            RedisService().set_string(f"user:{user_id},resource:{resource_id}", response.get('access'))
+            if response.get('access') == 'granted':
+                return True
+            return False
+
+        raise SystemError(response.get('message'))
 
     def protected(self, resource_id=None):
         """
         Decorator to protect routes by requiring a valid user token.
         Optionally enforces ABAC if resource_id is provided.
         """
+
         def decorator(f):
             @wraps(f)
             def wrapper(*args, **kwargs):
@@ -44,6 +68,7 @@ class AuthService:
                         return {"message": "Forbidden: Access denied"}, 403
                     return f(*args, **kwargs)
                 return {"message": "Unauthorized: Please log in"}, 401
+
             return wrapper
 
         # Return the actual decorator for parameterized use

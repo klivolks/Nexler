@@ -27,6 +27,66 @@ def MyFunction():
     pass
 ```
 
+The `@protected(resource_id)` decorator can be used to integrate with the `AuthService` for checking permissions. It simplifies Authorization-based Access Control (ABAC) by validating user access to specific resources.
+
+---
+
+### Configuration Setup
+
+To enable this feature, you must create a configuration file named `AuthService.json` in the `app/config` folder. This file should include the following variables:
+
+```json
+{
+  "API_URL": "http://your-auth-service-url/",
+  "API_KEY": "your-api-key"
+}
+```
+
+- **`API_URL`**: The base URL of your `AuthService`.
+- **`API_KEY`**: The API key required for authenticating requests to the `AuthService`.
+
+---
+
+### How It Works
+
+The `@protected(resource_id)` decorator automatically:
+1. Extracts the current `user_id` from the session or token.
+2. Passes both `user_id` and `resource_id` to the `/permission/check` endpoint of the `AuthService`.
+
+**Endpoint Example**  
+A request is made to the following endpoint:
+```
+POST {API_URL}/permission/check
+```
+
+**Request Payload**:
+```json
+{
+  "user_id": "current-user-id",
+  "resource_id": "current-resource-id"
+}
+```
+
+---
+
+### Usage Example
+
+Here's how you can use the `@protected(resource_id)` decorator:
+
+```python
+from nexler.services.AuthService import protected
+
+@protected('resource_id')
+def my_function():
+    # Code to execute if the user has permission
+    print("Access granted!")
+```
+
+### Notes
+1. If the user does not have the required permission, the decorator will block access and return an "Unauthorized" response.
+2. Ensure the `AuthService.json` file is correctly set up with valid API details, or the decorator will not function as intended.
+
+
 ---
 
 ### 2. Accessing the Current User

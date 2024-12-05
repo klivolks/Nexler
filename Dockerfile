@@ -1,5 +1,5 @@
 # Build Stage
-FROM python:3.13.0rc2-alpine as build
+FROM python:3.12.0rc2-alpine as build
 RUN apk update
 
 # Install build dependencies
@@ -27,7 +27,7 @@ RUN apk del .tmp-build-deps
 
 
 # Interim Stage for Installing System Updates and ffmpeg
-FROM python:3.13.0rc2-alpine AS production_base
+FROM python:3.12.0rc2-alpine AS production_base
 
 # Install system updates and ffmpeg
 RUN apk update && \

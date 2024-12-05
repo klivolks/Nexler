@@ -1,9 +1,9 @@
 def check_data(data):
-    if not isinstance(data, (dict, list)):
+    if not isinstance(data, (dict, list, str)):
         raise TypeError(f'The data passed is not of type dict or list. It is of type {type(data)}')
 
 
-def success(data: (dict, list), status_code: int = 200):
+def success(data: (dict, list, str), status_code: int = 200):
     check_data(data)
     return {"status": "success", "data": data}, status_code
 

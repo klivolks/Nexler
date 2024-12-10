@@ -92,7 +92,7 @@ class AuthService:
         try:
             auth_header = request_util.headers('Authorization')
             if not auth_header:
-                raise error_util.handle_forbidden('No authorisation header present.')
+                error_util.handle_forbidden('No authorisation header present.')
 
             token_parts = auth_header.split(" ")
             if len(token_parts) != 2 or token_parts[0].lower() != "bearer":

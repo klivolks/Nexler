@@ -1,6 +1,5 @@
 from redis import Redis
-from nexler.utils import config_util
-from nexler.utils.error_util import handle_server_error
+from nexler.utils import config_util, error_util
 
 
 class RedisService:
@@ -39,7 +38,7 @@ class RedisService:
                 self.r.expire(key, expiry)
             return True
         except Exception as e:
-            handle_server_error(e)
+            error_util.handle_server_error(e)
             return False
 
     def get_string(self, key: str) -> str:
@@ -52,7 +51,7 @@ class RedisService:
             value = self.r.get(key)
             return value.decode('utf-8') if value else None
         except Exception as e:
-            handle_server_error(e)
+            error_util.handle_server_error(e)
             return None
 
     def set_dict(self, key: str, value: dict, expiry: int = None) -> bool:
@@ -71,7 +70,7 @@ class RedisService:
                 self.r.expire(key, expiry)
             return True
         except Exception as e:
-            handle_server_error(e)
+            error_util.handle_server_error(e)
             return False
 
     def get_dict(self, key: str) -> dict:
@@ -84,7 +83,7 @@ class RedisService:
             data = self.r.hgetall(key)
             return {k.decode('utf-8'): v.decode('utf-8') for k, v in data.items()} if data else {}
         except Exception as e:
-            handle_server_error(e)
+            error_util.handle_server_error(e)
             return {}
 
     def delete_key(self, key: str) -> bool:
@@ -97,7 +96,7 @@ class RedisService:
             result = self.r.delete(key)
             return result > 0
         except Exception as e:
-            handle_server_error(e)
+            error_util.handle_server_error(e)
             return False
 
     def key_exists(self, key: str) -> bool:
@@ -109,7 +108,7 @@ class RedisService:
         try:
             return self.r.exists(key) > 0
         except Exception as e:
-            handle_server_error(e)
+            error_util.handle_server_error(e)
             return False
 
     def set_list(self, key: str, values: list, expiry: int = None) -> bool:
@@ -129,7 +128,7 @@ class RedisService:
                 self.r.expire(key, expiry)
             return True
         except Exception as e:
-            handle_server_error(e)
+            error_util.handle_server_error(e)
             return False
 
     def get_list(self, key: str) -> list:
@@ -141,7 +140,7 @@ class RedisService:
         try:
             return [item.decode('utf-8') for item in self.r.lrange(key, 0, -1)]
         except Exception as e:
-            handle_server_error(e)
+            error_util.handle_server_error(e)
             return []
 
     def set_set(self, key: str, values: set, expiry: int = None) -> bool:
@@ -161,7 +160,7 @@ class RedisService:
                 self.r.expire(key, expiry)
             return True
         except Exception as e:
-            handle_server_error(e)
+            error_util.handle_server_error(e)
             return False
 
     def get_set(self, key: str) -> set:
@@ -173,7 +172,7 @@ class RedisService:
         try:
             return {item.decode('utf-8') for item in self.r.smembers(key)}
         except Exception as e:
-            handle_server_error(e)
+            error_util.handle_server_error(e)
             return set()
 
     def increment_key(self, key: str, amount: int = 1) -> int:
@@ -186,7 +185,7 @@ class RedisService:
         try:
             return self.r.incr(key, amount)
         except Exception as e:
-            handle_server_error(e)
+            error_util.handle_server_error(e)
             return None
 
     def decrement_key(self, key: str, amount: int = 1) -> int:
@@ -199,7 +198,7 @@ class RedisService:
         try:
             return self.r.decr(key, amount)
         except Exception as e:
-            handle_server_error(e)
+            error_util.handle_server_error(e)
             return None
 
     def flush_database(self) -> bool:
@@ -211,7 +210,7 @@ class RedisService:
             self.r.flushdb()
             return True
         except Exception as e:
-            handle_server_error(e)
+            error_util.handle_server_error(e)
             return False
 
     def expire_key(self, key: str, expiry: int) -> bool:
@@ -224,5 +223,5 @@ class RedisService:
         try:
             return self.r.expire(key, expiry)
         except Exception as e:
-            handle_server_error(e)
+            error_util.handle_server_error(e)
             return False

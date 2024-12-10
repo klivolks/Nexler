@@ -1,9 +1,6 @@
-import traceback
 from werkzeug.exceptions import HTTPException
-
+from nexler.services import Logger
 from nexler.utils import response_util
-
-trace = traceback.format_exc()
 
 
 def handle_http_exception(e):
@@ -22,67 +19,83 @@ def handle_http_exception(e):
 
         return error_method(f"{str(e)}")
     else:
+        Logger().log(e)
         return response_util.error(f"Internal server error: {e}", 500)
 
 
 def handle_bad_request(e):
+    Logger().log(e)
     return response_util.bad_request(f"{str(e)}")
 
 
-def handle_unauthorized(e): \
-        return response_util.unauthorized(f"{str(e)}")
+def handle_unauthorized(e):
+    Logger().log(e)
+    return response_util.unauthorized(f"{str(e)}")
 
 
-def handle_forbidden(e): \
-        return response_util.forbidden(f"{str(e)}")
+def handle_forbidden(e):
+    Logger().log(e)
+    return response_util.forbidden(f"{str(e)}")
 
 
 def handle_not_found(e):
+    Logger().log(e)
     return response_util.not_found(f"{str(e)}")
 
 
 def handle_method_not_allowed(e):
+    Logger().log(e)
     return response_util.method_not_allowed(f"{str(e)}")
 
 
 def handle_conflict(e):
+    Logger().log(e)
     return response_util.conflict(f"{str(e)}")
 
 
 def handle_unsupported_media_type(e):
+    Logger().log(e)
     return response_util.unsupported_media_type(f"{str(e)}")
 
 
 def handle_server_error(e):
+    Logger().log(e)
     return response_util.server_error(f"{str(e)}")
 
 
 def handle_not_implemented(e):
+    Logger().log(e)
     return response_util.not_implemented(f"{str(e)}")
 
 
 def handle_key_error(e):
-    return response_util.bad_request(f"KeyError: {str(e)}\nTrace: {trace}")
+    Logger().log(e)
+    return response_util.bad_request(f"KeyError: {str(e)}")
 
 
 def handle_value_error(e):
-    return response_util.bad_request(f"ValueError: {str(e)}\nTrace: {trace}")
+    Logger().log(e)
+    return response_util.bad_request(f"ValueError: {str(e)}")
 
 
 def handle_type_error(e):
-    return response_util.bad_request(f"TypeError: {str(e)}\nTrace: {trace}")
+    Logger().log(e)
+    return response_util.bad_request(f"TypeError: {str(e)}")
 
 
 def handle_index_error(e):
-    return response_util.bad_request(f"IndexError: {str(e)}\nTrace: {trace}")
+    Logger().log(e)
+    return response_util.bad_request(f"IndexError: {str(e)}")
 
 
 def handle_attribute_error(e):
-    return response_util.bad_request(f"AttributeError: {str(e)}\nTrace: {trace}")
+    Logger().log(e)
+    return response_util.bad_request(f"AttributeError: {str(e)}")
 
 
 def handle_zero_division_error(e):
-    return response_util.bad_request(f"ZeroDivisionError: {str(e)}\nTrace: {trace}")
+    Logger().log(e)
+    return response_util.bad_request(f"ZeroDivisionError: {str(e)}")
 
 
 def register_error_handlers(app):

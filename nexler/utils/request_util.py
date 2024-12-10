@@ -1,5 +1,6 @@
 from flask import request
 from flask_restful import reqparse
+from markupsafe import escape
 from werkzeug import exceptions
 import re
 
@@ -42,7 +43,7 @@ def decimal_number(value):
 # Methods to get data and validate
 def form_data(field_name, field_type=str, validator=None, is_required_field=True):
     # Access the form data directly through the request object
-    value = request.form.get(field_name)
+    value = escape(request.form.get(field_name))
 
     if value is not None:
         try:
@@ -75,7 +76,7 @@ def json_data(field_name, field_type=str, validator=None, is_required_field=True
 
 def query_params(field_name, field_type=str, validator=None, is_required_field=True):
     # Directly access the query parameters through the request object
-    value = request.args.get(field_name)
+    value = escape(request.args.get(field_name))
 
     if value is not None:
         try:
@@ -115,7 +116,7 @@ def file(file_name, is_required_field=True):
 
 def headers(field_name, field_type=str, validator=None):
     # Access the headers directly through the request object
-    value = request.headers.get(field_name)
+    value = escape(request.headers.get(field_name))
 
     if value is not None:
         try:

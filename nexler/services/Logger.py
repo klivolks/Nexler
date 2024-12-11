@@ -13,7 +13,7 @@ class Logger:
         route = request.path
         query = request.args
         payload = request.form
-        json_payload = request.get_json()
+        json_payload = request.get_json() if request.headers.get('content-type') == "application/json" else None
         headers = dict(request.headers)
         method = request.method
         data = {

@@ -5,6 +5,7 @@ import logging.config
 from flask import Flask, g
 from flask_restful import Api
 from flask_cors import CORS
+from flask_compress import Compress
 
 from app.routes import initialize_routes
 from nexler.utils import error_util, config_util
@@ -14,6 +15,7 @@ from nexler.services import ApiService, AuthService
 def create_app():
     # Load the correct configuration
     app = Flask(__name__)
+    Compress(app)
     config_module = f"config.{config_name.capitalize()}Config"
     app.config.from_object(config_module)
 

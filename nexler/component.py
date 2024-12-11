@@ -66,7 +66,7 @@ def create_component(args):
             method_definitions = [method_templates[method] for method in methods if method in method_templates]
 
             # Class definition
-            class_definition = f"""from flask_restful import Resource
+            class_definition = f"""from flask_restx import Resource
 from nexler.utils import response_util, error_util
 {"from nexler.services.AuthService import protected, user" if args.protected else ""}
 

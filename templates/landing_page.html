@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World - API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            margin-bottom: 30px;
+        }
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+        .logo {
+            width: 100px;
+            margin-bottom: 30px;
+        }
+        .swagger-link {
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+        .swagger-link:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Replace this with your logo -->
+        <img src="{{ url_for('static', filename='logo.svg') }}" alt="Logo" class="logo">
+        <h1>Hello, World!</h1>
+        <p>Welcome to the Nexler API! </p>
+        {% if swagger_flag == 'on' %}
+        <p>Click the button below to explore the API documentation.</p>
+        <p><a href="/swagger" class="swagger-link">Go to Swagger UI</a></p>
+        {% endif %}
+    </div>
+</body>
+</html>

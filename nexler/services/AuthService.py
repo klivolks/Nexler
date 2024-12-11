@@ -1,7 +1,7 @@
 import asyncio
 from flask import g
 from functools import wraps
-from nexler.utils import token_util, request_util, error_util
+from nexler.utils import token_util, request_util, error_util, config_util
 
 
 class AuthService:
@@ -34,18 +34,20 @@ class AuthService:
             bool: True if the user has permission, False otherwise.
         """
 
-        from nexler.services.Caching import RedisService
-        cache = RedisService().get_string(f"user:{user_id},resource:{resource_id}")
-        if cache:
-            if cache == "granted":
-                return True
-            return False
+        if config_util.Config().get("REDIS_CACHING") and config_util.Config().get("REDIS_CACHING") == "on":
+            from nexler.services.Caching import RedisService
+            cache = RedisService().get_string(f"user:{user_id},resource:{resource_id}")
+            if cache:
+                if cache == "granted":
+                    return True
+                return False
 
         from nexler.services.ApiService import InternalApi
         api = InternalApi('AuthService', "/permission/check", {"user_id": user_id, "resource_id": resource_id})
         response = asyncio.run(api.fetch('post'))
         if response.get('status') == 'success':
-            RedisService().set_string(f"user:{user_id},resource:{resource_id}", response.get('access'))
+            if config_util.Config().get("REDIS_CACHING") and config_util.Config().get("REDIS_CACHING") == "on":
+                RedisService().set_string(f"user:{user_id},resource:{resource_id}", response.get('access'))
             if response.get('access') == 'granted':
                 return True
             return False
@@ -64,15 +66,16 @@ class AuthService:
                 g.user_id = self.userId
                 if g.user_id:
                     # Perform ABAC check if a resource_id is provided
-                    if resource_id and not self.has_permission(g.user_id, resource_id):
-                        return {"message": "Forbidden: Access denied"}, 403
+                    if isinstance(resource_id, str):
+                        if not self.has_permission(g.user_id, resource_id):
+                            return {"message": "Forbidden: Access denied"}, 403
                     return f(*args, **kwargs)
                 return {"message": "Unauthorized: Please log in"}, 401
 
             return wrapper
 
         # Return the actual decorator for parameterized use
-        if callable(resource_id):  # Handles the case when no resource_id is passed
+        if callable(resource_id):
             return decorator(resource_id)
         return decorator
 

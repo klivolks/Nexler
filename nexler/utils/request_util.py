@@ -1,5 +1,5 @@
 from flask import request
-from flask_restful import reqparse
+from flask_restx import reqparse
 from markupsafe import escape
 from werkzeug import exceptions
 import re

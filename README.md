@@ -8,22 +8,25 @@
   <a href="https://snyk.io/"><img alt="Snyk" src="https://img.shields.io/badge/Snyk-000000?style=for-the-badge&logo=snyk&logoColor=white"/></a>
 </p>
 
-![Python](https://img.shields.io/badge/python-v3.10+-blue.svg)
-![Docker](https://img.shields.io/badge/docker%20build-automated-066da5.svg)
+![Python](https://img.shields.io/badge/Python-v3.10+-blue.svg)
+![Docker](https://img.shields.io/badge/Docker%20Build-Automated-066da5.svg)
 ![Snyk](https://img.shields.io/badge/Snyk-Security-orange.svg)
+![Swagger](https://img.shields.io/badge/Swagger-Auto%20Documented-green.svg)
 
 
 ---
 
-Nexler is a lightweight yet powerful framework for simplifying the development of RESTful APIs in Python. With a strong focus on component generation and URL handling, Nexler provides a streamlined process for building and managing your API components. Its modular structure makes it easy to develop, maintain, and understand your codebase.
+Nexler is a lightweight yet powerful Python framework that simplifies the development of RESTful APIs. It focuses on component generation and efficient URL handling, providing a streamlined process for building and managing API components. With its modular structure, Nexler makes it easy to develop, maintain, and scale your codebase.
 
-Introducing **JSON Web Encryption** in version **v1.2.1**, enhancing application security and reliability.  
+In version **v1.2.1**, Nexler introduced **JSON Web Encryption**, enhancing the security and reliability of applications. 
 
-With version **v1.2.19**, the **RedisService** was introduced to boost performance and scalability.
+Version **v1.2.19** brought the **RedisService**, improving performance and scalability.
 
-First AI integrated framework in world. ChatGPTs' integration into Nexler provides users with the ability to quickly and easily edit, create content and code within the Nexler framework, allowing for faster development times and enhanced user experience.
+Nexler is the first AI-integrated framework, with **ChatGPT** seamlessly embedded. This allows users to quickly create, edit, and generate content and code, accelerating development and improving the user experience.
 
-Nexler have an in-built currency conversion tool that supports the currencies of 194 countries and updates daily, and password encryption based on Argon2 - one of the most secure encryption mechanisms available today. 
+Additionally, Nexler includes an in-built currency conversion tool, supporting the currencies of 194 countries and providing daily updates, along with **Argon2**-based password encryption, one of the most secure encryption mechanisms available.
+
+From **v1.3.0**, Nexler also includes automatic **Swagger** documentation, further simplifying API development and integration.
 
 ## Table of Contents
 
@@ -51,6 +54,7 @@ Nexler have an in-built currency conversion tool that supports the currencies of
 - **Database Migration:** Nexler provides an automatic migration command for JSON files inside the migrations folder.
 - **API Verification:** The ApiService can be enabled by setting API_VERIFICATION=on in the .env file. This verifies the APIs against predefined rules.
 - **JWE Security:** Now transfer tokens with private encryption Keys. Refer documentation of token_util for more information. To generate keys use nexler cli tools.
+- **Swagger Documented:** Automated documentation of APIs with Swagger UI, making it easier to interact with and test API endpoints directly from the browser. This feature improves developer productivity and ensures up-to-date API documentation.
 
 ## Installation
 
@@ -106,7 +110,7 @@ AuthService provides a way to manage user authentication and authorization. This
 Example usage:
 
 ```python
-from flask_restful import Resource
+from flask_restx import Resource
 from nexler.services.AuthService import user, protected
 
 

@@ -1,5 +1,5 @@
 from app.logic.HelloWorld import HelloWorldLogic
-from flask_restful import Resource
+from flask_restx import Resource
 from nexler.utils import response_util, error_util
 
 
@@ -7,6 +7,7 @@ class HelloWorld(Resource):
     @staticmethod
     def get():
         """
+        Get list of utilities and services available
         :return:
         """
         try:

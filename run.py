@@ -1,9 +1,11 @@
 import os
+from struct import pack_into
+
 from environment import config_name
 
 import logging.config
-from flask import Flask, g
-from flask_restful import Api
+from flask import Flask, g, render_template
+from flask_restx import Api
 from flask_cors import CORS
 from flask_compress import Compress
 
@@ -18,6 +20,12 @@ def create_app():
     Compress(app)
     config_module = f"config.{config_name.capitalize()}Config"
     app.config.from_object(config_module)
+    swagger_flag = config_util.Config().get("SWAGGER")
+    authorizations = {"Bearer": {"type": "apiKey", "in": "header", "name": "Authorization"}}
+
+    @app.route('/')
+    def hello():
+        return render_template('landing_page.html', swagger_flag=swagger_flag)
 
     # Create logs directory if it does not exist
     if not os.path.exists('logs'):
@@ -29,7 +37,24 @@ def create_app():
         app.logger.info('Nexler startup')
 
     # Initialize other components
-    api = Api(app)
+    api = Api(app,
+              version=config_util.Config().get("SERVICE_VERSION"),
+              title=config_util.Config().get("SERVICE_NAME"),
+              description="API documentation for your Nexler app using Swagger UI",
+              doc="/swagger" if (swagger_flag and swagger_flag == 'on') else None,
+              authorizations=authorizations)
+
+    api.security = [{
+        'Bearer': []
+    }]
+
+    # Define models for API key and Bearer token
+    api.models['Bearer'] = {
+        'type': 'apiKey',
+        'name': 'Authorization',
+        'in': 'header'
+    }
+
     if app.debug:
         CORS(app, expose_headers=app.config['CORS_HEADERS'], supports_credentials=True)
     else:

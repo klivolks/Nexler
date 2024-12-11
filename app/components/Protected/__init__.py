@@ -1,6 +1,7 @@
-from flask_restful import Resource
+from flask_restx import Resource, Api
 from nexler.utils import response_util, error_util
 from nexler.services.AuthService import protected, user
+api = Api()
 
 
 class Protected(Resource):
@@ -12,7 +13,7 @@ class Protected(Resource):
         except Exception as e:
             return error_util.handle_server_error(e)
 
-    @protected
+    @protected("resource")
     def post(self):
         try:
             # Logic goes here

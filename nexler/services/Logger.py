@@ -9,7 +9,7 @@ class Logger:
     def __init__(self):
         self.error_log = collection("ErrorLog")
 
-    def log(self, msg):
+    def log(self, msg, error_type=None):
         route = request.path
         query = request.args
         payload = request.form
@@ -19,6 +19,7 @@ class Logger:
         data = {
             "App": config_util.Config().get('SERVICE_NAME'),
             "Error": str(msg),
+            "ErrorType": error_type,
             "Route": route,
             "Method": method,
             "Headers": headers,

@@ -19,7 +19,7 @@ def create_app():
     config_module = f"config.{config_name.capitalize()}Config"
     app.config.from_object(config_module)
     swagger_flag = config_util.Config().get("SWAGGER")
-    authorizations = {"Bearer": {"type": "apiKey", "in": "header", "name": "Authorization"}}
+    authorizations = {"Bearer": {"type": "apiKey", "in": "header", "name": "Authorization"}, "ApiKey": {"type": "apiKey", "in": "header", "name": "X-API-Key"}, "Referer": {"type": "apiKey", "in": "header", "name": "Referer"}}
 
     @app.route('/')
     def hello():
@@ -43,13 +43,25 @@ def create_app():
               authorizations=authorizations)
 
     api.security = [{
-        'Bearer': []
+        'Bearer': [],
+        'ApiKey': [],
+        'Referer': []
     }]
 
     # Define models for API key and Bearer token
     api.models['Bearer'] = {
         'type': 'apiKey',
         'name': 'Authorization',
+        'in': 'header'
+    }
+    api.models['ApiKey'] = {
+        'type': 'apiKey',
+        'name': 'X-API-Key',
+        'in': 'header'
+    }
+    api.models['Referer'] = {
+        'type': 'apiKey',
+        'name': 'X-API-Key',
         'in': 'header'
     }
 

@@ -6,7 +6,7 @@ The `Logger` utility is designed to save error logs to the database for efficien
 You can use the `Logger` by importing it into your code as follows:
 
 ```python
-from nexler.services import Logger
+from nexler.services import LoggerService
 ```
 
 ### **Key Features**

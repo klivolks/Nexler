@@ -1,2 +1,2 @@
 ["run.py", "setup.py", "nexler", "tests/nexler","requirements.txt", "migrations", ".env-example",
-                    "environment.py"]
+                    "environment.py", "templates", "static"]

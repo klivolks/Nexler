@@ -5,7 +5,7 @@ from nexler.services.AuthService import user
 from flask import request
 
 
-class Logger:
+class LoggerService:
     def __init__(self):
         self.error_log = collection("ErrorLog")
 

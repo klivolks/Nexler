@@ -20,7 +20,7 @@ class AuthService:
                     return data.get('user_id')
             return None
         except Exception as e:
-            raise error_util.handle_server_error(f'Authentication failed: {e}')
+            return error_util.handle_server_error(f'Authentication failed: {e}')
 
     def has_permission(self, user_id, resource_id):
         """
@@ -95,11 +95,11 @@ class AuthService:
         try:
             auth_header = request_util.headers('Authorization')
             if not auth_header:
-                error_util.handle_forbidden('No authorisation header present.')
+                return error_util.handle_forbidden('No authorisation header present.')
 
             token_parts = auth_header.split(" ")
             if len(token_parts) != 2 or token_parts[0].lower() != "bearer":
-                raise error_util.handle_forbidden('No valid token')
+                return error_util.handle_forbidden('No valid token')
 
             token = token_parts[1]
 
@@ -107,9 +107,9 @@ class AuthService:
             if token_util.add_to_blacklist(token):
                 return True
 
-            raise error_util.handle_server_error("Failed to logout")
+            error_util.handle_server_error("Failed to logout")
         except Exception as e:
-            raise error_util.handle_http_exception(e)
+            return error_util.handle_http_exception(e)
 
 
 # Initialize the UserService

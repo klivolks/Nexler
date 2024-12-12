@@ -1,6 +1,4 @@
 import os
-from struct import pack_into
-
 from environment import config_name
 
 import logging.config

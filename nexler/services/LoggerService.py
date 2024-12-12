@@ -1,7 +1,6 @@
 import traceback
 from daba.Mongo import collection
 from nexler.utils import config_util, dt_util
-from nexler.services.AuthService import user
 from flask import request
 
 
@@ -10,6 +9,8 @@ class LoggerService:
         self.error_log = collection("ErrorLog")
 
     def log(self, msg, error_type=None):
+        from nexler.services.AuthService import user
+
         route = request.path
         query = request.args
         payload = request.form

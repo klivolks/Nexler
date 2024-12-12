@@ -1,5 +1,5 @@
 from werkzeug.exceptions import HTTPException
-from nexler.services import LoggerService
+from nexler.services.LoggerService import LoggerService
 from nexler.utils import response_util
 
 

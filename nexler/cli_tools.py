@@ -24,6 +24,7 @@ def main():
     create_parser.add_argument('--independent', action='store_true',
                                help='generate independent logic that can be imported to any component')
     create_parser.add_argument('--logic', default=None, help='Logic Class Name (for model only)')
+    create_parser.add_argument('--namespace', default=None, help='Api namespace creation for grouping')
     create_parser.add_argument('--blank', action='store_true', help='Create a blank model without a json schema')
 
     # AI sub-command

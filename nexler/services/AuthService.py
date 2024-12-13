@@ -1,6 +1,8 @@
 import asyncio
 from flask import g
 from functools import wraps
+from werkzeug.exceptions import Unauthorized, InternalServerError, Forbidden
+
 from nexler.utils import token_util, request_util, error_util, config_util
 
 
@@ -20,7 +22,7 @@ class AuthService:
                     return data.get('user_id')
             return None
         except Exception as e:
-            return error_util.handle_server_error(f'Authentication failed: {e}')
+            raise Unauthorized(f'Authentication failed: {e}')
 
     def has_permission(self, user_id, resource_id):
         """
@@ -95,11 +97,11 @@ class AuthService:
         try:
             auth_header = request_util.headers('Authorization')
             if not auth_header:
-                return error_util.handle_forbidden('No authorisation header present.')
+                raise Forbidden('No authorisation header present.')
 
             token_parts = auth_header.split(" ")
             if len(token_parts) != 2 or token_parts[0].lower() != "bearer":
-                return error_util.handle_forbidden('No valid token')
+                raise Forbidden('No valid token')
 
             token = token_parts[1]
 
@@ -107,9 +109,9 @@ class AuthService:
             if token_util.add_to_blacklist(token):
                 return True
 
-            error_util.handle_server_error("Failed to logout")
+            raise InternalServerError("Failed to logout")
         except Exception as e:
-            return error_util.handle_http_exception(e)
+            raise error_util.handle_http_exception(e)
 
 
 # Initialize the UserService

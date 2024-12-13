@@ -48,7 +48,23 @@ def register(api: Api):"""
     api.add_namespace({namespace})"""
 
     route_content += f"""
-    {namespace}.add_resource({args.moduleName}, '{url}{url_variables_str}')\n"""
+    {namespace}.add_resource({args.moduleName}, '{url}{url_variables_str}')\n
+    
+    post_request_model = api.model('{args.moduleName}PostPayload', {{
+        'resource': fields.String(required=True, description='resource to be updated')
+    }})
+    put_request_model = api.model('{args.moduleName}PutPayload', {{
+        'resource': fields.String(required=True, description='The resource to update')
+    }})
+    delete_request_model = api.model('{args.moduleName}DeletePayload', {{
+        'resource': fields.String(required=True, description='The resource to update')
+    }})
+
+    # Register models with API
+    api.add_model('ProtectedPostRequest', post_request_model)
+    api.add_model('ProtectedPutRequest', put_request_model)
+    api.add_model('ProtectedPutRequest', delete_request_model)
+    """
 
     route_file_path = f'app/routes/{args.moduleName}Route.py'
     file_util.write_file(route_file_path, route_content)

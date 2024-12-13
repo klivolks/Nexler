@@ -42,21 +42,24 @@ def create_component(args):
             return error_util.handle_server_error(e)
 """,
                 'post': f"""
-    {protected_decorator}def post{method_variables}:
+    {protected_decorator}@api.expect(post_payload)
+    def post{method_variables}:
         try:
             return response_util.success({{"message": "This is the POST method of {args.url}"}})
         except Exception as e:
             return error_util.handle_server_error(e)
 """,
                 'put': f"""
-    {protected_decorator}def put{method_variables}:
+    {protected_decorator}@api.expect(put_payload)
+    def put{method_variables}:
         try:
             return response_util.success({{"message": "This is the PUT method of {args.url}"}})
         except Exception as e:
             return error_util.handle_server_error(e)
 """,
                 'delete': f"""
-    {protected_decorator}def delete{method_variables}:
+    {protected_decorator}@api.expect(delete_payload)
+    def delete{method_variables}:
         try:
             return response_util.success({{"message": "This is the DELETE method of {args.url}"}})
         except Exception as e:
@@ -70,6 +73,11 @@ def create_component(args):
             class_definition = f"""from flask_restx import Resource, Api
 from nexler.utils import response_util, error_util
 {"from nexler.services.AuthService import protected, user" if args.protected else ""}
+
+api = Api()
+post_payload = api.model("{args.moduleName}PostPayload", {{}})
+put_payload = api.model("{args.moduleName}PutPayload", {{}})
+delete_payload = api.model("{args.moduleName}DeletePayload", {{}})
 
 
 class {args.moduleName}(Resource):

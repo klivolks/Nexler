@@ -3,9 +3,9 @@ def check_data(data):
         raise TypeError(f'The data passed is not of type dict or list. It is of type {type(data)}')
 
 
-def success(data: (dict, list, str), status_code: int = 200):
+def success(data: (dict, list, str), status_code: int = 200, **kwargs):
     check_data(data)
-    return {"status": "success", "data": data}, status_code
+    return {"status": "success", "data": data, **kwargs}, status_code
 
 
 def created(data: dict, status_code: int = 201):

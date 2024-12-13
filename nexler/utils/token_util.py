@@ -1,9 +1,11 @@
 import jwt
+
 from nexler.utils import config_util, dt_util, error_util, dir_util
 import base64
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives import hashes, serialization
 from nexler.services.Caching import RedisService
+from werkzeug.exceptions import Unauthorized
 
 JWT_SECRET_KEY = config_util.Config().get('JWT_SECRET_KEY')
 JWT_ALGORITHM = config_util.Config().get('JWT_ALGORITHM')
@@ -108,10 +110,10 @@ def decode_token(token):
     """
     try:
         if not token:
-            return error_util.handle_unauthorized("Missing token")
+            raise Unauthorized("Missing token")
 
         if is_blacklisted(token):
-            return error_util.handle_unauthorized("Token has been revoked.")
+            raise Unauthorized("Token has been revoked.")
 
         # Optional JWE decryption
         if JWE_ENCRYPTION.lower() == 'on':
@@ -126,15 +128,13 @@ def decode_token(token):
         return payload
 
     except jwt.ExpiredSignatureError:
-        return error_util.handle_unauthorized("Token has expired")
+        raise Unauthorized("Token has expired")
 
     except jwt.InvalidTokenError:
-        return error_util.handle_unauthorized("Invalid token")
+        raise Unauthorized("Invalid token")
 
     except Exception as e:
-        # Log unexpected errors for debugging
-        # logging.error(f"Unexpected error during token decoding: {str(e)}")
-        return error_util.handle_unauthorized("Token decoding failed")
+        raise Unauthorized("Token decoding failed")
 
 
 def create_tokens(user_id: str):

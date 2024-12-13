@@ -1,6 +1,7 @@
 from nexler.utils import dir_util, file_util
 import traceback
 import os
+from nexler.component.routes import generate_routes
 
 
 def create_component(args):
@@ -66,7 +67,7 @@ def create_component(args):
             method_definitions = [method_templates[method] for method in methods if method in method_templates]
 
             # Class definition
-            class_definition = f"""from flask_restx import Resource
+            class_definition = f"""from flask_restx import Resource, Api
 from nexler.utils import response_util, error_util
 {"from nexler.services.AuthService import protected, user" if args.protected else ""}
 
@@ -88,31 +89,7 @@ class {args.moduleName}(Resource):
             if import_line not in f.read():
                 file_util.append_file(components_init_path, import_line)
 
-        # Edit routes init file
-        routes_init_path = 'app/routes/__init__.py'
-        content = file_util.read_file(routes_init_path)
-        lines = content.split('\n')
-
-        for i, line in enumerate(lines):
-            if line.startswith('from app.components import '):
-                if args.moduleName not in line:
-                    lines[i] = f"{line}, {args.moduleName}"
-                break
-
-        url_variables_str = '/'.join(f'<{variable}>' for variable in variables) if args.variables else ''
-        url_variables_str = f'/{url_variables_str}' if url_variables_str else ''
-
-        url = args.url
-        if not url.startswith('/'):
-            url = '/' + url
-        if url.endswith('/'):
-            url = url[:-1]
-
-        route_line = f"    api.add_resource({args.moduleName}, '{url}{url_variables_str}')"
-        lines.append(route_line)
-
-        updated_content = '\n'.join(lines)
-        file_util.write_file(routes_init_path, updated_content)
+        url = generate_routes(args)
 
         if not component_exists:
             print(f"Component '{args.moduleName}' created with url: {url}")

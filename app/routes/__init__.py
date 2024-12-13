@@ -1,7 +1,7 @@
 from flask_restx import Api
-from app.components import HelloWorld, Protected
+from app.routes import ProtectedRoute, HelloWorldRoute
 
 
 def initialize_routes(api: Api):
-    api.add_resource(HelloWorld, '/features')
-    api.add_resource(Protected, '/protected')
+    ProtectedRoute.register(api)
+    HelloWorldRoute.register(api)

@@ -10,7 +10,7 @@ from flask_compress import Compress
 from app.routes import initialize_routes
 from nexler.utils import error_util, config_util
 from nexler.services import ApiService, AuthService
-from kafkaSubscriber import setup_kafka
+from KafkaSubscriber import setup_kafka
 
 
 def create_app():

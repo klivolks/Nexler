@@ -1,10 +1,11 @@
 # Build Stage
-FROM python:3.12.0rc2-alpine as build
+FROM python:3.12.0-alpine as build
 RUN apk update
 
 # Install build dependencies
 RUN apk add --update --no-cache --virtual .tmp-build-deps \
-    gcc libc-dev linux-headers
+    --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
+    librdkafka librdkafka-dev gcc libc-dev linux-headers
 
 RUN apk add --no-cache g++ libffi-dev
 
@@ -16,7 +17,8 @@ WORKDIR /app
 
 # Copy application code to the docker image
 COPY . /app
-# COPY .env.production /app/.env ## uncomment if you're not using manifest environments
+#COPY .env.production /app/.env
+# uncomment if you're not using manifest environments
 
 # Install the Python dependencies
 COPY requirements.txt /app/requirements.txt
@@ -27,11 +29,11 @@ RUN apk del .tmp-build-deps
 
 
 # Interim Stage for Installing System Updates and ffmpeg
-FROM python:3.12.0rc2-alpine AS production_base
+FROM python:3.12-alpine AS production_base
 
 # Install system updates and ffmpeg
 RUN apk update && \
-    apk add --no-cache ffmpeg
+    apk add --no-cache ffmpeg librdkafka
 
 # Create a non-root user to run the application
 RUN adduser -D deploy

@@ -3,6 +3,7 @@ from flask import g
 from functools import wraps
 from werkzeug.exceptions import Unauthorized, InternalServerError, Forbidden
 
+from nexler.services.LoggerService import LoggerService
 from nexler.utils import token_util, request_util, error_util, config_util
 
 
@@ -20,6 +21,7 @@ class AuthService:
                 if token and token != 'null':
                     data = token_util.decode_token(token)
                     return data.get('user_id')
+            LoggerService().log("No token found")
             return None
         except Exception as e:
             raise Unauthorized(f'Authentication failed: {e}')

@@ -69,7 +69,7 @@ def json_data(field_name, field_type=str, validator=None, is_required_field=True
         args = parser.parse_args()
         if (args.get(field_name) is None or args.get(field_name) == "") and is_required_field:
             raise exceptions.Forbidden(f"{field_name} is required")
-        return validator(args.get(field_name)) if validator else args.get(field_name)
+        return validator(escape(args.get(field_name))) if validator else escape(args.get(field_name))
     except ValueError as e:
         raise exceptions.BadRequest(str(e))
 

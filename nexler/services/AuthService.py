@@ -21,7 +21,6 @@ class AuthService:
                 if token and token != 'null':
                     data = token_util.decode_token(token)
                     return data.get('user_id')
-            LoggerService().log("No token found")
             return None
         except Exception as e:
             raise Unauthorized(f'Authentication failed: {e}')

@@ -125,9 +125,11 @@ class InternalApi(ExternalApi):
         if service == 'gateway':
             self.headers['X-API-Key'] = config_util.Config().get('GATEWAY_KEY')
             self.headers['Referer'] = config_util.Config().get('SERVICE_NAME')
+            self.headers['Host'] = config_util.Config().get('SERVICE_NAME')
         else:
             self.headers['X-API-Key'] = api_config.get('API_KEY')
             self.headers['Referer'] = api_config.get('SERVICE_NAME')
+            self.headers['Host'] = api_config.get('SERVICE_NAME')
         if data:
             self.data = data
 

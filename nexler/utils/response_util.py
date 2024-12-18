@@ -1,15 +1,19 @@
 def check_data(data):
-    if not isinstance(data, (dict, list, str)):
-        raise TypeError(f'The data passed is not of type dict, string or list. It is of type {type(data)}')
+    if not isinstance(data, (dict, list, str, tuple, int, float)):
+        raise TypeError(f'The data passed is not of a supported type. It is of type {type(data)}')
 
 
-def success(data: (dict, list, str), status_code: int = 200, **kwargs):
+def success(data: (dict, list, str, tuple), status_code: int = 200, **kwargs):
     check_data(data)
+    if isinstance(data, tuple):
+        return data
     return {"status": "success", "data": data, **kwargs}, status_code
 
 
-def created(data: (dict, str), status_code: int = 201):
+def created(data: (dict, str, tuple), status_code: int = 201):
     check_data(data)
+    if isinstance(data, tuple):
+        return data
     return {"status": "success", "data": data}, status_code
 
 

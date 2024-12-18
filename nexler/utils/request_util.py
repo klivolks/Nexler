@@ -82,14 +82,21 @@ def json_data(field_name, field_type=str, validator=None, is_required_field=True
                 parsed_value = ast.literal_eval(raw_value)
                 if not isinstance(parsed_value, dict):
                     raise ValueError(f"{field_name} must be a valid dictionary")
-            except json.JSONDecodeError:
-                raise exceptions.BadRequest(f"{field_name} is not valid JSON")
+            except Exception as e:
+                raise exceptions.BadRequest(f"{field_name} is not valid dict: {e}")
+        elif field_type == list:
+            try:
+                parsed_value = ast.literal_eval(raw_value)
+                if not isinstance(parsed_value, list):
+                    raise ValueError(f"{field_name} must be a valid list")
+            except Exception as e:
+                raise exceptions.BadRequest(f"{field_name} is not valid dict: {e}")
         else:
             # For other types, cast the value
-            parsed_value = field_type(raw_value)
+            parsed_value = escape(field_type(raw_value))
 
         # Validate if a custom validator is provided
-        return validator(escape(parsed_value)) if validator else escape(parsed_value) if field_type != dict else parsed_value
+        return validator(escape(parsed_value)) if validator else parsed_value
 
     except ValueError as e:
         raise exceptions.BadRequest(str(e))

@@ -13,8 +13,8 @@ class LoggerService:
         from nexler.services.AuthService import user
 
         route = request.path
-        query = request.args
-        payload = request.form
+        query = request.args.to_dict()
+        payload = request.form.to_dict()
         json_payload = request.get_json() if request.headers.get('content-type') == "application/json" else None
         headers = dict(request.headers)
         method = request.method
@@ -40,8 +40,8 @@ class LoggerService:
     def debug(self, msg: any, debug_type=None):
         from nexler.services.AuthService import user
         route = request.path
-        query = request.args
-        payload = request.form
+        query = request.args.to_dict()
+        payload = request.form.to_dict()
         json_payload = request.get_json() if request.headers.get('content-type') == "application/json" else None
         headers = dict(request.headers)
         method = request.method

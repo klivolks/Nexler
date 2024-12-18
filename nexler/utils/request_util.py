@@ -1,3 +1,4 @@
+import ast
 from flask import request
 from flask_restx import reqparse
 from markupsafe import escape
@@ -65,11 +66,31 @@ def form_data(field_name, field_type=str, validator=None, is_required_field=True
 def json_data(field_name, field_type=str, validator=None, is_required_field=True):
     try:
         parser = reqparse.RequestParser()
-        parser.add_argument(field_name, type=field_type, location='json')
+        parser.add_argument(field_name, field_type, location='json')
         args = parser.parse_args()
-        if (args.get(field_name) is None or args.get(field_name) == "") and is_required_field:
+
+        # Retrieve the field value
+        raw_value = args.get(field_name)
+
+        # Check for required field condition
+        if (raw_value is None or raw_value == "") and is_required_field:
             raise exceptions.Forbidden(f"{field_name} is required")
-        return validator(escape(args.get(field_name))) if validator else escape(args.get(field_name))
+
+        # If field_type is dict, attempt to parse the string as JSON
+        if field_type == dict:
+            try:
+                parsed_value = ast.literal_eval(raw_value)
+                if not isinstance(parsed_value, dict):
+                    raise ValueError(f"{field_name} must be a valid dictionary")
+            except json.JSONDecodeError:
+                raise exceptions.BadRequest(f"{field_name} is not valid JSON")
+        else:
+            # For other types, cast the value
+            parsed_value = field_type(raw_value)
+
+        # Validate if a custom validator is provided
+        return validator(escape(parsed_value)) if validator else escape(parsed_value) if field_type != dict else parsed_value
+
     except ValueError as e:
         raise exceptions.BadRequest(str(e))
 

@@ -64,10 +64,11 @@ class ExternalApi:
         self.data = data
         self.headers = {
             "User-Agent": user_agent or "Nexler/1.1",
-            "Authorization": authorization or "",
             "Accept": accept or "application/json",
             "Content-Type": content_type or ""
         }
+        auth_header = {"Authorization": authorization} if authorization else {}
+        self.headers.update(auth_header)
         if headers:
             self.headers.update(headers)
         self.response = None

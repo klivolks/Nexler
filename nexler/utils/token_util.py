@@ -106,11 +106,12 @@ def create_refresh_token(user_id: str):
         return error_util.handle_server_error(e)
 
 
-def decode_token(token):
+def decode_token(token, is_ui_request=True):
     """
-    Decodes a JWT token, with optional JWE decryption.
+    Decodes a JWT token or decrypts and decodes a JWE token.
 
-    :param token: The JWT token to decode.
+    :param token: The token to decode (JWT or JWE).
+    :param is_ui_request: Indicates whether the request is from an external UI.
     :return: The decoded payload or an error response.
     """
     try:
@@ -120,26 +121,36 @@ def decode_token(token):
         if is_blacklisted(token):
             raise Unauthorized("Token has been revoked.")
 
-        # Optional JWE decryption
-        if JWE_ENCRYPTION.lower() == 'on':
-            token = decrypt_jwe(token)
+        # Enforce JWE for UI-based requests
+        if is_ui_request and JWE_ENCRYPTION.lower() == 'on':
+            try:
+                decrypted_token = decrypt_jwe(token)
+                return jwt.decode(
+                    decrypted_token,
+                    JWT_SECRET_KEY,
+                    algorithms=[JWT_ALGORITHM or "HS256"]
+                )
+            except Exception:
+                raise Unauthorized("Invalid token: Expected a valid JWE")
 
-        # Decode the JWT
-        payload = jwt.decode(
-            token,
-            JWT_SECRET_KEY,
-            algorithms=[JWT_ALGORITHM or "HS256"]
-        )
-        return payload
+        # Decode as JWT (only for non-UI/internal requests)
+        if not is_ui_request or JWE_ENCRYPTION.lower() != 'on':
+            try:
+                return jwt.decode(
+                    token,
+                    JWT_SECRET_KEY,
+                    algorithms=[JWT_ALGORITHM or "HS256"]
+                )
+            except jwt.ExpiredSignatureError:
+                raise Unauthorized("Token has expired")
+            except jwt.InvalidTokenError:
+                raise Unauthorized("Invalid token")
 
-    except jwt.ExpiredSignatureError:
-        raise Unauthorized("Token has expired")
-
-    except jwt.InvalidTokenError:
-        raise Unauthorized("Invalid token")
+        # If neither JWE nor JWT succeeds
+        raise Unauthorized("Invalid token: Not a valid JWE or JWT")
 
     except Exception as e:
-        raise Unauthorized("Token decoding failed")
+        raise Unauthorized(f"Token decoding failed: {str(e)}")
 
 
 def create_tokens(data: (str, dict)):

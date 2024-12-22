@@ -65,7 +65,8 @@ class ExternalApi:
         self.headers = {
             "User-Agent": user_agent or "Nexler/1.4",
             "Accept": accept or "application/json",
-            "Content-Type": content_type or ""
+            "Content-Type": content_type or "",
+            "X-Client-Type": "internal"
         }
         auth_header = {"Authorization": authorization} if authorization else {}
         self.headers.update(auth_header)
@@ -103,8 +104,10 @@ class ExternalApi:
                 return {"status": "Success", "Content": None, "Status": self.response.status_code}
             else:
                 return self.response.text
+        elif self.response.status_code == 401:
+            return {"status": "unauthorised", "Message": self.response.text}
         else:
-            return {"Error": f"received status code {self.response.status_code}", "Message": self.response.text}
+            return {"status": "error", "Error": f"received status code {self.response.status_code}", "Message": self.response.text, "Status": self.response.status_code}
 
 
 class InternalApi(ExternalApi):

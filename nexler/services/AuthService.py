@@ -13,11 +13,15 @@ class AuthService:
         """
         try:
             auth_header = request_util.headers('Authorization')
+            ui_flag = True
+            client_type = request_util.headers('X-Client-Type')
+            if client_type == "internal":
+                ui_flag = False
             if auth_header:
                 token_parts = auth_header.split(" ")
                 token = token_parts[1] if len(token_parts) > 1 else None
                 if token and token != 'null':
-                    data = token_util.decode_token(token)
+                    data = token_util.decode_token(token, ui_flag)
                     return data.get('user_id')
             return None
         except Exception as e:

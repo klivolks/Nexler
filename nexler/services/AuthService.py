@@ -2,8 +2,6 @@ import asyncio
 from flask import g
 from functools import wraps
 from werkzeug.exceptions import Unauthorized, InternalServerError, Forbidden
-
-from nexler.services.LoggerService import LoggerService
 from nexler.utils import token_util, request_util, error_util, config_util
 
 
@@ -25,7 +23,8 @@ class AuthService:
         except Exception as e:
             raise Unauthorized(f'Authentication failed: {e}')
 
-    def has_permission(self, user_id, resource_id):
+    @staticmethod
+    def has_permission(user_id, resource_id):
         """
         Checks if the user has access to the specified resource based on ABAC policies.
 
@@ -36,9 +35,8 @@ class AuthService:
         Returns:
             bool: True if the user has permission, False otherwise.
         """
-
+        from nexler.services.Caching import RedisService
         if config_util.Config().get("REDIS_CACHING") and config_util.Config().get("REDIS_CACHING") == "on":
-            from nexler.services.Caching import RedisService
             cache = RedisService().get_string(f"user:{user_id},resource:{resource_id}")
             if cache:
                 if cache == "granted":

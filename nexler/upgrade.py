@@ -4,7 +4,7 @@ import subprocess
 import sys
 import urllib.request
 import zipfile
-import nexler  # import nexler to check its version
+import nexler
 import requests
 import json
 import traceback
@@ -50,7 +50,7 @@ def upgrade():
                 zip_ref.extractall("./")
 
             # Fetch the list of files to upgrade from a remote source
-            REMOTE_FILE_URL = f"https://github.com/klivolks/Nexler/raw/main/nexler/upgrade_list.json?v={t}"  # replace with your actual URL
+            REMOTE_FILE_URL = f"https://github.com/klivolks/Nexler/raw/main/nexler/upgrade_list.json?v={t}"
             response = requests.get(REMOTE_FILE_URL)
             FILES_TO_UPGRADE = json.loads(response.text)
 
@@ -74,19 +74,17 @@ def upgrade():
                     print(f"{item} does not exist in the downloaded package.")
 
             # check and create required directories for further enhancement and services
-            directories_needed = [
-                "app/templates/email",
-                "app/templates/sms"
-            ]
+            REMOTE_FILE_URL = f"https://github.com/klivolks/Nexler/raw/main/nexler/create_once_list.json?v={t}"
+            response = requests.get(REMOTE_FILE_URL)
+            directories_needed = json.loads(response.text)
+
             for items in directories_needed:
                 check_and_create_dir(items)
 
-            directories_removed = [
-                "app/services",
-                "app/utils",
-                "tests/app/utils",
-                "tests/app/services"
-            ]
+            REMOTE_FILE_URL = f"https://github.com/klivolks/Nexler/raw/main/nexler/remove_list.json?v={t}"
+            response = requests.get(REMOTE_FILE_URL)
+            directories_removed = json.loads(response.text)
+
             for items in directories_removed:
                 if os.path.exists(items):
                     os.remove(items)

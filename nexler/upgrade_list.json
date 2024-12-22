@@ -1,2 +1,14 @@
-["run.py", "setup.py", "nexler", "tests/nexler","requirements.txt", "migrations", ".env-example",
-                    "environment.py", "templates", "static", "KafkaSubscriber.py"]
+[
+  "run.py",
+  "setup.py",
+  "nexler",
+  "tests/nexler",
+  "requirements.txt",
+  "migrations",
+  ".env-example",
+  "environment.py",
+  "templates",
+  "static",
+  "KafkaSubscriber.py",
+  "config.py"
+]

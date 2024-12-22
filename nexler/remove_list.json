@@ -1,0 +1,6 @@
+[
+  "app/services",
+  "app/utils",
+  "tests/app/utils",
+  "tests/app/services"
+]

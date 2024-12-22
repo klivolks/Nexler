@@ -18,7 +18,7 @@ PUBLIC_KEY_PATH = f'{dir_util.app_directory}/encryption/public_key.pem' if confi
 PRIVATE_KEY_PATH = f'{dir_util.app_directory}/encryption/private_key.pem' if config_util.Config().get(
     'PRIVATE_KEY_PATH') is None else config_util.Config().get(
     'PRIVATE_KEY_PATH')
-SESSION_MANAGEMENT = config_util.Config().get('SESSION_MANAGEMENT') # app/redis/db
+SESSION_MANAGEMENT = config_util.Config().get('SESSION_MANAGEMENT')  # app/redis/db
 
 if not SESSION_MANAGEMENT or SESSION_MANAGEMENT == 'app':
     blacklisted_tokens = set()
@@ -71,15 +71,20 @@ def decrypt_jwe(jwe_token: str) -> str:
         return error_util.handle_unauthorized("Invalid or corrupted token")
 
 
-def create_access_token(user_id: str):
+def create_access_token(data: (str, dict), jwe=True):
     try:
         payload = {
-            "user_id": user_id,
             "exp": dt_util.add_minutes(dt_util.get_current_time(), ACCESS_TOKEN_EXPIRE_MINUTES),
             "token_type": "access"
         }
+        if isinstance(data, str):
+            payload.update({
+                "user_id": data
+            })
+        else:
+            payload.update(data)
         jwt_token = jwt.encode(payload, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)
-        if JWE_ENCRYPTION == 'on':
+        if JWE_ENCRYPTION == 'on' and jwe:
             return encrypt_jwt(jwt_token)
         return jwt_token
     except Exception as e:
@@ -137,8 +142,13 @@ def decode_token(token):
         raise Unauthorized("Token decoding failed")
 
 
-def create_tokens(user_id: str):
-    access_token = create_access_token(user_id)
+def create_tokens(data: (str, dict)):
+    if isinstance(data, str):
+        user_id = data
+        access_token = create_access_token(user_id)
+    else:
+        user_id = data.get('user_id')
+        access_token = create_access_token(data)
     refresh_token = create_refresh_token(user_id)
     return access_token, refresh_token
 

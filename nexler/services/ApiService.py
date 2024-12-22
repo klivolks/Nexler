@@ -124,7 +124,8 @@ class InternalApi(ExternalApi):
         self.headers = {
             "User-Agent": "Nexler/1.1",
             "Accept": "application/json",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "X-Client-Type": "internal"
         }
         if secure:
             self.token = token_util.create_access_token(user.Id)

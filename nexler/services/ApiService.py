@@ -63,7 +63,7 @@ class ExternalApi:
         self.url = url
         self.data = data
         self.headers = {
-            "User-Agent": user_agent or "Nexler/1.1",
+            "User-Agent": user_agent or "Nexler/1.4",
             "Accept": accept or "application/json",
             "Content-Type": content_type or ""
         }
@@ -81,6 +81,7 @@ class ExternalApi:
 
         async with httpx.AsyncClient() as client:
             if method.lower() == 'get':
+                self.headers.pop("Content-Type")
                 self.response = await client.get(self.url, headers=self.headers)
             elif method.lower() == 'post':
                 self.response = await client.post(self.url, headers=self.headers, data=data)
@@ -97,7 +98,9 @@ class ExternalApi:
         if 200 <= self.response.status_code < 300:
             content_type = self.response.headers['content-type']
             if 'application/json' in content_type:
-                return str_util.parse(self.response.text)
+                if self.response.text:
+                    return str_util.parse(self.response.text)
+                return {"status": "Success", "Content": None, "Status": self.response.status_code}
             else:
                 return self.response.text
         else:
@@ -126,18 +129,8 @@ class InternalApi(ExternalApi):
         if service == 'gateway':
             self.headers['X-API-Key'] = config_util.Config().get('GATEWAY_KEY')
             self.headers['Referer'] = config_util.Config().get('SERVICE_NAME')
-            self.headers['Host'] = config_util.Config().get('SERVICE_NAME')
         else:
             self.headers['X-API-Key'] = api_config.get('API_KEY')
             self.headers['Referer'] = api_config.get('SERVICE_NAME')
-            self.headers['Host'] = api_config.get('SERVICE_NAME')
         if data:
             self.data = data
-
-
-if __name__ == "__main__":
-    api = InternalApi(secure=True)
-    import asyncio
-    test = asyncio.run(api.fetch('get'))
-    print(test)
-

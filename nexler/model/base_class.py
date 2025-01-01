@@ -12,7 +12,7 @@ class BaseClass(Generic[T]):
 
     def save(self, data: T) -> ObjectId:
         if data.id is None:  # Insert operation
-            data_dict = data.dict(by_alias=True, exclude_unset=True)
+            data_dict = data.dict(by_alias=True, exclude_unset=False)
             data_dict.pop("_id", None)
             result = self.collection.put(data_dict)
             data.id = result.inserted_id
@@ -20,6 +20,7 @@ class BaseClass(Generic[T]):
         else:  # Update operation
             query = {"_id": data.id}
             update_data = {"$set": data.dict(by_alias=True, exclude_unset=True)}
+            update_data.pop("_id", None)
             self.collection.set(query, update_data)
             return data.id
 

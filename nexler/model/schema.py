@@ -15,7 +15,7 @@ def create_schema(args):
     {"Variable": "Status", "Format": "str", "Required": true, "Default": "active"},
     {"Variable": "CreatedAt", "Format": "datetime", "Required": false, "Default": "dt_util.get_current_time()"},
     {"Variable": "UpdatedAt", "Format": "datetime", "Required": true, "Default": "dt_util.get_current_time()"},
-    {"Variable": "CreatedBy", "Format": "ObjectId", "Required": false, "Default": "Field(default_factory=lambda: user.Id if hasattr(user, 'Id') else None)"},
+    {"Variable": "CreatedBy", "Format": "ObjectId", "Required": false, "Default": "Field(default_factory=lambda: ObjectId(user.Id) if hasattr(user, 'Id') else None)"},
     {"Variable": "isDeleted", "Format": "bool", "Required": true, "Default": false}
 ]"""
             file_util.write_file(variables_json_path, content)

@@ -1,4 +1,3 @@
-from daba.Mongo import collection
 from bson import ObjectId
 from typing import Type, TypeVar, Generic, Optional
 from pydantic import BaseModel
@@ -43,3 +42,8 @@ class BaseClass(Generic[T]):
         if query is None:
             query = {}
         return self.collection.count(query)
+
+    def aggregate(self, query=None) -> list:
+        if query is None:
+            query = {}
+        return [doc for doc in self.collection.find(query)]

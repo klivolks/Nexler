@@ -45,10 +45,11 @@ def decimal_number(value):
 # Methods to get data and validate
 def form_data(field_name, field_type=str, validator=None, is_required=True):
     # Access the form data directly through the request object
-    value = escape(request.form.get(field_name))
+    value = request.form.get(field_name)
 
     if value is not None:
         try:
+            value = escape(value)
             # Convert the value to the correct type
             if field_type == int:
                 value = int(value)
@@ -105,9 +106,10 @@ def json_data(field_name, field_type=str, validator=None, is_required=True):
 
 def query_params(field_name, field_type=str, validator=None, is_required=True):
     # Directly access the query parameters through the request object
-    value = escape(request.args.get(field_name))
+    value = request.args.get(field_name)
 
     if value is not None:
+        value = escape(value)
         try:
             # Convert the value to the correct type
             if field_type == int:

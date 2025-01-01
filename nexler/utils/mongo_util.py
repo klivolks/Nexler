@@ -1,3 +1,4 @@
+import copy
 import datetime
 from nexler.utils import dt_util
 from bson import ObjectId
@@ -37,6 +38,14 @@ class Pipeline:
     @property
     def custom(self):
         return self._pipeline
+
+    def __deepcopy__(self, memo):
+        # Create a new Pipeline instance
+        copied_pipeline = Pipeline()
+        # Deep copy the internal _pipeline list
+        copied_pipeline._pipeline = copy.deepcopy(self._pipeline, memo)
+        # Return the copied instance
+        return copied_pipeline
 
 
 class Query:

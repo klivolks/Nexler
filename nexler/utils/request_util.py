@@ -16,9 +16,10 @@ def email(value):
 
 
 def phone(value):
-    if not re.match(r"^[0-9]{10}$", value):
-        raise ValueError("Invalid phone number.")
+    if not re.match(r"^[0-9]{5,20}$", value):
+        raise ValueError("Invalid phone number. It must be between 5 and 20 digits.")
     return value
+
 
 
 def money(value):
@@ -42,7 +43,7 @@ def decimal_number(value):
 
 
 # Methods to get data and validate
-def form_data(field_name, field_type=str, validator=None, is_required_field=True):
+def form_data(field_name, field_type=str, validator=None, is_required=True):
     # Access the form data directly through the request object
     value = escape(request.form.get(field_name))
 
@@ -58,7 +59,7 @@ def form_data(field_name, field_type=str, validator=None, is_required_field=True
         except ValueError as e:
             raise exceptions.BadRequest(str(e))
     else:
-        if is_required_field:
+        if is_required:
             raise exceptions.BadRequest(f"{field_name} not found in form data.")
         return None
 
@@ -102,7 +103,7 @@ def json_data(field_name, field_type=str, validator=None, is_required=True):
         raise exceptions.BadRequest(str(e))
 
 
-def query_params(field_name, field_type=str, validator=None, is_required_field=True):
+def query_params(field_name, field_type=str, validator=None, is_required=True):
     # Directly access the query parameters through the request object
     value = escape(request.args.get(field_name))
 
@@ -118,23 +119,23 @@ def query_params(field_name, field_type=str, validator=None, is_required_field=T
         except ValueError as e:
             raise exceptions.BadRequest(str(e))
     else:
-        if is_required_field:
+        if is_required:
             # This case will trigger if the field_name is not found in the query parameters
             raise exceptions.BadRequest(f"{field_name} not found in query parameters.")
         return None
 
 
-def file(file_name, is_required_field=True):
+def file(file_name, is_required=True):
     # Check if the file part is present in the request
     if file_name not in request.files:
-        if is_required_field:
+        if is_required:
             raise exceptions.BadRequest(f"No {file_name} part")
         return None
 
     # If the user does not select a file, the browser submits an empty part without a filename
     files = request.files[file_name]
     if files.filename == '':
-        if is_required_field:
+        if is_required:
             raise exceptions.BadRequest('No selected file')
         return None
 

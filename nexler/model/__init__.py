@@ -60,13 +60,13 @@ from nexler.utils import dt_util
 from nexler.services.AuthService import user
 
 
-class {moduleName}Model(MongoBaseModel):
+class Model(MongoBaseModel):
     {class_variables}
 
 
 data_collection = collection("{moduleName}")
 
-handler = BaseClass({moduleName}Model, data_collection)
+handler = BaseClass(Model, data_collection)
 """
         else:
             class_definition = f"""from daba.Mongo import collection
@@ -77,15 +77,6 @@ data_collection = collection("{moduleName}")
 
         # Create the model file and write the class definition to it
         file_util.write_file(model_file_path, class_definition)
-
-        # Modify __init__.py in app/models/
-        # init_file_path = "app/models/__init__.py"
-        # init_file_content = file_util.read_file(init_file_path)
-        # model_import_line = f"from .{moduleName} import {moduleName}"
-        #
-        # if model_import_line not in init_file_content:
-        #     init_file_content += model_import_line + "\n"
-        #     file_util.write_file(init_file_path, init_file_content)
 
         print(f"Model '{moduleName}' created.")
         import_model(args)

@@ -32,7 +32,7 @@ def create_model(args):
                      "Default": "dt_util.get_current_time()"},
                     {"Variable": "UpdatedAt", "Format": "datetime", "Required": True,
                      "Default": "dt_util.get_current_time()"},
-                    {"Variable": "CreatedBy", "Format": "ObjectId", "Required": False, "Default": "Field(default_factory=lambda: user.Id if hasattr(user, 'Id') else None)"},
+                    {"Variable": "CreatedBy", "Format": "ObjectId", "Required": False, "Default": "Field(default_factory=lambda: ObjectId(user.Id) if hasattr(user, 'Id') else None)"},
                     {"Variable": "isDeleted", "Format": "bool", "Required": True, "Default": False}
                 ]
 

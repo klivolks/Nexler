@@ -32,7 +32,7 @@ def create_model(args):
                      "Default": "dt_util.get_current_time()"},
                     {"Variable": "UpdatedAt", "Format": "datetime", "Required": True,
                      "Default": "dt_util.get_current_time()"},
-                    {"Variable": "CreatedBy", "Format": "ObjectId", "Required": False, "Default": "Field(default_factory=lambda: ObjectId(user.Id) if hasattr(user, 'Id') else None)"},
+                    {"Variable": "CreatedBy", "Format": "Union[ObjectId, str]", "Required": False, "Default": "Field(default_factory=lambda: ObjectId(user.Id) if hasattr(user, 'Id') else None)"},
                     {"Variable": "isDeleted", "Format": "bool", "Required": True, "Default": False}
                 ]
 
@@ -55,7 +55,7 @@ from nexler.model.base_class import BaseClass
 from datetime import datetime
 from bson import ObjectId
 from daba.Mongo import collection
-from typing import Optional
+from typing import Optional, Union
 from pydantic import Field
 from nexler.utils import dt_util
 from nexler.services.AuthService import user

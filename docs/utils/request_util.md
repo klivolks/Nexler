@@ -12,7 +12,7 @@ Validation functions are used to validate and sanitize user input.
 
 - **email(value)**: This function validates if the input value is a properly formed email address. If not, it raises a ValueError.
 
-- **phone(value)**: This function validates if the input value is a 10-digit phone number. If not, it raises a ValueError.
+- **phone(value)**: This function validates if the input value is a phone number. If not, it raises a ValueError.
 
 - **money(value)**: This function validates if the input value is a properly formatted monetary amount. If not, it raises a ValueError.
 
@@ -24,13 +24,13 @@ Validation functions are used to validate and sanitize user input.
 
 These functions extract data from different parts of the request and optionally validate them using provided validator functions.
 
-- **form_data(field_name, field_type=str, validator=None, is_required_field=True)**: This function extracts the field named `field_name` from the form data of the request, optionally validating it using `validator` if provided.
+- **form_data(field_name, field_type=str, validator=None, is_required=True)**: This function extracts the field named `field_name` from the form data of the request, optionally validating it using `validator` if provided.
 
-- **json_data(field_name, field_type=str, validator=None, is_required_field=True)**: This function extracts the field named `field_name` from the JSON body of the request, optionally validating it using `validator` if provided.
+- **json_data(field_name, field_type=str, validator=None, is_required=True)**: This function extracts the field named `field_name` from the JSON body of the request, optionally validating it using `validator` if provided.
 
-- **query_params(field_name, field_type=str, validator=None, is_required_field=True)**: This function extracts the field named `field_name` from the query parameters of the request, optionally validating it using `validator` if provided.
+- **query_params(field_name, field_type=str, validator=None, is_required=True)**: This function extracts the field named `field_name` from the query parameters of the request, optionally validating it using `validator` if provided.
 
-- **file(file_name, is_required_field=True)**: This function extracts the file named `file_name` from the files in the request.
+- **file(file_name, is_required=True)**: This function extracts the file named `file_name` from the files in the request.
 
 - **headers(field_name, field_type=str, validator=None)**: This function extracts the field named `field_name` from the headers of the request, optionally validating it using `validator` if provided.
 

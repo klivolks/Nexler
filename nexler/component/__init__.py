@@ -74,10 +74,13 @@ def create_component(args):
 from nexler.utils import response_util, error_util
 {"from nexler.services.AuthService import protected, user" if args.protected else ""}
 
-api = Api()
-post_payload = api.model("{args.moduleName}PostPayload", {{}})
-put_payload = api.model("{args.moduleName}PutPayload", {{}})
-delete_payload = api.model("{args.moduleName}DeletePayload", {{}})
+api = Api()"""
+            for method in methods:
+                if method != 'get':
+                    class_definition += f"""
+{method}_payload = api.model("{args.moduleName}{method.capitalize()}Payload", {{}})"""
+
+            class_definition += f"""
 
 
 class {args.moduleName}(Resource):

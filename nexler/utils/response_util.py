@@ -1,5 +1,5 @@
 def check_data(data):
-    if not isinstance(data, (dict, list, str, tuple, int, float)):
+    if not isinstance(data, (dict, list, str, tuple, int, float)) and data is not None:
         raise TypeError(f'The data passed is not of a supported type. It is of type {type(data)}')
 
 

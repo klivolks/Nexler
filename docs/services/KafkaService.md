@@ -101,6 +101,9 @@ kafka_service.publish_message('my_topic', key='key1', value='Hello Kafka!')
 kafka_service.close()
 ```
 
+### Automation of KafkaService
+With `do_something()` function in `kafkaActions` folder you can enable automated listening according to topics mentioned in `kafkaTopics.json` inside config folder. 
+
 ### Troubleshooting
 
 - **`TopicAlreadyExistsError`**: If you encounter this error while creating a topic, it means the topic already exists. You can catch this error and handle it gracefully as shown in the `create_topic` method.

@@ -1,3 +1,5 @@
+from app.models import Test, SampleStructure
+
 from nexler.utils import dir_util
 
 

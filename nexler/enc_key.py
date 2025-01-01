@@ -3,10 +3,10 @@ import traceback
 
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
-from nexler.utils import dir_util
 
 
 def generate_enc_key():
+    from nexler.utils import dir_util
     try:
         # Generate RSA private key
         private_key = rsa.generate_private_key(public_exponent=65537, key_size=2048)

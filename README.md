@@ -16,17 +16,23 @@
 
 ---
 
-Nexler is a lightweight yet powerful Python framework that simplifies the development of RESTful APIs. It focuses on component generation and efficient URL handling, providing a streamlined process for building and managing API components. With its modular structure, Nexler makes it easy to develop, maintain, and scale your codebase.
+Nexler is a lightweight yet robust Python framework designed to streamline the development of RESTful APIs. 
+It emphasizes efficient URL handling and component generation, enabling developers to build and manage API components with ease. 
+With its modular structure, Nexler facilitates the development, maintenance, and scalability of codebases, making it an excellent choice for modern software projects. 
+By focusing on simplicity and efficiency, it offers a comprehensive solution for API development.
 
-In version **v1.2.1**, Nexler introduced **JSON Web Encryption**, enhancing the security and reliability of applications. 
+The framework has seen numerous enhancements over its versions. 
+In version **v1.2.1**, Nexler introduced **JSON Web Encryption**, significantly boosting the security and reliability of applications. 
+Version **v1.2.19** added the **RedisService**, which improved performance and scalability for high-demand systems. 
+Additionally, Nexler became the first AI-integrated framework by embedding **ChatGPT**, enabling users to create, edit, and generate content and code seamlessly. 
+This innovation accelerates development workflows and enhances the user experience. 
+Furthermore, Nexler offers an in-built currency conversion tool that supports the currencies of 194 countries with daily updates, alongside **Argon2**-based password encryption for top-tier security.
 
-Version **v1.2.19** brought the **RedisService**, improving performance and scalability.
-
-Nexler is the first AI-integrated framework, with **ChatGPT** seamlessly embedded. This allows users to quickly create, edit, and generate content and code, accelerating development and improving the user experience.
-
-Additionally, Nexler includes an in-built currency conversion tool, supporting the currencies of 194 countries and providing daily updates, along with **Argon2**-based password encryption, one of the most secure encryption mechanisms available.
-
-From **v1.3.0**, Nexler also includes automatic **Swagger** documentation, further simplifying API development and integration.
+Subsequent versions continued to expand Nexler’s capabilities. 
+Starting with **v1.3.0**, Nexler integrated automatic **Swagger** documentation, simplifying API development and integration. 
+Version **v1.4.0** introduced **KafkaActions**, which allow event-driven development by subscribing to Kafka topics. 
+With **v1.4.12**, Nexler redefined its model-handling approach by adding a Type Definition for more structure and encapsulating database operations within a base class. 
+These changes provide a more organized and extensible framework while maintaining backward compatibility with models created in earlier versions.
 
 ## Table of Contents
 
@@ -55,7 +61,7 @@ From **v1.3.0**, Nexler also includes automatic **Swagger** documentation, furth
 - **API Verification:** The ApiService can be enabled by setting API_VERIFICATION=on in the .env file. This verifies the APIs against predefined rules.
 - **JWE Security:** Now transfer tokens with private encryption Keys. Refer documentation of token_util for more information. To generate keys use nexler cli tools.
 - **Swagger Documented:** Automated documentation of APIs with Swagger UI, making it easier to interact with and test API endpoints directly from the browser. This feature improves developer productivity and ensures up-to-date API documentation.
-
+- **Kafka Integrated:** Built-in support for Kafka enables seamless event-driven development, allowing developers to handle real-time data streams and execute actions with greater flexibility and scalability.
 ## Installation
 
 1. Clone the repository to your local machine. Make sure the directory is empty.

@@ -63,7 +63,7 @@ def form_data(field_name, field_type=str, validator=None, is_required_field=True
         return None
 
 
-def json_data(field_name, field_type=str, validator=None, is_required_field=True):
+def json_data(field_name, field_type=str, validator=None, is_required=True):
     try:
         parser = reqparse.RequestParser()
         parser.add_argument(field_name, field_type, location='json')
@@ -73,7 +73,7 @@ def json_data(field_name, field_type=str, validator=None, is_required_field=True
         raw_value = args.get(field_name)
 
         # Check for required field condition
-        if (raw_value is None or raw_value == "") and is_required_field:
+        if (raw_value is None or raw_value == "") and is_required:
             raise exceptions.Forbidden(f"{field_name} is required")
 
         # If field_type is dict, attempt to parse the string as JSON

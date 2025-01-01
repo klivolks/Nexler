@@ -1,7 +1,6 @@
-from nexler.services.ChatGPT import ChatGPT
-
 
 def ai(args):
+    from nexler.services.ChatGPT import ChatGPT
     gpt = ChatGPT()
     func = args.function
     if func == 'code':
@@ -20,5 +19,3 @@ def ai(args):
         gpt.file = args.file
         gpt.instruction = args.instruction
         gpt.edit()
-
-

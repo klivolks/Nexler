@@ -17,8 +17,7 @@ spec = spec_from_file_location("config", os.path.join(directory_to_add, "config.
 config_module = module_from_spec(spec)
 spec.loader.exec_module(config_module)
 
-from run import run
-
 
 def serve():
+    from run import run
     run()

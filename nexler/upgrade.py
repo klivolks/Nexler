@@ -15,10 +15,12 @@ def check_and_create_dir(path):
     """
     Check if the given path exists and if not create it.
     :param path: The path to check and create.
-    :return: None
+    :return: bool
     """
     if not os.path.exists(path):
         os.makedirs(path)
+        return True
+    return False
 
 
 def upgrade():
@@ -79,7 +81,9 @@ def upgrade():
             directories_needed = json.loads(response.text)
 
             for items in directories_needed:
-                check_and_create_dir(items)
+                existCheck = check_and_create_dir(items)
+                if existCheck:
+                    shutil.move(f"Nexler-main/{items}", f"./{items}")
 
             REMOTE_FILE_URL = f"https://github.com/klivolks/Nexler/raw/main/nexler/remove_list.json?v={t}"
             response = requests.get(REMOTE_FILE_URL)

@@ -1,10 +1,10 @@
 import traceback
-from nexler.utils import dir_util, file_util
 import os
 import re
 
 
 def create_logic(args):
+    from nexler.utils import dir_util, file_util
     try:
         # Determine the directory name based on whether the logic is independent
         # or if a main logic directory is provided

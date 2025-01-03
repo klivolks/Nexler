@@ -29,9 +29,9 @@ def create_model(args):
                     {"Variable": "data", "Format": "str", "Required": False},
                     {"Variable": "Status", "Format": "str", "Required": True, "Default": "active"},
                     {"Variable": "CreatedAt", "Format": "datetime", "Required": False,
-                     "Default": "dt_util.get_current_time()"},
+                     "Default": "Field(default_factory=lambda: dt_util.get_current_time())"},
                     {"Variable": "UpdatedAt", "Format": "datetime", "Required": True,
-                     "Default": "dt_util.get_current_time()"},
+                     "Default": "Field(default_factory=lambda: dt_util.get_current_time())"},
                     {"Variable": "CreatedBy", "Format": "Union[ObjectId, str]", "Required": False, "Default": "Field(default_factory=lambda: ObjectId(user.Id) if hasattr(user, 'Id') else None)"},
                     {"Variable": "isDeleted", "Format": "bool", "Required": True, "Default": False}
                 ]

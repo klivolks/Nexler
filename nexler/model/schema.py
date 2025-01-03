@@ -13,8 +13,8 @@ def create_schema(args):
             content = """[
     {"Variable": "data", "Format": "str", "Required": false},
     {"Variable": "Status", "Format": "str", "Required": true, "Default": "active"},
-    {"Variable": "CreatedAt", "Format": "datetime", "Required": false, "Default": "dt_util.get_current_time()"},
-    {"Variable": "UpdatedAt", "Format": "datetime", "Required": true, "Default": "dt_util.get_current_time()"},
+    {"Variable": "CreatedAt", "Format": "datetime", "Required": false, "Default": "Field(default_factory=lambda: dt_util.get_current_time())"},
+    {"Variable": "UpdatedAt", "Format": "datetime", "Required": true, "Default": "Field(default_factory=lambda: dt_util.get_current_time())"},
     {"Variable": "CreatedBy", "Format": "Union[ObjectId, str]", "Required": false, "Default": "Field(default_factory=lambda: ObjectId(user.Id) if hasattr(user, 'Id') else None)"},
     {"Variable": "isDeleted", "Format": "bool", "Required": true, "Default": false}
 ]"""

@@ -1,3 +1,4 @@
+from datetime import datetime
 from bson import ObjectId
 from typing import Type, TypeVar, Generic, Optional
 from pydantic import BaseModel
@@ -19,8 +20,8 @@ class BaseClass(Generic[T]):
             return data.id
         else:  # Update operation
             query = {"_id": data.id}
-            update_data = {"$set": data.dict(by_alias=True, exclude_unset=True)}
-            update_data.pop("_id", None)
+            update_data = data.dict(by_alias=True, exclude_unset=True)
+            update_data.pop("_id")
             self.collection.set(query, update_data)
             return data.id
 
@@ -48,3 +49,7 @@ class BaseClass(Generic[T]):
         if query is None:
             query = {}
         return [doc for doc in self.collection.find(query)]
+
+    def removeElement(self, query, element) -> bool:
+        response = self.collection.removeElement(query, {element: ""})
+        return response.updated_count

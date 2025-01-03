@@ -131,7 +131,7 @@ def decode_token(token, is_ui_request=True):
                     algorithms=[JWT_ALGORITHM or "HS256"]
                 )
             except Exception:
-                raise Unauthorized("Invalid token: Expected a valid JWE")
+                raise Unauthorized("Expected a valid JWE")
 
         # Decode as JWT (only for non-UI/internal requests)
         if not is_ui_request or JWE_ENCRYPTION.lower() != 'on':
@@ -147,7 +147,7 @@ def decode_token(token, is_ui_request=True):
                 raise Unauthorized("Invalid token")
 
         # If neither JWE nor JWT succeeds
-        raise Unauthorized("Invalid token: Not a valid JWE or JWT")
+        raise Unauthorized("Not a valid JWE or JWT")
 
     except Exception as e:
         raise Unauthorized(f"Token decoding failed: {str(e)}")

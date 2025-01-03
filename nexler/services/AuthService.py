@@ -73,9 +73,9 @@ class AuthService:
                     # Perform ABAC check if a resource_id is provided
                     if isinstance(resource_id, str):
                         if not self.has_permission(g.user_id, resource_id):
-                            return {"message": "Forbidden: Access denied"}, 403
+                            raise Forbidden("Forbidden: Access denied")
                     return f(*args, **kwargs)
-                return {"message": "Unauthorized: Please log in"}, 401
+                raise Unauthorized("Unauthorized: Please log in")
 
             return wrapper
 
@@ -114,7 +114,7 @@ class AuthService:
 
             raise InternalServerError("Failed to logout")
         except Exception as e:
-            raise error_util.handle_http_exception(e)
+            return error_util.handle_http_exception(e)
 
 
 # Initialize the UserService

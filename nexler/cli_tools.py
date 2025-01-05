@@ -57,7 +57,7 @@ def main():
                 create_parser.error("The --url argument is required for creating a component.")
             component.create_component(args)
         elif args.module == 'logic':
-            if not args.component:
+            if not args.component and not args.independent:
                 create_parser.error("The --component argument is required for creating logic.")
             logic.create_logic(args)
         elif args.module == 'model':

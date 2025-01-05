@@ -52,4 +52,4 @@ class BaseClass(Generic[T]):
 
     def removeElement(self, query, element) -> bool:
         response = self.collection.removeElement(query, {element: ""})
-        return response.updated_count
+        return response

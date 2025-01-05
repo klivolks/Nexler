@@ -75,9 +75,14 @@ def json_data(field_name, field_type=str, validator=None, is_required=True):
         raw_value = args.get(field_name)
 
         # Check for required field condition
-        if (raw_value is None or raw_value == "") and is_required:
-            raise exceptions.Forbidden(f"{field_name} is required")
+        if raw_value is None or raw_value == "":
+            if is_required:
+                raise exceptions.Forbidden(f"{field_name} is required")
+            else:
+                return None
 
+        if field_type == int and raw_value == 0 and is_required == False:
+            return None
         # If field_type is dict, attempt to parse the string as JSON
         if field_type == dict:
             try:

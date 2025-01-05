@@ -84,29 +84,30 @@ class {args.moduleName}:
             file_util.write_file(os.path.join(directory_path, '__init__.py'), init_file_content)
 
         # Update the component __init__.py file to import the new logic module
-        if args.subcomponent:
-            component_init_path = f'app/components/{args.component}/{args.subcomponent}.py'
-        else:
-            component_init_path = f'app/components/{args.component}/__init__.py'
-        component_init_content = file_util.read_file(component_init_path)
-
-        # Determine the import path based on whether the logic is independent
-        import_path = f"app.logic.{directory_name}"
-
-        component_import_line = f"from {import_path} import {args.moduleName}"
-        if component_import_line not in component_init_content:
-            # Check if there is already an import from the same logic directory
-            existing_import = re.search(rf"from {import_path} import (.+)", component_init_content)
-            if existing_import:
-                # Append the new module to the existing import
-                new_import = existing_import.group(1) + ', ' + args.moduleName
-                component_init_content = component_init_content.replace(existing_import.group(0),
-                                                                        f"from {import_path} import {new_import}")
+        if not args.independent:
+            if args.subcomponent:
+                component_init_path = f'app/components/{args.component}/{args.subcomponent}.py'
             else:
-                # Add a new import line
-                component_init_content = component_import_line + '\n' + component_init_content
+                component_init_path = f'app/components/{args.component}/__init__.py'
+            component_init_content = file_util.read_file(component_init_path)
 
-            file_util.write_file(component_init_path, component_init_content)
+            # Determine the import path based on whether the logic is independent
+            import_path = f"app.logic.{directory_name}"
+
+            component_import_line = f"from {import_path} import {args.moduleName}"
+            if component_import_line not in component_init_content:
+                # Check if there is already an import from the same logic directory
+                existing_import = re.search(rf"from {import_path} import (.+)", component_init_content)
+                if existing_import:
+                    # Append the new module to the existing import
+                    new_import = existing_import.group(1) + ', ' + args.moduleName
+                    component_init_content = component_init_content.replace(existing_import.group(0),
+                                                                            f"from {import_path} import {new_import}")
+                else:
+                    # Add a new import line
+                    component_init_content = component_import_line + '\n' + component_init_content
+
+                file_util.write_file(component_init_path, component_init_content)
 
         print(f"Logic '{args.moduleName}' created for component: {args.component}")
 

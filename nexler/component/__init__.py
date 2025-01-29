@@ -39,7 +39,7 @@ def create_component(args):
         try:
             return response_util.success({{"message": "This is the GET method of {args.url}"}})
         except Exception as e:
-            return error_util.handle_server_error(e)
+            return error_util.handle_http_exception(repr(e))
 """,
                 'post': f"""
     {protected_decorator}@api.expect(post_payload)
@@ -47,7 +47,7 @@ def create_component(args):
         try:
             return response_util.success({{"message": "This is the POST method of {args.url}"}})
         except Exception as e:
-            return error_util.handle_server_error(e)
+            return error_util.handle_http_exception(repr(e))
 """,
                 'put': f"""
     {protected_decorator}@api.expect(put_payload)
@@ -55,7 +55,7 @@ def create_component(args):
         try:
             return response_util.success({{"message": "This is the PUT method of {args.url}"}})
         except Exception as e:
-            return error_util.handle_server_error(e)
+            return error_util.handle_http_exception(repr(e))
 """,
                 'delete': f"""
     {protected_decorator}@api.expect(delete_payload)
@@ -63,7 +63,7 @@ def create_component(args):
         try:
             return response_util.success({{"message": "This is the DELETE method of {args.url}"}})
         except Exception as e:
-            return error_util.handle_server_error(e)
+            return error_util.handle_http_exception(repr(e))
 """
             }
             # Generate method definitions

@@ -29,7 +29,7 @@ RUN apk del .tmp-build-deps
 
 
 # Interim Stage for Installing System Updates and ffmpeg
-FROM python:3.12-alpine AS production_base
+FROM python:3.14.0rc1-alpine AS production_base
 
 # Install system updates and ffmpeg
 RUN apk update && \

@@ -10,7 +10,6 @@ moviepy~=2.1.1
 PyYAML~=6.0
 pymongo~=4.10.1
 daba~=1.0.2
-nexler>=1.0.0
 setuptools~=78.1.1
 GitPython~=3.1.31
 PyJWT~=2.7.0

@@ -5,7 +5,6 @@ from bson import ObjectId
 from daba.Mongo import collection
 from typing import Optional
 from nexler.utils import dt_util
-from nexler.services.AuthService import user
 
 
 class SampleStructureModel(MongoBaseModel):
@@ -13,7 +12,7 @@ class SampleStructureModel(MongoBaseModel):
     Status: str = 'active'
     CreatedAt: Optional[datetime] = dt_util.get_current_time()
     UpdatedAt: datetime = dt_util.get_current_time()
-    CreatedBy: Optional[ObjectId] = user.Id
+    CreatedBy: Optional[ObjectId]
     isDeleted: bool = False
 
 

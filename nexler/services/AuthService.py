@@ -8,19 +8,15 @@ from nexler.utils import token_util, request_util, error_util, config_util
 class AuthService:
     @property
     def userId(self):
-        """
-        Extract user_id from JWT token in Authorization header.
-        """
+        """Extract user_id from JWT token in Authorization header."""
         try:
             auth_header = request_util.headers('Authorization')
-            ui_flag = True
-            client_type = request_util.headers('X-Client-Type')
-            if client_type == "internal":
-                ui_flag = False
+            ui_flag = request_util.headers('X-Client-Type') != "internal"
+
             if auth_header:
-                token_parts = auth_header.split(" ")
-                token = token_parts[1] if len(token_parts) > 1 else None
-                if token and token != 'null':
+                parts = auth_header.split(" ")
+                token = parts[1] if len(parts) > 1 else None
+                if token and token.lower() != 'null':
                     data = token_util.decode_token(token, ui_flag)
                     return data.get('user_id')
             return None
@@ -28,87 +24,94 @@ class AuthService:
             raise Unauthorized(f'Authentication failed: {e}')
 
     @staticmethod
-    def has_permission(user_id, resource_id):
-        """
-        Checks if the user has access to the specified resource based on ABAC policies.
-
-        Args:
-            user_id (str): The unique identifier of the user.
-            resource_id (str): The unique identifier of the resource.
-
-        Returns:
-            bool: True if the user has permission, False otherwise.
-        """
+    def has_permission(user_id, resource):
+        """Check if user has permission. Resource can be str or dict."""
         from nexler.services.Caching import RedisService
-        if config_util.Config().get("REDIS_CACHING") and config_util.Config().get("REDIS_CACHING") == "on":
-            cache = RedisService().get_string(f"user:{user_id},resource:{resource_id}")
-            if cache:
-                if cache == "granted":
-                    return True
-                return False
-
         from nexler.services.ApiService import InternalApi
-        api = InternalApi('AuthService', "/permission/check", {"user_id": user_id, "resource_id": resource_id})
-        response = asyncio.run(api.fetch('post'))
-        if response.get('status') == 'success':
-            if config_util.Config().get("REDIS_CACHING") and config_util.Config().get("REDIS_CACHING") == "on":
-                RedisService().set_string(f"user:{user_id},resource:{resource_id}", response.get('access'))
-            if response.get('access') == 'granted':
-                return True
-            return False
 
-        raise SystemError(response.get('message'))
+        redis_on = config_util.Config().get("REDIS_CACHING") == "on"
 
-    def protected(self, resource_id=None):
+        cache_key = f"user:{user_id},resource:{resource}" if isinstance(resource, str) else None
+        if redis_on and cache_key:
+            cache = RedisService().get_string(cache_key)
+            if cache:
+                return cache == "granted"
+
+        payload = {"user_id": user_id}
+        if isinstance(resource, str):
+            payload["resource"] = resource
+        elif isinstance(resource, dict):
+            payload.update(resource)
+
+        api = InternalApi('AuthService', "/permission/check", payload)
+        response = api.fetch('post')
+
+        if asyncio.iscoroutine(response):
+            try:
+                loop = asyncio.get_event_loop()
+            except RuntimeError:
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+            response = loop.run_until_complete(response)
+
+        if response.get('status') != 'success':
+            raise SystemError(response.get('message'))
+
+        access = response.get('access')
+
+        if redis_on and cache_key:
+            RedisService().set_string(cache_key, access)
+
+        return access == 'granted'
+
+    def protected(self, resource=None):
         """
-        Decorator to protect routes by requiring a valid user token.
-        Optionally enforces ABAC if resource_id is provided.
+        Decorator to protect routes:
+        - @protected → only JWT check
+        - @protected("resource_id") → static resource ABAC check
+        - @protected({...}) → dynamic context ABAC check
         """
 
         def decorator(f):
             @wraps(f)
             def wrapper(*args, **kwargs):
                 g.user_id = self.userId
-                if g.user_id:
-                    # Perform ABAC check if a resource_id is provided
-                    if isinstance(resource_id, str):
-                        if not self.has_permission(g.user_id, resource_id):
-                            raise Forbidden("Forbidden: Access denied")
-                    return f(*args, **kwargs)
-                raise Unauthorized("Unauthorized: Please log in")
+                if not g.user_id:
+                    raise Unauthorized("Unauthorized: Please log in")
+
+                if resource:
+                    if not self.has_permission(g.user_id, resource):
+                        raise Forbidden("Forbidden: Access denied")
+
+                return f(*args, **kwargs)
 
             return wrapper
 
-        # Return the actual decorator for parameterized use
-        if callable(resource_id):
-            return decorator(resource_id)
+        # Support @protected without parentheses
+        if callable(resource) and not hasattr(resource, "__wrapped__"):
+            # Used as @protected directly
+            return decorator(resource)
         return decorator
 
     @property
     def Id(self):
-        """
-        Get user_id from Flask's global context (g).
-        """
+        """Get current user_id from Flask context."""
         return g.get('user_id')
 
     @staticmethod
     def logout():
-        """
-        Invalidate the current user's token by adding it to a blacklist or taking equivalent action.
-        If you are not using a blacklist, logout can be treated as a client-side operation which is not safe.
-        """
+        """Invalidate the current user's token."""
         try:
             auth_header = request_util.headers('Authorization')
             if not auth_header:
-                raise Forbidden('No authorisation header present.')
+                raise Forbidden('No authorization header present.')
 
-            token_parts = auth_header.split(" ")
-            if len(token_parts) != 2 or token_parts[0].lower() != "bearer":
-                raise Forbidden('No valid token')
+            parts = auth_header.split(" ")
+            if len(parts) != 2 or parts[0].lower() != "bearer":
+                raise Forbidden('No valid token.')
 
-            token = token_parts[1]
+            token = parts[1]
 
-            # Add the token to a blacklist (if implemented)
             if token_util.add_to_blacklist(token):
                 return True
 
@@ -117,6 +120,6 @@ class AuthService:
             return error_util.handle_http_exception(e)
 
 
-# Initialize the UserService
+# Singleton instance
 user = AuthService()
 protected = user.protected

@@ -1,6 +1,6 @@
 import jwt
 
-from nexler.utils import config_util, dt_util, error_util, dir_util
+from nexler.utils import config_util, date_util, error_util, dir_util
 import base64
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives import hashes, serialization
@@ -71,10 +71,10 @@ def decrypt_jwe(jwe_token: str) -> str:
         return error_util.handle_unauthorized("Invalid or corrupted token")
 
 
-def create_access_token(data: (str, dict), jwe=True):
+def create_access_token(data: (str, dict), jwe=True, ext_jwt_secret=None):
     try:
         payload = {
-            "exp": dt_util.add_minutes(dt_util.get_current_time(), ACCESS_TOKEN_EXPIRE_MINUTES),
+            "exp": date_util.add_minutes(date_util.get_current_time(), ACCESS_TOKEN_EXPIRE_MINUTES),
             "token_type": "access"
         }
         if isinstance(data, str):
@@ -83,7 +83,10 @@ def create_access_token(data: (str, dict), jwe=True):
             })
         else:
             payload.update(data)
-        jwt_token = jwt.encode(payload, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)
+
+        if ext_jwt_secret is None:
+            ext_jwt_secret = JWT_SECRET_KEY
+        jwt_token = jwt.encode(payload, ext_jwt_secret, algorithm=JWT_ALGORITHM)
         if JWE_ENCRYPTION == 'on' and jwe:
             return encrypt_jwt(jwt_token)
         return jwt_token
@@ -91,14 +94,16 @@ def create_access_token(data: (str, dict), jwe=True):
         return error_util.handle_server_error(e)
 
 
-def create_refresh_token(user_id: str):
+def create_refresh_token(user_id: str, ext_jwt_secret=None):
     try:
         payload = {
             "user_id": user_id,
-            "exp": dt_util.add_days(dt_util.get_current_time(), REFRESH_TOKEN_EXPIRE_DAYS),
+            "exp": date_util.add_days(date_util.get_current_time(), REFRESH_TOKEN_EXPIRE_DAYS),
             "token_type": "refresh"
         }
-        jwt_token = jwt.encode(payload, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)
+        if ext_jwt_secret is None:
+            ext_jwt_secret = JWT_SECRET_KEY
+        jwt_token = jwt.encode(payload, ext_jwt_secret, algorithm=JWT_ALGORITHM)
         if JWE_ENCRYPTION == 'on':
             return encrypt_jwt(jwt_token)
         return jwt_token
@@ -106,12 +111,13 @@ def create_refresh_token(user_id: str):
         return error_util.handle_server_error(e)
 
 
-def decode_token(token, is_ui_request=True):
+def decode_token(token, is_ui_request=True, ext_jwt_secret_key=None):
     """
     Decodes a JWT token or decrypts and decodes a JWE token.
 
     :param token: The token to decode (JWT or JWE).
     :param is_ui_request: Indicates whether the request is from an external UI.
+    :ext_jwt_secret_key: External secret
     :return: The decoded payload or an error response.
     """
     try:
@@ -121,13 +127,16 @@ def decode_token(token, is_ui_request=True):
         if is_blacklisted(token):
             raise Unauthorized("Token has been revoked.")
 
+        if ext_jwt_secret_key is None:
+            ext_jwt_secret_key = JWT_SECRET_KEY
+
         # Enforce JWE for UI-based requests
         if is_ui_request and JWE_ENCRYPTION.lower() == 'on':
             try:
                 decrypted_token = decrypt_jwe(token)
                 return jwt.decode(
                     decrypted_token,
-                    JWT_SECRET_KEY,
+                    ext_jwt_secret_key,
                     algorithms=[JWT_ALGORITHM or "HS256"]
                 )
             except Exception:
@@ -138,7 +147,7 @@ def decode_token(token, is_ui_request=True):
             try:
                 return jwt.decode(
                     token,
-                    JWT_SECRET_KEY,
+                    ext_jwt_secret_key,
                     algorithms=[JWT_ALGORITHM or "HS256"]
                 )
             except jwt.ExpiredSignatureError:

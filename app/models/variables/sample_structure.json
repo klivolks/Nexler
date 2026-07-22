@@ -1,8 +1,8 @@
 [
     {"Variable": "data", "Format": "str", "Required": false},
     {"Variable": "Status", "Format": "str", "Required": true, "Default": "active"},
-    {"Variable": "CreatedAt", "Format": "datetime", "Required": false, "Default": "dt_util.get_current_time()"},
-    {"Variable": "UpdatedAt", "Format": "datetime", "Required": true, "Default": "dt_util.get_current_time()"},
+    {"Variable": "CreatedAt", "Format": "datetime", "Required": false, "Default": "date_util.get_current_time()"},
+    {"Variable": "UpdatedAt", "Format": "datetime", "Required": true, "Default": "date_util.get_current_time()"},
     {"Variable": "CreatedBy", "Format": "ObjectId", "Required": false, "Default": "user.Id"},
     {"Variable": "isDeleted", "Format": "bool", "Required": true, "Default": false}
 ]

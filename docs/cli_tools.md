@@ -8,7 +8,6 @@ This document provides an overview of Nexler CLI (Command Line Interface) tools 
 3. [Creating a Model](#creating-a-model)
 4. [Database Migration](#database-migration)
 5. [Upgrade](#upgrade)
-6. [AI Integration](#ai-integration)
 7. [Serve](#serve)
 8. [Encryption](#encryption)
 
@@ -159,16 +158,6 @@ Upgrade Nexler to its latest version:
 ```shell
 nexler upgrade
 ```
-
-## AI Integration
-
-Nexler has AI integration which allows you to generate or edit code, create components or insert lines of code using AI. Here's the basic syntax:
-
-```shell
-nexler ai <function> [--instruction="instruction here"] [--file="filename here"] [--start="start line number"] [--end="end line number"]
-```
-
-Where `<function>` can be `code`, `edit`, `create` or `insert`. If the function is `insert`, a placeholder `[insert]` should be present in the code where you want the insertion to occur.
 
 ## Serve
 

@@ -1,6 +1,6 @@
 import traceback
 from daba.Mongo import collection
-from nexler.utils import config_util, dt_util
+from nexler.utils import config_util, date_util
 from flask import request
 
 
@@ -31,8 +31,8 @@ class LoggerService:
             "User": user.Id,
             "Trace": traceback.format_exc(),
             "Status": "Active",
-            "created_at": dt_util.get_current_time(),
-            "updated_at": dt_util.get_current_time()
+            "created_at": date_util.get_current_time(),
+            "updated_at": date_util.get_current_time()
         }
         response = self.error_log.put(data)
         return response
@@ -57,8 +57,8 @@ class LoggerService:
             "Query": query,
             "User": user.Id,
             "Status": "Active",
-            "created_at": dt_util.get_current_time(),
-            "updated_at": dt_util.get_current_time()
+            "created_at": date_util.get_current_time(),
+            "updated_at": date_util.get_current_time()
         }
         response = self.debug_log.put(data)
         return response

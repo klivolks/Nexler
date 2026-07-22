@@ -1,6 +1,6 @@
-# `dt_util.py` User Documentation
+# `date_util.py` User Documentation
 
-The `dt_util.py` module provides a set of utility functions for date and time manipulation. This makes it easy for your application to perform common operations such as formatting date strings, calculating date differences, and adding time intervals to dates.
+The `date_util.py` module provides a set of utility functions for date and time manipulation. This makes it easy for your application to perform common operations such as formatting date strings, calculating date differences, and adding time intervals to dates.
 
 ## Functions
 
@@ -20,12 +20,12 @@ The `dt_util.py` module provides a set of utility functions for date and time ma
 
 ## Usage
 
-To use these utility functions, import the required functions from the `dt_util` module and use them in your code where needed. 
+To use these utility functions, import the required functions from the `date_util` module and use them in your code where needed. 
 
 For example:
 
 ```python
-from nexler.utils.dt_util import add_days, days_difference, get_current_time
+from nexler.utils.date_util import add_days, days_difference, get_current_time
 
 
 def schedule_meeting():

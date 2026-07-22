@@ -41,7 +41,7 @@ class RedisService:
             error_util.handle_server_error(e)
             return False
 
-    def get_string(self, key: str) -> str:
+    def get_string(self, key: str) -> str|None:
         """
         Retrieve a string value from Redis.
         :param key: The key of the value to retrieve.

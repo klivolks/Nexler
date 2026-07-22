@@ -29,9 +29,9 @@ def create_model(args):
                     {"Variable": "data", "Format": "str", "Required": False},
                     {"Variable": "Status", "Format": "str", "Required": True, "Default": "active"},
                     {"Variable": "CreatedAt", "Format": "datetime", "Required": False,
-                     "Default": "Field(default_factory=lambda: dt_util.get_current_time())"},
+                     "Default": "Field(default_factory=lambda: date_util.get_current_time())"},
                     {"Variable": "UpdatedAt", "Format": "datetime", "Required": True,
-                     "Default": "Field(default_factory=lambda: dt_util.get_current_time())"},
+                     "Default": "Field(default_factory=lambda: date_util.get_current_time())"},
                     {"Variable": "CreatedBy", "Format": "Union[ObjectId, str]", "Required": False,
                      "Default": "Field(default_factory=lambda: ObjectId(user.Id) if hasattr(user, 'Id') else None)"},
                     {"Variable": "DeletedOn", "Format": "datetime", "Required": False},
@@ -60,7 +60,7 @@ from bson import ObjectId
 from daba.Mongo import collection
 from typing import Optional, Union
 from pydantic import Field
-from nexler.utils import dt_util
+from nexler.utils import date_util
 from nexler.services.AuthService import user
 
 

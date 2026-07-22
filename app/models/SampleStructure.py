@@ -4,14 +4,14 @@ from datetime import datetime
 from bson import ObjectId
 from daba.Mongo import collection
 from typing import Optional
-from nexler.utils import dt_util
+from nexler.utils import date_util as dt
 
 
 class SampleStructureModel(MongoBaseModel):
     data: Optional[str]
     Status: str = 'active'
-    CreatedAt: Optional[datetime] = dt_util.get_current_time()
-    UpdatedAt: datetime = dt_util.get_current_time()
+    CreatedAt: Optional[datetime] = dt.get_current_time()
+    UpdatedAt: datetime = dt.get_current_time()
     CreatedBy: Optional[ObjectId]
     isDeleted: bool = False
 

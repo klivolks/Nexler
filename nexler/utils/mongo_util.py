@@ -1,6 +1,6 @@
 import copy
 import datetime
-from nexler.utils import dt_util
+from nexler.utils import date_util
 from bson import ObjectId
 
 
@@ -126,7 +126,7 @@ def process_value(value):
     if isinstance(value, ObjectId):
         return str(value)
     if isinstance(value, datetime.datetime):
-        return dt_util.human_date(value, "%d/%m/%Y")
+        return date_util.human_date(value, "%d/%m/%Y")
     else:
         return value
 

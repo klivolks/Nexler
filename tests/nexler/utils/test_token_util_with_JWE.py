@@ -2,7 +2,7 @@ import unittest
 import datetime
 from unittest.mock import patch
 import jwt
-from nexler.utils import config_util, dt_util, token_util, str_util
+from nexler.utils import config_util, date_util, token_util, str_util
 
 
 class TestTokenUtil(unittest.TestCase):
@@ -34,7 +34,7 @@ class TestTokenUtil(unittest.TestCase):
 
     def test_decode_token_expired(self):
         # Simulate a pastime for token's expiration
-        past_time = dt_util.get_current_time() - datetime.timedelta(
+        past_time = date_util.get_current_time() - datetime.timedelta(
             minutes=2 * int(config_util.Config().get('ACCESS_TOKEN_EXPIRE_MINUTES')))
         # Create a token with a past expiration time
         payload = {

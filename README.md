@@ -4,7 +4,6 @@
 
 <p align="left">
   <a href="https://www.python.org/"><img alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"/></a>
-  <a href="https://www.openai.com/"><img alt="OpenAI" src="https://img.shields.io/badge/OpenAI-4b11a8?style=for-the-badge&logo=openai&logoColor=white"/></a>
   <a href="https://snyk.io/"><img alt="Snyk" src="https://img.shields.io/badge/Snyk-000000?style=for-the-badge&logo=snyk&logoColor=white"/></a>
 </p>
 
@@ -24,8 +23,6 @@ By focusing on simplicity and efficiency, it offers a comprehensive solution for
 The framework has seen numerous enhancements over its versions. 
 In version **v1.2.1**, Nexler introduced **JSON Web Encryption**, significantly boosting the security and reliability of applications. 
 Version **v1.2.19** added the **RedisService**, which improved performance and scalability for high-demand systems. 
-Additionally, Nexler became the first AI-integrated framework by embedding **ChatGPT**, enabling users to create, edit, and generate content and code seamlessly. 
-This innovation accelerates development workflows and enhances the user experience. 
 Furthermore, Nexler offers an in-built currency conversion tool that supports the currencies of 194 countries with daily updates, alongside **Argon2**-based password encryption for top-tier security.
 
 Subsequent versions continued to expand Nexler’s capabilities. 

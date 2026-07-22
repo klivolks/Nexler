@@ -1,7 +1,7 @@
 import httpx
 import json
 from daba.Mongo import collection
-from nexler.utils import request_util, dt_util, mongo_util, str_util, config_util, token_util
+from nexler.utils import request_util, date_util, mongo_util, str_util, config_util, token_util
 from nexler.services.AuthService import user
 
 
@@ -34,7 +34,7 @@ class ApiService:
             return True
 
         # Checking the Monthly Access
-        current_month = int(str(dt_util.get_current_time().year) + str(dt_util.get_current_time().month))
+        current_month = int(str(date_util.get_current_time().year) + str(date_util.get_current_time().month))
         query = mongo_util.Query()
         query.RefererId = referer_data["_id"]
         query.Month = current_month

@@ -3,3 +3,4 @@ from .AuthService import AuthService
 from .Caching import RedisService
 from .LoggerService import LoggerService
 from .KafkaService import KafkaService
+from .kGateService import KGateService

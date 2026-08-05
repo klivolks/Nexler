@@ -1,2 +1,2 @@
-def do_something(message):
+def new_event(message):
     print(message)

@@ -1,6 +1,4 @@
 [
-  "app/templates/email",
-  "app/templates/sms",
   "app/kafkaActions",
   "app/kGateActions"
 ]

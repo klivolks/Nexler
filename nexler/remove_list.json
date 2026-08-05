@@ -2,5 +2,7 @@
   "app/services",
   "app/utils",
   "tests/app/utils",
-  "tests/app/services"
+  "tests/app/services",
+  "app/templates/email",
+  "app/templates/sms"
 ]

@@ -8,6 +8,7 @@ from flask_cors import CORS
 from flask_compress import Compress
 
 from app.routes import initialize_routes
+from nexler.services.kGateService import setup_kgate
 from nexler.utils import error_util, config_util
 from nexler.services import ApiService, AuthService
 from KafkaSubscriber import setup_kafka
@@ -18,6 +19,10 @@ def create_app():
     app = Flask(__name__)
     if config_util.Config().get("KAFKA") and config_util.Config().get("KAFKA") == "on":
         setup_kafka(app)
+
+    if config_util.Config().get("KGATE") and config_util.Config().get("KGATE") == "on":
+        setup_kgate(app)
+
     Compress(app)
     config_module = f"config.{config_name.capitalize()}Config"
     app.config.from_object(config_module)

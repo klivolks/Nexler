@@ -1,6 +1,6 @@
 from confluent_kafka import Producer, Consumer, KafkaException, KafkaError
 from confluent_kafka.admin import AdminClient, NewTopic
-from app.kafkaActions import do_something
+from app.kafkaActions import new_event
 from nexler.utils.config_util import Config
 
 
@@ -55,7 +55,7 @@ class KafkaService:
                         elif msg.error():
                             raise KafkaException(msg.error())
                     else:
-                        do_something(msg.value().decode('utf-8'))
+                        new_event(msg.value().decode('utf-8'))
             except KeyboardInterrupt:
                 print("Aborted by user.")
             finally:
